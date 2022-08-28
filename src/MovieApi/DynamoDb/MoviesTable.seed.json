@@ -1,0 +1,102 @@
+[
+  {
+    "type": "movie",
+    "pk": "MOVIE#DieHard",
+    "sk": "MOVIE#DieHard",
+    "movieId": "DieHard",
+    "title": "Die Hard",
+    "year": 1988,
+    "budget": "25-35MM",
+    "boxOffice": "140MM",
+    "category": "Action",
+    "gsi2pk": "Action",
+    "gsi2sk": "1988"
+  },
+  {
+    "type": "character",
+    "pk": "MOVIE#DieHard",
+    "sk": "CHARACTER#JohnMcClane",
+    "movieId": "DieHard",
+    "characterId": "JohnMcClane",
+    "role": "protagonist",
+    "playedBy": "Bruce Willis",
+    "name": "John McClane",
+    "nationality": "Irish-American",
+    "gsi1pk": "CHARACTER#JohnMcClane",
+    "gsi1sk": "MOVIE#DieHard"
+  },
+  {
+    "type": "character",
+    "pk": "MOVIE#DieHard",
+    "sk": "CHARACTER#HansGruber",
+    "movieId": "DieHard",
+    "characterId": "HansGruber",
+    "role": "antagonist",
+    "playedBy": "Alan Rickman",
+    "name": "Hans Gruber",
+    "alias": "Bill Clay",
+    "nationality": "German",
+    "gsi1pk": "CHARACTER#HansGruber",
+    "gsi1sk": "MOVIE#DieHard"
+  },
+  {
+    "type": "director",
+    "pk": "MOVIE#DieHard",
+    "sk": "DIRECTOR#JohnMcClane",
+    "movieId": "DieHard",
+    "directorId": "JohnMcTiernan",
+    "name": "John McTiernan",
+    "gsi1pk": "DIRECTOR#JohnMcTiernan",
+    "gsi1sk": "MOVIE#DieHard"
+  },
+  {
+    "type": "movie",
+    "pk": "MOVIE#DieHard2",
+    "sk": "MOVIE#DieHard2",
+    "movieId": "DieHard2",
+    "title": "Die Hard 2",
+    "year": 1990,
+    "budget": "62-70MM",
+    "boxOffice": "240MM",
+    "category": "Action",
+    "gsi2pk": "Action",
+    "gsi2sk": "1990"
+  },
+  {
+    "type": "character",
+    "pk": "MOVIE#DieHard2",
+    "sk": "CHARACTER#JohnMcClane",
+    "movieId": "DieHard2",
+    "characterId": "JohnMcClane",
+    "role": "protagonist",
+    "playedBy": "Bruce Willis",
+    "name": "John McClane",
+    "nationality": "Irish-American",
+    "gsi1pk": "CHARACTER#JohnMcClane",
+    "gsi1sk": "MOVIE#DieHard2"
+  },
+  {
+    "type": "character",
+    "pk": "MOVIE#DieHard2",
+    "sk": "CHARACTER#WilliamStuart",
+    "movieId": "DieHard2",
+    "characterId": "WilliamStuart",
+    "role": "antagonist",
+    "playedBy": "William Sadler",
+    "name": "William Stuart",
+    "alias": "Colonel Stuart",
+    "nationality": "American",
+    "gsi1pk": "CHARACTER#WilliamStuart",
+    "gsi1sk": "MOVIE#DieHard2"
+  },
+  {
+    "type": "director",
+    "pk": "MOVIE#DieHard2",
+    "sk": "DIRECTOR#RennyHarlin",
+    "movieId": "DieHard2",
+    "directorId": "RennyHarlin",
+    "name": "Renny Harlin",
+    "gsi1pk": "DIRECTOR#RennyHarlin",
+    "gsi1sk": "MOVIE#DieHard2"
+  }
+]

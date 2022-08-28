@@ -1,0 +1,29 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "CreateMovieRequest schema",
+  "description": "Create a Movie entity",
+  "type": "object",
+  "required": ["movieId", "title", "year", "category"],
+  "properties": {
+    "movieId": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9\\-]{1,100}$"
+    },
+    "title": {
+      "type": "string"
+    },
+    "year": {
+      "type": "number"
+    },
+    "category": {
+      "type": "string"
+    },
+    "budget": {
+      "type": "string"
+    },
+    "boxOffice": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

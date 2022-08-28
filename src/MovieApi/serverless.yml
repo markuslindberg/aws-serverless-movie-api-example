@@ -1,0 +1,221 @@
+service: MovieApi
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  region: eu-north-1
+  profile: default
+  runtime: dotnet6
+  stage: ${opt:stage, 'dev'}
+  architecture: x86_64
+  memorySize: 256
+  timeout: 10
+  logRetentionInDays: 7
+  versionFunctions: true
+  deploymentBucket:
+    blockPublicAccess: true
+    maxPreviousDeploymentArtifacts: 5
+    serverSideEncryption: AES256
+  stackTags:
+    Usage: ${self:service}
+  tags:
+    Usage: ${self:service}
+  apiGateway:
+    minimumCompressionSize: 1024
+  tracing:
+    apiGateway: true
+    lambda: true
+  layers:
+    - arn:aws:lambda:eu-north-1:702835727665:layer:honeycomb-lambda-extension-x86_64:9
+  environment:
+    LIBHONEY_DATASET: MovieApi
+    LIBHONEY_API_KEY: ${ssm:/aws/reference/secretsmanager/dev/MovieApi/LIBHONEY_API_KEY}
+    LOGS_API_DISABLE_PLATFORM_MSGS: true
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - xray:PutTelemetryRecords
+            - xray:PutTraceSegments
+            - xray:GetSamplingRules
+            - xray:GetSamplingTargets
+            - xray:GetSamplingStatisticSummaries
+          Resource:
+            - "*"
+        - Effect: "Allow"
+          Action:
+            - dynamodb:DescribeTable
+            - dynamodb:GetItem
+            - dynamodb:PutItem
+            - dynamodb:UpdateItem
+            - dynamodb:DeleteItem
+            - dynamodb:Query
+          Resource:
+            - !GetAtt MoviesTable.Arn
+            - !Join ["", [!GetAtt MoviesTable.Arn, "/index/*"]]
+
+plugins:
+  - serverless-dynamodb-local
+
+custom:
+  dynamodb:
+    stages:
+      - dev
+    start:
+      port: 8000
+      inMemory: true
+    seed:
+      test:
+        sources:
+          - table: MoviesTable
+            sources: [./DynamoDb/MoviesTable.seed.json]
+  responseTemplate: &responseTemplate |-
+    #set($statusCode = $input.path('$.statusCode'))
+    #if($statusCode == 200)
+    $input.json("$.result")
+    #else
+    $input.json("$")
+    #set($context.responseOverride.status = $statusCode)
+    #end
+
+package:
+  artifact: bin/Release/net6.0/MovieApi.zip
+
+functions:
+  GetMovie:
+    handler: MovieApi::MovieApi.Functions::GetMovie
+    events:
+      - http:
+          method: GET
+          path: /movies/{movieId}
+          integration: lambda
+          request:
+            template:
+              application/json: '{ "movieId" : "$input.params(''movieId'')" }'
+          response:
+            template: *responseTemplate
+  UpdateMovie:
+    handler: MovieApi::MovieApi.Functions::UpdateMovie
+    events:
+      - http:
+          method: PUT
+          path: /movies/{movieId}
+          integration: lambda
+          request:
+            schemas:
+              application/json:
+                name: UpdateMovieRequest
+                schema: ${file(Schemas/UpdateMovieRequest.schema.json)}
+            template:
+              application/json: >
+                {
+                  "movieId" : "$input.params('movieId')",
+                  "movie" : $input.json('$')
+                }
+          response:
+            template: *responseTemplate
+  DeleteMovie:
+    handler: MovieApi::MovieApi.Functions::DeleteMovie
+    events:
+      - http:
+          method: DELETE
+          path: /movies/{movieId}
+          integration: lambda
+          request:
+            template:
+              application/json: '{ "movieId" : "$input.params(''movieId'')" }'
+          response:
+            template: *responseTemplate
+  GetMovies:
+    handler: MovieApi::MovieApi.Functions::GetMovies
+    events:
+      - http:
+          method: GET
+          path: /movies
+          integration: lambda
+          request:
+            template:
+              application/json: >
+                {
+                  "category" : "$input.params('category')"
+                  #if($input.params('year-min').matches("^\d+$")),"yearMin" : $input.params('year-min') #end
+                  #if($input.params('year-max').matches("^\d+$")),"yearMax" : $input.params('year-max') #end
+                }
+          response:
+            template: *responseTemplate
+  CreateMovie:
+    handler: MovieApi::MovieApi.Functions::CreateMovie
+    events:
+      - http:
+          method: POST
+          path: /movies
+          integration: lambda
+          request:
+            schemas:
+              application/json:
+                name: CreateMovieRequest
+                schema: ${file(Schemas/CreateMovieRequest.schema.json)}
+            template:
+              application/json: >
+                {
+                  "movie" : $input.json('$')
+                }
+          response:
+            template: *responseTemplate
+  GetMovieCharacters:
+    handler: MovieApi::MovieApi.Functions::GetMovieCharacters
+    events:
+      - http:
+          method: GET
+          path: /movies/{movieId}/characters
+          integration: lambda
+          request:
+            template:
+              application/json: '{ "movieId" : "$input.params(''movieId'')" }'
+          response:
+            template: *responseTemplate
+  GetMovieDirectors:
+    handler: MovieApi::MovieApi.Functions::GetMovieDirectors
+    events:
+      - http:
+          method: GET
+          path: /movies/{movieId}/directors
+          integration: lambda
+          request:
+            template:
+              application/json: '{ "movieId" : "$input.params(''movieId'')" }'
+          response:
+            template: *responseTemplate
+  GetCharacterMovies:
+    handler: MovieApi::MovieApi.Functions::GetCharacterMovies
+    events:
+      - http:
+          method: GET
+          path: /characters/{characterId}/movies
+          integration: lambda
+          request:
+            template:
+              application/json: '{ "characterId" : "$input.params(''characterId'')" }'
+          response:
+            template: *responseTemplate
+  GetDirectorMovies:
+    handler: MovieApi::MovieApi.Functions::GetDirectorMovies
+    events:
+      - http:
+          method: GET
+          path: /directors/{directorId}/movies
+          integration: lambda
+          request:
+            template:
+              application/json: '{ "directorId" : "$input.params(''directorId'')" }'
+          response:
+            template: *responseTemplate
+
+resources:
+  - ${file(./DynamoDb/MoviesTable.yml)}
+  - Resources:
+      ApiGatewayRestApi:
+        Type: 'AWS::ApiGateway::RestApi'
+        Properties:
+          Name: MoviesApi

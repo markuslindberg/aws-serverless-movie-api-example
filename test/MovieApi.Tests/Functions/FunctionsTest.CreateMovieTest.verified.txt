@@ -1,0 +1,24 @@
+﻿{
+  createrResponse: {
+    StatusCode: 200,
+    Result: {
+      MovieId: DieHard3,
+      Title: Die Hard 3,
+      Year: 2022,
+      Category: Action,
+      Budget: Unlimited,
+      BoxOffice: N/A
+    }
+  },
+  getResponse: {
+    StatusCode: 200,
+    Result: {
+      MovieId: DieHard3,
+      Title: Die Hard 3,
+      Year: 2022,
+      Category: Action,
+      Budget: Unlimited,
+      BoxOffice: N/A
+    }
+  }
+}

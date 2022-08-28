@@ -1,0 +1,19 @@
+﻿{
+  StatusCode: 200,
+  Result: [
+    {
+      CharacterId: HansGruber,
+      Name: Hans Gruber,
+      PlayedBy: Alan Rickman,
+      Role: antagonist,
+      Nationality: German
+    },
+    {
+      CharacterId: JohnMcClane,
+      Name: John McClane,
+      PlayedBy: Bruce Willis,
+      Role: protagonist,
+      Nationality: Irish-American
+    }
+  ]
+}

@@ -1,0 +1,506 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Movie Api
+  description: This is a simple movie api.
+
+servers:
+  - url: https://RANDOM.execute-api.eu-north-1.amazonaws.com/STAGE/
+    description: API server
+
+paths:
+  /movies/{movieId}:
+    get:
+      description: Get a movie
+      parameters:
+        - name: movieId
+          description: Identifier of the movie
+          in: path
+          required: true
+          schema:
+            type: string
+            pattern: ^[A-Za-z0-9\\-]{1,100}$
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Movie'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '422':
+          $ref: '#/components/responses/422'
+        '500':
+          $ref: '#/components/responses/500'
+        '502':
+          $ref: '#/components/responses/502'
+        '504':
+          $ref: '#/components/responses/504'
+    put:
+      description: Update a movie
+      parameters:
+        - name: movieId
+          description: Identifier of the movie
+          in: path
+          required: true
+          schema:
+            type: string
+            pattern: ^[A-Za-z0-9\\-]{1,100}$
+      requestBody:
+        $ref: '#/components/requestBodies/UpdateMovieRequest'
+      responses:
+        '200':
+          description: Successful response returning the updated movie
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Movie'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '422':
+          $ref: '#/components/responses/422'
+        '500':
+          $ref: '#/components/responses/500'
+        '502':
+          $ref: '#/components/responses/502'
+        '504':
+          $ref: '#/components/responses/504'
+    delete:
+      description: Delete a movie
+      parameters:
+        - name: movieId
+          description: Identifier of the movie
+          in: path
+          required: true
+          schema:
+            type: string
+            pattern: ^[A-Za-z0-9\\-]{1,100}$
+      responses:
+        '200':
+          description: Successful response returning the deleted movie
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Movie'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '422':
+          $ref: '#/components/responses/422'
+        '500':
+          $ref: '#/components/responses/500'
+        '502':
+          $ref: '#/components/responses/502'
+        '504':
+          $ref: '#/components/responses/504'
+  /movies:
+    post:
+      description: Create a movie
+      requestBody:
+        $ref: '#/components/requestBodies/CreateMovieRequest'
+      responses:
+        '200':
+          description: Successful response returning the created movie
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Movie'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '422':
+          $ref: '#/components/responses/422'
+        '500':
+          $ref: '#/components/responses/500'
+        '502':
+          $ref: '#/components/responses/502'
+        '504':
+          $ref: '#/components/responses/504'
+    get:
+      description: Get a list of movies
+      parameters:
+        - name: category
+          description: Filter movies by category
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: year-min
+          description: Filter movies by year greater or equal to year-min
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: year-max
+          description: Filter movies by year less or equal to year-max
+          in: query
+          required: false
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfMovies'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '422':
+          $ref: '#/components/responses/422'
+        '500':
+          $ref: '#/components/responses/500'
+        '502':
+          $ref: '#/components/responses/502'
+        '504':
+          $ref: '#/components/responses/504'
+  /movies/{movieId}/characters:
+    get:
+      description: Get a list of characters for a movie
+      parameters:
+        - name: movieId
+          description: Identifier of the movie
+          in: path
+          required: true
+          schema:
+            type: string
+            pattern: ^[A-Za-z0-9\\-]{1,100}$
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfCharacters'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '422':
+          $ref: '#/components/responses/422'
+        '500':
+          $ref: '#/components/responses/500'
+        '502':
+          $ref: '#/components/responses/502'
+        '504':
+          $ref: '#/components/responses/504'
+  /movies/{movieId}/directors:
+    get:
+      description: Get a list of directors for a movie
+      parameters:
+        - name: movieId
+          description: Identifier of the movie
+          in: path
+          required: true
+          schema:
+            type: string
+            pattern: ^[A-Za-z0-9\\-]{1,100}$
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfDirectors'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '422':
+          $ref: '#/components/responses/422'
+        '500':
+          $ref: '#/components/responses/500'
+        '502':
+          $ref: '#/components/responses/502'
+        '504':
+          $ref: '#/components/responses/504'
+  /characters/{characterId}/movies:
+    get:
+      description: Get a list of movies for a character
+      parameters:
+        - name: characterId
+          description: Identifier of the character
+          in: path
+          required: true
+          schema:
+            type: string
+            pattern: ^[A-Za-z0-9\\-]{1,100}$
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfMovies'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '422':
+          $ref: '#/components/responses/422'
+        '500':
+          $ref: '#/components/responses/500'
+        '502':
+          $ref: '#/components/responses/502'
+        '504':
+          $ref: '#/components/responses/504'
+  /directors/{directorId}/movies:
+    get:
+      description: Get a list of movies for a director
+      parameters:
+        - name: directorId
+          description: Identifier of the director
+          in: path
+          required: true
+          schema:
+            type: string
+            pattern: ^[A-Za-z0-9\\-]{1,100}$
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfMovies'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '422':
+          $ref: '#/components/responses/422'
+        '500':
+          $ref: '#/components/responses/500'
+        '502':
+          $ref: '#/components/responses/502'
+        '504':
+          $ref: '#/components/responses/504'
+
+components:
+  schemas:
+    Movie:
+      type: object
+      additionalProperties: false
+      properties:
+        movieId:
+          type: string
+          description: Movie identifier
+          minLength: 1
+          maxLength: 100
+          pattern: ^[A-Za-z0-9\\-]{1,100}$
+        title:
+          type: string
+          description: Title of the movie
+        year:
+          type: integer
+          description: Year that the movie is released
+        category:
+          type: string
+          description: Category of the movie
+        budget:
+          type: string
+          description: Budget in free text
+        boxOffice:
+          type: string
+          description: Box office revenue
+    Character:
+      type: object
+      additionalProperties: false
+      properties:
+        characterId:
+          type: string
+          description: Character identifier
+          minLength: 1
+          maxLength: 100
+          pattern: ^[A-Za-z0-9\\-]{1,100}$
+        name:
+          type: string
+          description: Name of the character
+        playedBy:
+          type: string
+          description: Name of the actor playing the character
+        role:
+          type: string
+          description: Role in the movie, i.e., protagonist or antagonist
+        nationality:
+          type: string
+          description: Nationality of the character
+    Director:
+      type: object
+      additionalProperties: false
+      properties:
+        directorId:
+          type: string
+          description: Director identifier
+          minLength: 1
+          maxLength: 100
+          pattern: ^[A-Za-z0-9\\-]{1,100}$
+        name:
+          type: string
+          description: Name of the director
+    ArrayOfMovies:
+      type: array
+      items:
+        $ref: '#/components/schemas/Movie'
+    ArrayOfCharacters:
+      type: array
+      items:
+        $ref: '#/components/schemas/Character'
+    ArrayOfDirectors:
+      type: array
+      items:
+        $ref: '#/components/schemas/Director'
+    ErrorModel:
+      type: object
+      additionalProperties: false
+      properties:
+        statusCode:
+          type: string
+        errorMessage:
+          type: string
+  requestBodies:
+    CreateMovieRequest:
+      description: Create a Movie entity
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: false
+            required:
+              - "movieId"
+              - "title"
+              - "year"
+              - "category"
+            properties:
+              movieId:
+                type: string
+                description: Movie identifier
+                minLength: 1
+                maxLength: 100
+                pattern: ^[A-Za-z0-9\\-]{1,100}$
+              title:
+                type: string
+                description: Title of the movie
+              year:
+                type: integer
+                description: Year that the movie is released
+              category:
+                type: string
+                description: Category of the movie
+              budget:
+                type: string
+                description: Budget in free text
+              boxOffice:
+                type: string
+                description: Box office revenue
+    UpdateMovieRequest:
+      description: Update a Movie entity
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: false
+            required:
+              - "movieId"
+              - "title"
+              - "year"
+              - "category"
+            properties:
+              movieId:
+                type: string
+                description: Movie identifier
+                minLength: 1
+                maxLength: 100
+                pattern: ^[A-Za-z0-9\\-]{1,100}$
+              title:
+                type: string
+                description: Title of the movie
+              year:
+                type: integer
+                description: Year that the movie is released
+              category:
+                type: string
+                description: Category of the movie
+              budget:
+                type: string
+                description: Budget in free text
+              boxOffice:
+                type: string
+                description: Box office revenue
+  responses:
+    400:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorModel'
+    401:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorModel'
+    403:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorModel'
+    404:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorModel'
+    422:
+      description: Unprocessable Entity
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorModel'
+    500:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorModel'
+    502:
+      description: Bad Gateway
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorModel'
+    504:
+      description: Gateway Timeout
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorModel'

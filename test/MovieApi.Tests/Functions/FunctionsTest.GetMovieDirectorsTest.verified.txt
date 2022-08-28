@@ -1,0 +1,9 @@
+﻿{
+  StatusCode: 200,
+  Result: [
+    {
+      DirectorId: JohnMcTiernan,
+      Name: John McTiernan
+    }
+  ]
+}

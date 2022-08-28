@@ -1,0 +1,21 @@
+{
+  "name": "movieapi",
+  "version": "1.0.0",
+  "author": "Markus Lindberg",
+  "license": "MIT",
+  "scripts": {
+    "build": "dotnet build src/MovieApi/MovieApi.csproj",
+    "test": "dotnet test test/MovieApi.Tests/MovieApi.Tests.csproj",
+    "test-tool": "cd src/MovieApi && dotnet lambda-test-tool-6.0",
+    "package": "cd src/MovieApi && dotnet lambda package --configuration Release --framework net6.0 --output-package bin/Release/net6.0/MovieApi.zip",
+    "migrate": "cd src/MovieApi && sls dynamodb migrate",
+    "seed:local": "cd src/MovieApi && sls dynamodb seed",
+    "seed:cloud": "cd src/MovieApi && sls dynamodb seed --online --region eu-north-1",
+    "deploy": "cd src/MovieApi && sls deploy",
+    "remove": "cd src/MovieApi && sls remove"
+  },
+  "devDependencies": {
+    "serverless": "^3.22.0",
+    "serverless-dynamodb-local": "^0.2.40"
+  }
+}

@@ -1,0 +1,74 @@
+name: main
+
+on:
+  push:
+    branches:
+      - 'main'
+  pull_request:
+    branches:
+      - 'main'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [16.x]
+        dotnet-version: ['6.0.x' ]
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Setup .NET SDK ${{ matrix.dotnet-version }}
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: ${{ matrix.dotnet-version }}
+      - uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-npm-
+      - uses: actions/cache@v3
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget-
+      - name: Install dependencies
+        run: |
+          npm ci --ignore-scripts --include=dev
+          dotnet restore src/MovieApi/MovieApi.csproj
+          dotnet restore test/MovieApi.Tests/MovieApi.Tests.csproj
+      - name: Build
+        run: |
+          dotnet build src/MovieApi/MovieApi.csproj --configuration Release --no-restore
+          dotnet build test/MovieApi.Tests/MovieApi.Tests.csproj --configuration Release --no-restore
+      - name: Test
+        working-directory: ./test/MovieApi.Tests/
+        run: dotnet test --no-restore --verbosity normal
+      - name: Install AWS Lambda Tools
+        run: dotnet tool install -g Amazon.Lambda.Tools
+      - name: Package
+        working-directory: ./src/MovieApi
+        run: dotnet lambda package --configuration Release --framework net6.0 --output-package src/MovieApi/bin/Release/net6.0/MovieApi.zip
+      - name: Upload built assemblies
+        uses: actions/upload-artifact@v3
+        with:
+          name: movieapi-artifact
+          path: src/MovieApi/bin/Release/net6.0/MovieApi.zip
+      - name: Generate SBOM
+        uses: CycloneDX/gh-dotnet-generate-sbom@master
+        with:
+          path: ./src/MovieApi/MovieApi.csproj
+          json: true
+          github-bearer-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Add and Commit SBOM
+        uses: EndBug/add-and-commit@v9
+        with:
+          default_author: github_actions
+          message: 'update bom.json'
+          add: 'bom.json'

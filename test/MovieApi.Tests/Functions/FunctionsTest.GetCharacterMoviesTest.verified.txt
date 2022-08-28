@@ -1,0 +1,7 @@
+﻿{
+  StatusCode: 200,
+  Result: [
+    DieHard,
+    DieHard2
+  ]
+}

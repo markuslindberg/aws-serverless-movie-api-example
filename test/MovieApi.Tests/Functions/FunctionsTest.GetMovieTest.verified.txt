@@ -1,0 +1,11 @@
+﻿{
+  StatusCode: 200,
+  Result: {
+    MovieId: DieHard,
+    Title: Die Hard,
+    Year: 1988,
+    Category: Action,
+    Budget: 25-35MM,
+    BoxOffice: 140MM
+  }
+}

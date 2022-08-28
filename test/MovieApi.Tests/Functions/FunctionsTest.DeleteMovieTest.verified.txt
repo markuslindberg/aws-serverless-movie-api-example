@@ -1,0 +1,28 @@
+﻿{
+  getResponse: {
+    StatusCode: 200,
+    Result: {
+      MovieId: DieHard,
+      Title: Die Hard,
+      Year: 1988,
+      Category: Action,
+      Budget: 25-35MM,
+      BoxOffice: 140MM
+    }
+  },
+  deleteResponse: {
+    StatusCode: 200,
+    Result: {
+      MovieId: DieHard,
+      Title: Die Hard,
+      Year: 1988,
+      Category: Action,
+      Budget: 25-35MM,
+      BoxOffice: 140MM
+    }
+  },
+  deleteAgainResponse: {
+    StatusCode: 404,
+    ErrorMessage: Movie "DieHard" not found
+  }
+}
