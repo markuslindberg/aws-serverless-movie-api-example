@@ -40,7 +40,10 @@ public class FunctionsTest : IAsyncLifetime
         var serviceContainer = new ServiceCollection();
         serviceContainer.AddMediatR(typeof(Startup).GetTypeInfo().Assembly);
         serviceContainer.AddSingleton<IAmazonDynamoDB>(_dynamoDbLocalClient);
-        serviceContainer.AddSingleton<ILogger>(Serilog.Log.Logger);
+        serviceContainer.AddSingleton<ILogger>(new LoggerConfiguration()
+            .MinimumLevel.Verbose()
+            .WriteTo.TestOutput(output, Serilog.Events.LogEventLevel.Verbose)
+            .CreateLogger());
         _serviceProvider = serviceContainer.BuildServiceProvider();
         _functions = new MovieApi.Functions(_serviceProvider);
         _context = new TestLambdaContext();
@@ -187,11 +190,11 @@ public class FunctionsTest : IAsyncLifetime
         var wd = Path.Combine(cd.Substring(0, cd.IndexOf("test/MovieApi.Tests")), "src/MovieApi");
         var b = new Bash(wd);
 
-        b.Run("serverless dynamodb migrate");
+        b.Run("npm run migrate", s => _output.WriteLine(s));
         
         if (seed)
         {
-            b.Run("serverless dynamodb seed");
+            b.Run("npm run seed:local", s => _output.WriteLine(s));
         }
     }
 }
