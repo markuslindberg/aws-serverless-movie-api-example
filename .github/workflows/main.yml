@@ -65,9 +65,7 @@ jobs:
         working-directory: ./test/MovieApi.Tests/
         run: dotnet test --no-restore --verbosity normal
       - name: Install AWS Lambda Tools
-        run: |
-          dotnet tool install -g Amazon.Lambda.Tools
-          echo "::set-env name=PATH::${PATH}:${HOME}/.dotnet/tools"
+        run: dotnet tool install -g Amazon.Lambda.Tools
       - name: Package
         working-directory: ./src/MovieApi
         run: dotnet lambda package --configuration Release --framework net6.0 --output-package src/MovieApi/bin/Release/net6.0/MovieApi.zip
