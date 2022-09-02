@@ -1,0 +1,808 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.3",
+  "serialNumber": "urn:uuid:0fea40f7-b9de-4722-b4ef-a76777371d63",
+  "version": 1,
+  "metadata": {
+    "tools": [
+      {
+        "vendor": "CycloneDX",
+        "name": "CycloneDX module for .NET",
+        "version": "2.3.0.0"
+      }
+    ],
+    "component": {
+      "type": "application",
+      "bom-ref": "MovieApi@0.0.0",
+      "name": "MovieApi",
+      "version": "0.0.0"
+    }
+  },
+  "components": [
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Amazon.Lambda.APIGatewayEvents@2.5.0",
+      "publisher": "Amazon Web Services",
+      "name": "Amazon.Lambda.APIGatewayEvents",
+      "version": "2.5.0",
+      "description": "Amazon Lambda .NET Core support - API Gateway package.",
+      "scope": "required",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "7098C42B989C4CD7EF623E1DB57581E82A15D4433CA76C36A458207E7957DD24F4821943D1C8C6EBF4B4EFF4896D483F2DDA7EFBCA07952E525D3A9D9FDB2498"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "url": "http://aws.amazon.com/apache2.0/"
+          }
+        }
+      ],
+      "purl": "pkg:nuget/Amazon.Lambda.APIGatewayEvents@2.5.0",
+      "externalReferences": [
+        {
+          "url": "https://github.com/aws/aws-lambda-dotnet",
+          "type": "website"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Amazon.Lambda.Core@2.1.0",
+      "publisher": "Amazon Web Services",
+      "name": "Amazon.Lambda.Core",
+      "version": "2.1.0",
+      "description": "Amazon Lambda .NET Core support - Core package.",
+      "scope": "required",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "D03F7372F99D3F45C4E82538339216739A06202BE9CDCB400719C85C511C7D03E0044C46C29602EDFE65D8C31DE5B97EA2253CEB2E6AFEB009B496904A86AC7F"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "url": "http://aws.amazon.com/apache2.0/"
+          }
+        }
+      ],
+      "purl": "pkg:nuget/Amazon.Lambda.Core@2.1.0",
+      "externalReferences": [
+        {
+          "url": "https://aws.amazon.com/lambda/",
+          "type": "website"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Amazon.Lambda.Serialization.SystemTextJson@2.3.0",
+      "publisher": "Amazon Web Services",
+      "name": "Amazon.Lambda.Serialization.SystemTextJson",
+      "version": "2.3.0",
+      "description": "Amazon Lambda .NET Core support - Serialization.Json with System.Text.Json.",
+      "scope": "required",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "0DA7816806E75627C44E40AEA103B04586600AF75F80F41140A17D4052E207DCA53979782BE91BB5FD6F771526D62674C6CF758B0937E6BC0546BF3725294F3C"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "url": "http://aws.amazon.com/apache2.0/"
+          }
+        }
+      ],
+      "purl": "pkg:nuget/Amazon.Lambda.Serialization.SystemTextJson@2.3.0",
+      "externalReferences": [
+        {
+          "url": "https://github.com/aws/aws-lambda-dotnet",
+          "type": "website"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/AWSSDK.Core@3.7.12.22",
+      "publisher": "Amazon Web Services",
+      "name": "AWSSDK.Core",
+      "version": "3.7.12.22",
+      "description": "The Amazon Web Services SDK for .NET - Core Runtime",
+      "scope": "required",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "A83569B5804E03FDBF0C99F24FB00E2B848CF1C64ED69B03504195DB7C41A51BDAC9CF91C083BD0A08B96A5E080ECABDE4D06827207776F3CF86F0A5C2F0FE34"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "url": "http://aws.amazon.com/apache2.0/"
+          }
+        }
+      ],
+      "purl": "pkg:nuget/AWSSDK.Core@3.7.12.22",
+      "externalReferences": [
+        {
+          "url": "https://github.com/aws/aws-sdk-net/",
+          "type": "website"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/AWSSDK.DynamoDBv2@3.7.4",
+      "publisher": "Amazon Web Services",
+      "name": "AWSSDK.DynamoDBv2",
+      "version": "3.7.4",
+      "description": "Amazon DynamoDB is a fast and flexible NoSQL database service for all applications that need consistent, single-digit millisecond latency at any scale.",
+      "scope": "required",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "E0F038645254F741B645EA81F8C5B37F57425BB8D74582FB35DC6FCFBE6D28688C0669EF0C469992258910A946E6B82C2352DF028D2B424F77419C6D002F7E95"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "url": "http://aws.amazon.com/apache2.0/"
+          }
+        }
+      ],
+      "purl": "pkg:nuget/AWSSDK.DynamoDBv2@3.7.4",
+      "externalReferences": [
+        {
+          "url": "https://github.com/aws/aws-sdk-net/",
+          "type": "website"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/AWSXRayRecorder.Core@2.11.1",
+      "publisher": "Amazon Web Services",
+      "name": "AWSXRayRecorder.Core",
+      "version": "2.11.1",
+      "description": "The AWS X-Ray Recorder core runtime.",
+      "scope": "required",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "9555E153E07CDB123702255DBB6C27FBFD25FEBE666A890FADD3941BF4E3DF60CBD645EFC179E0975949D924FB4401F852C13A7D385653F3A7EA38EE117F503E"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "url": "http://aws.amazon.com/apache2.0/"
+          }
+        }
+      ],
+      "copyright": "Copyright 2017-2022 Amazon.com, Inc. or its affiliates. All Rights Reserved.",
+      "purl": "pkg:nuget/AWSXRayRecorder.Core@2.11.1",
+      "externalReferences": [
+        {
+          "url": "https://aws.amazon.com/documentation/xray/",
+          "type": "website"
+        },
+        {
+          "url": "https://github.com/aws/aws-xray-sdk-dotnet",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/AWSXRayRecorder.Handlers.AwsSdk@2.9.1",
+      "publisher": "Amazon Web Services",
+      "name": "AWSXRayRecorder.Handlers.AwsSdk",
+      "version": "2.9.1",
+      "description": "This package contains libraries to trace AWSSDK requests.",
+      "scope": "required",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "E01D2B66686E28FB0EBFE49109B33A108F12DE09AE4D3098EF2E762004811D4907DE1D87351B2FD9437C4CFEFA2B59922A98715184308080E51104D505BFCE39"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "url": "http://aws.amazon.com/apache2.0/"
+          }
+        }
+      ],
+      "copyright": "Copyright 2017-2022 Amazon.com, Inc. or its affiliates. All Rights Reserved.",
+      "purl": "pkg:nuget/AWSXRayRecorder.Handlers.AwsSdk@2.9.1",
+      "externalReferences": [
+        {
+          "url": "https://aws.amazon.com/documentation/xray/",
+          "type": "website"
+        },
+        {
+          "url": "https://github.com/aws/aws-xray-sdk-dotnet",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/AWSXRayRecorder.Handlers.System.Net@2.8.1",
+      "publisher": "Amazon Web Services",
+      "name": "AWSXRayRecorder.Handlers.System.Net",
+      "version": "2.8.1",
+      "description": "This package contains libraries to trace WebRequest from System.Net namespace.",
+      "scope": "required",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "0698E7E3E22731F4C8EC12AF98EAD81887620F2561F0C7A7C073F45CEF9B14F247406ADA35D5A10D143DE34BD34D9527D207DB4462C2B7B7AE75D8A92C8F102D"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "url": "http://aws.amazon.com/apache2.0/"
+          }
+        }
+      ],
+      "copyright": "Copyright 2017-2022 Amazon.com, Inc. or its affiliates. All Rights Reserved.",
+      "purl": "pkg:nuget/AWSXRayRecorder.Handlers.System.Net@2.8.1",
+      "externalReferences": [
+        {
+          "url": "https://aws.amazon.com/documentation/xray/",
+          "type": "website"
+        },
+        {
+          "url": "https://github.com/aws/aws-xray-sdk-dotnet",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/MediatR@10.0.1",
+      "publisher": "Jimmy Bogard",
+      "name": "MediatR",
+      "version": "10.0.1",
+      "description": "Simple, unambitious mediator implementation in .NET",
+      "scope": "required",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "93DBFF965D0B593FB170F4BEB3AA0B807BF71B47D71DB4D9F7D7040271B27581289557A00B92C754DCB84217A94A255C4952C9BBC2C4EBAEA2B96DCD6807D72B"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "copyright": "Copyright Jimmy Bogard",
+      "purl": "pkg:nuget/MediatR@10.0.1",
+      "externalReferences": [
+        {
+          "url": "https://github.com/jbogard/MediatR",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/MediatR.Contracts@1.0.1",
+      "publisher": "Jimmy Bogard",
+      "name": "MediatR.Contracts",
+      "version": "1.0.1",
+      "description": "Contracts package for requests, responses, and notifications",
+      "scope": "required",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "9D49C49B9C1A78E6F4F270DC4502B0BC64F9BA3525764453999C3C43A69F92658B1F6BBD38590053983D4B73F90CFDC732D5A6516F86A7C5F67545F594164571"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "copyright": "Copyright Jimmy Bogard",
+      "purl": "pkg:nuget/MediatR.Contracts@1.0.1",
+      "externalReferences": [
+        {
+          "url": "https://github.com/jbogard/MediatR.git",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/MediatR.Extensions.Microsoft.DependencyInjection@10.0.1",
+      "publisher": "Jimmy Bogard",
+      "name": "MediatR.Extensions.Microsoft.DependencyInjection",
+      "version": "10.0.1",
+      "description": "MediatR extensions for ASP.NET Core",
+      "scope": "required",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "6E6D2791A62C0E37D2139E072259CE3B68E9F46069CA43C0FF720B4AAD2E47FB86C905CF3417BFD71D73A99AAE9CDAC5247966DCA16D44E5CCA2790CD1C954C3"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "copyright": "Copyright Jimmy Bogard",
+      "purl": "pkg:nuget/MediatR.Extensions.Microsoft.DependencyInjection@10.0.1",
+      "externalReferences": [
+        {
+          "url": "https://github.com/jbogard/MediatR.Extensions.Microsoft.DependencyInjection",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Microsoft.Extensions.DependencyInjection@6.0.0",
+      "publisher": "Microsoft",
+      "name": "Microsoft.Extensions.DependencyInjection",
+      "version": "6.0.0",
+      "description": "Default implementation of dependency injection for Microsoft.Extensions.DependencyInjection.",
+      "scope": "required",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "C25EEFA020A785D8608F8C5BC1B7D479AA3F9BB3295AAC41A1B6B81440EE8C2D686F28AB5F7C9BD8C762152AD8957CC71B7ABFA7D4B6C85592BFC27E5155928A"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "copyright": "\u00A9 Microsoft Corporation. All rights reserved.",
+      "purl": "pkg:nuget/Microsoft.Extensions.DependencyInjection@6.0.0",
+      "externalReferences": [
+        {
+          "url": "https://dot.net/",
+          "type": "website"
+        },
+        {
+          "url": "https://github.com/dotnet/runtime",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Microsoft.Extensions.DependencyInjection.Abstractions@6.0.0",
+      "publisher": "Microsoft",
+      "name": "Microsoft.Extensions.DependencyInjection.Abstractions",
+      "version": "6.0.0",
+      "description": "Abstractions for dependency injection.\n\nCommonly Used Types:\nMicrosoft.Extensions.DependencyInjection.IServiceCollection",
+      "scope": "required",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "015A392A362C81B35143B19C5DA4EAC0928CC2F2E13329AB2E945A15A5C9DEA077CD66B0C467C75F2DFE6F90C3E0BF2ECDC059D75096BAC39B4156A53F997BD2"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "copyright": "\u00A9 Microsoft Corporation. All rights reserved.",
+      "purl": "pkg:nuget/Microsoft.Extensions.DependencyInjection.Abstractions@6.0.0",
+      "externalReferences": [
+        {
+          "url": "https://dot.net/",
+          "type": "website"
+        },
+        {
+          "url": "https://github.com/dotnet/runtime",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/SecurityCodeScan.VS2019@5.6.5",
+      "publisher": "Jaroslav Loba\u010Devski",
+      "name": "SecurityCodeScan.VS2019",
+      "version": "5.6.5",
+      "description": "Security static code analyzer for .NET",
+      "scope": "excluded",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "788980ED7FFFD4B42B3C49409F3EDCF581869B518541B38F46B7F5A6E5CA6615F9ED29305A087C7824329590DB8DA7C6E0855F0F0ECB042D3B78C1F66F4F76CD"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "LGPL-3.0-or-later"
+          }
+        }
+      ],
+      "copyright": "\u00A9 Security Code Scan",
+      "purl": "pkg:nuget/SecurityCodeScan.VS2019@5.6.5",
+      "externalReferences": [
+        {
+          "url": "https://security-code-scan.github.io/",
+          "type": "website"
+        },
+        {
+          "url": "https://github.com/security-code-scan/security-code-scan",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Serilog@2.11.0",
+      "publisher": "Serilog Contributors",
+      "name": "Serilog",
+      "version": "2.11.0",
+      "description": "Simple .NET logging with fully-structured events",
+      "scope": "required",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "74008585F37A8D291EA38ABFF88C223A74D404E44D7A9D91EAC253DE0A5914E2DD084B30970333533801B267B8F4CF5F00A24CA61C0E232CC15ECDAB68162484"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "purl": "pkg:nuget/Serilog@2.11.0",
+      "externalReferences": [
+        {
+          "url": "https://serilog.net/",
+          "type": "website"
+        },
+        {
+          "url": "https://github.com/serilog/serilog.git",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Serilog.Formatting.Compact@1.1.0",
+      "publisher": "Serilog Contributors",
+      "name": "Serilog.Formatting.Compact",
+      "version": "1.1.0",
+      "description": "A simple, compact JSON-based event format for Serilog.",
+      "scope": "required",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "8B1A37FFDFAAB34FFCD0FFE0262561E65987F8A9187E810C1A43559C598E441E8ECD83B83E1C7388575595F8BCF1951E788EA610A65385F6291228A5293A7A8B"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "purl": "pkg:nuget/Serilog.Formatting.Compact@1.1.0",
+      "externalReferences": [
+        {
+          "url": "https://github.com/serilog/serilog-formatting-compact",
+          "type": "website"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/Serilog.Sinks.Console@4.0.1",
+      "publisher": "Serilog Contributors",
+      "name": "Serilog.Sinks.Console",
+      "version": "4.0.1",
+      "description": "A Serilog sink that writes log events to the console/terminal.",
+      "scope": "required",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "FE74A57683BF12E8126E8158526445F2F110FF24A83B06F516E587E2E0F1DB0F917259A8BD1420A917C943106820296E063EE7E3EA7517B5D0E355358E9C8134"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "purl": "pkg:nuget/Serilog.Sinks.Console@4.0.1",
+      "externalReferences": [
+        {
+          "url": "https://github.com/serilog/serilog-sinks-console",
+          "type": "website"
+        },
+        {
+          "url": "https://github.com/serilog/serilog-sinks-console",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/SonarAnalyzer.CSharp@8.44.0.52574",
+      "publisher": "SonarSource",
+      "name": "SonarAnalyzer.CSharp",
+      "version": "8.44.0.52574",
+      "description": "Roslyn analyzers that spot Bugs, Vulnerabilities and Code Smells in your code. For an even better overall experience, you can use SonarLint for Visual Studio, which is a free extension that can be used standalone or with SonarQube and/or SonarCloud.",
+      "scope": "excluded",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "921B5DFF25F9E0B7FD12EE61F35AD62F1406A5C0372EB5DCAC9F581A9A7AD85A0072CFEAE90B4E6D14CD1A23232B1B53DAD95AA45EFFAC3E8E4072168763D3EE"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "LGPL-3.0-only"
+          }
+        }
+      ],
+      "copyright": "Copyright \u00A9 2015-2022 SonarSource SA",
+      "purl": "pkg:nuget/SonarAnalyzer.CSharp@8.44.0.52574",
+      "externalReferences": [
+        {
+          "url": "https://www.sonarlint.org/visualstudio/",
+          "type": "website"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/StyleCop.Analyzers@1.2.0-beta.435",
+      "publisher": "Sam Harwell et. al.",
+      "name": "StyleCop.Analyzers",
+      "version": "1.2.0-beta.435",
+      "description": "An implementation of StyleCop\u0027s rules using Roslyn analyzers and code fixes",
+      "scope": "excluded",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "2EDE8D9352A51861A5B2550010FF55DA8241381A6FA6CC49E025F1C289B230B8C0177E93850DE4EA8B6F702C1F2D50D81A9F4D890CA9441C257B614F2A5E05DD"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "copyright": "Copyright 2015 Tunnel Vision Laboratories, LLC",
+      "purl": "pkg:nuget/StyleCop.Analyzers@1.2.0-beta.435",
+      "externalReferences": [
+        {
+          "url": "https://github.com/DotNetAnalyzers/StyleCopAnalyzers",
+          "type": "website"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/StyleCop.Analyzers.Unstable@1.2.0.435",
+      "publisher": "Sam Harwell et. al.",
+      "name": "StyleCop.Analyzers.Unstable",
+      "version": "1.2.0.435",
+      "description": "An implementation of StyleCop\u0027s rules using Roslyn analyzers and code fixes",
+      "scope": "excluded",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "F51E39A1821DF5AA9F0E80F90ECD287991850BAAFA49E8EF5AC45A32C36B48A0C93EC3012C575ED7AD25EC867A51CE31F189DFAF2BCD8214C1626A5FEA1E58B8"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "copyright": "Copyright 2015 Tunnel Vision Laboratories, LLC",
+      "purl": "pkg:nuget/StyleCop.Analyzers.Unstable@1.2.0.435",
+      "externalReferences": [
+        {
+          "url": "https://github.com/DotNetAnalyzers/StyleCopAnalyzers",
+          "type": "website"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/System.Runtime.CompilerServices.Unsafe@6.0.0",
+      "publisher": "Microsoft",
+      "name": "System.Runtime.CompilerServices.Unsafe",
+      "version": "6.0.0",
+      "description": "Provides the System.Runtime.CompilerServices.Unsafe class, which provides generic, low-level functionality for manipulating pointers.\n\nCommonly Used Types:\nSystem.Runtime.CompilerServices.Unsafe",
+      "scope": "required",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "D4057301BE4EC4936F24B9CE003B5EC4D99681AB6D9B65D5393DD38D04CDEC37784AAA12C1A8B50AC3767ED878DAE425749490773FEC01E734F93CF1045822B3"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "copyright": "\u00A9 Microsoft Corporation. All rights reserved.",
+      "purl": "pkg:nuget/System.Runtime.CompilerServices.Unsafe@6.0.0",
+      "externalReferences": [
+        {
+          "url": "https://dot.net/",
+          "type": "website"
+        },
+        {
+          "url": "https://github.com/dotnet/runtime",
+          "type": "vcs"
+        }
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "ref": "MovieApi@0.0.0",
+      "dependsOn": [
+        "pkg:nuget/Amazon.Lambda.APIGatewayEvents@2.5.0",
+        "pkg:nuget/Amazon.Lambda.Serialization.SystemTextJson@2.3.0",
+        "pkg:nuget/AWSSDK.DynamoDBv2@3.7.4",
+        "pkg:nuget/AWSXRayRecorder.Handlers.AwsSdk@2.9.1",
+        "pkg:nuget/AWSXRayRecorder.Handlers.System.Net@2.8.1",
+        "pkg:nuget/MediatR.Extensions.Microsoft.DependencyInjection@10.0.1",
+        "pkg:nuget/Microsoft.Extensions.DependencyInjection@6.0.0",
+        "pkg:nuget/SecurityCodeScan.VS2019@5.6.5",
+        "pkg:nuget/Serilog.Formatting.Compact@1.1.0",
+        "pkg:nuget/Serilog.Sinks.Console@4.0.1",
+        "pkg:nuget/SonarAnalyzer.CSharp@8.44.0.52574",
+        "pkg:nuget/StyleCop.Analyzers@1.2.0-beta.435"
+      ]
+    },
+    {
+      "ref": "pkg:nuget/Amazon.Lambda.APIGatewayEvents@2.5.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Amazon.Lambda.Core@2.1.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Amazon.Lambda.Serialization.SystemTextJson@2.3.0",
+      "dependsOn": [
+        "pkg:nuget/Amazon.Lambda.Core@2.1.0"
+      ]
+    },
+    {
+      "ref": "pkg:nuget/AWSSDK.Core@3.7.12.22",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/AWSSDK.DynamoDBv2@3.7.4",
+      "dependsOn": [
+        "pkg:nuget/AWSSDK.Core@3.7.12.22"
+      ]
+    },
+    {
+      "ref": "pkg:nuget/AWSXRayRecorder.Core@2.11.1",
+      "dependsOn": [
+        "pkg:nuget/AWSSDK.Core@3.7.12.22"
+      ]
+    },
+    {
+      "ref": "pkg:nuget/AWSXRayRecorder.Handlers.AwsSdk@2.9.1",
+      "dependsOn": [
+        "pkg:nuget/AWSXRayRecorder.Core@2.11.1"
+      ]
+    },
+    {
+      "ref": "pkg:nuget/AWSXRayRecorder.Handlers.System.Net@2.8.1",
+      "dependsOn": [
+        "pkg:nuget/AWSXRayRecorder.Core@2.11.1"
+      ]
+    },
+    {
+      "ref": "pkg:nuget/MediatR.Contracts@1.0.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/MediatR.Extensions.Microsoft.DependencyInjection@10.0.1",
+      "dependsOn": [
+        "pkg:nuget/MediatR@10.0.1",
+        "pkg:nuget/Microsoft.Extensions.DependencyInjection.Abstractions@6.0.0"
+      ]
+    },
+    {
+      "ref": "pkg:nuget/MediatR@10.0.1",
+      "dependsOn": [
+        "pkg:nuget/MediatR.Contracts@1.0.1"
+      ]
+    },
+    {
+      "ref": "pkg:nuget/Microsoft.Extensions.DependencyInjection.Abstractions@6.0.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Microsoft.Extensions.DependencyInjection@6.0.0",
+      "dependsOn": [
+        "pkg:nuget/Microsoft.Extensions.DependencyInjection.Abstractions@6.0.0",
+        "pkg:nuget/System.Runtime.CompilerServices.Unsafe@6.0.0"
+      ]
+    },
+    {
+      "ref": "pkg:nuget/SecurityCodeScan.VS2019@5.6.5",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/Serilog.Formatting.Compact@1.1.0",
+      "dependsOn": [
+        "pkg:nuget/Serilog@2.11.0"
+      ]
+    },
+    {
+      "ref": "pkg:nuget/Serilog.Sinks.Console@4.0.1",
+      "dependsOn": [
+        "pkg:nuget/Serilog@2.11.0"
+      ]
+    },
+    {
+      "ref": "pkg:nuget/Serilog@2.11.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/SonarAnalyzer.CSharp@8.44.0.52574",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/StyleCop.Analyzers.Unstable@1.2.0.435",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/StyleCop.Analyzers@1.2.0-beta.435",
+      "dependsOn": [
+        "pkg:nuget/StyleCop.Analyzers.Unstable@1.2.0.435"
+      ]
+    },
+    {
+      "ref": "pkg:nuget/System.Runtime.CompilerServices.Unsafe@6.0.0",
+      "dependsOn": []
+    }
+  ]
+}
