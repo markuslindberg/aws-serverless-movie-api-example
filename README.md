@@ -9,15 +9,21 @@ Serverless movie api example using .net 6, AWS Lambda, DynamoDb, API Gateway and
 * [Serverless Framework](https://www.serverless.com/)
 * [Docker](https://www.docker.com/products/docker-desktop/) _(Used for testing running DynamoDb)_
 
-To install Amazon.Lambda.Tools use the **dotnet tool install** command.
+<details>
+    <summary>Install Amazon.Lambda.Tools</summary>
+
 ```
 dotnet tool install -g Amazon.Lambda.Tools
 ```
+</details>
 
-To install Amazon.Lambda.TestTool-6.0 use the **dotnet tool install** command.
+<details>
+    <summary>Install Amazon.Lambda.TestTool-6.0</summary>
+
 ```
 dotnet tool install -g Amazon.Lambda.TestTool-6.0
 ```
+</details>
 
 ## Observability
 Using AWS X-Ray for tracing and Serilog for structured logging storing logs in AWS CloudWatch. 
