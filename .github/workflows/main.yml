@@ -73,7 +73,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: movieapi-artifact
-          path: src/MovieApi/bin/Release/net6.0/MovieApi.zip
+          path: ./src/MovieApi/bin/Release/net6.0/MovieApi.zip
       - name: Generate SBOM
         uses: CycloneDX/gh-dotnet-generate-sbom@master
         with:
