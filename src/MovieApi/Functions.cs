@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Text.Json;
 using Amazon.Lambda.Core;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,6 +15,7 @@ public class Functions
 {
     private readonly IServiceProvider _serviceProvider;
     private readonly ILogger _logger;
+    private bool _isColdStart = true;
 
     public Functions()
         : this(Startup.Configure().BuildServiceProvider())
@@ -76,8 +78,11 @@ public class Functions
     {
         using (LogContext.PushProperty("RequestId", context.AwsRequestId))
         using (LogContext.PushProperty("FunctionArn", context.InvokedFunctionArn))
+        using (LogContext.PushProperty("ColdStart", _isColdStart))
         {
+            _isColdStart = false;
             var sw = Stopwatch.StartNew();
+
             try
             {
                 var mediator = _serviceProvider.GetRequiredService<IMediator>();
@@ -85,7 +90,7 @@ public class Functions
 
                 _logger
                     .ForContext("Request", request)
-                    .ForContext("Response", response)
+                    .ForContext("Response", JsonSerializer.Serialize(response))
                     .Information("Function completed in {ElapsedMilliseconds} ms", sw.ElapsedMilliseconds);
 
                 return response;
