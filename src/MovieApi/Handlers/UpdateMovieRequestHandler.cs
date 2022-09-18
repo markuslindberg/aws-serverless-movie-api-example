@@ -1,5 +1,6 @@
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DocumentModel;
+using FluentValidation;
 using MediatR;
 using MovieApi.Domain;
 using MovieApi.Requests;
@@ -10,16 +11,24 @@ namespace MovieApi.Handlers;
 public class UpdateMovieRequestHandler : IRequestHandler<UpdateMovieRequest, Response<Movie>>
 {
     private readonly IAmazonDynamoDB _dynamoDbClient;
+    private readonly IValidator<UpdateMovieRequest> _validator;
 
-    public UpdateMovieRequestHandler(IAmazonDynamoDB dynamoDbClient)
+    public UpdateMovieRequestHandler(IAmazonDynamoDB dynamoDbClient, IValidator<UpdateMovieRequest> validator)
     {
         _dynamoDbClient = dynamoDbClient;
+        _validator = validator;
     }
 
     public async Task<Response<Movie>> Handle(UpdateMovieRequest request, CancellationToken cancellationToken)
     {
-        var movie = request.Movie;
+        var result = _validator.Validate(request);
 
+        if (!result.IsValid)
+        {
+            return new Response<Movie>(400, result.ToString());
+        }
+
+        var movie = request.Movie;
         var d = new Document();
         d["type"] = "movie";
         d["pk"] = $"MOVIE#{request.MovieId}";

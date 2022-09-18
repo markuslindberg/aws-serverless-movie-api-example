@@ -1,24 +1,5 @@
 ﻿{
-  updateResponse: {
-    StatusCode: 200,
-    Result: {
-      MovieId: DieHard,
-      Title: Die Hard,
-      Year: 2022,
-      Category: Action,
-      Budget: Unlimited,
-      BoxOffice: N/A
-    }
-  },
-  getResponse: {
-    StatusCode: 200,
-    Result: {
-      MovieId: DieHard,
-      Title: Die Hard,
-      Year: 2022,
-      Category: Action,
-      Budget: Unlimited,
-      BoxOffice: N/A
-    }
-  }
+  statusCode: 400,
+  body: 'Movie Movie Id' must be equal to 'DieHard'.,
+  isBase64Encoded: false
 }

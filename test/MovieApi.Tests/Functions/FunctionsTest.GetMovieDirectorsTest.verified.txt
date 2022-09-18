@@ -1,9 +1,5 @@
 ﻿{
-  StatusCode: 200,
-  Result: [
-    {
-      DirectorId: JohnMcTiernan,
-      Name: John McTiernan
-    }
-  ]
+  statusCode: 200,
+  body: [{"directorId":"JohnMcTiernan","name":"John McTiernan"}],
+  isBase64Encoded: false
 }

@@ -1,18 +1,15 @@
 using System.Reflection;
 using Amazon;
 using Amazon.DynamoDBv2;
-using Amazon.Lambda.Core;
 using Amazon.XRay.Recorder.Core;
 using Amazon.XRay.Recorder.Handlers.AwsSdk;
+using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MovieApi.Logging;
 using Serilog;
 using Serilog.Formatting.Compact;
-
-// Assembly attribute to enable the Lambda function's JSON input to be converted into a .NET class.
-[assembly: LambdaSerializer(typeof(Amazon.Lambda.Serialization.SystemTextJson.CamelCaseLambdaJsonSerializer))]
 
 namespace MovieApi;
 
@@ -38,6 +35,8 @@ public static class Startup
 
         var logger = CreateLogger();
         services.AddSingleton(logger);
+
+        services.AddValidatorsFromAssemblyContaining(typeof(Startup));
 
         services.AddMediatR(typeof(Startup).GetTypeInfo().Assembly);
 

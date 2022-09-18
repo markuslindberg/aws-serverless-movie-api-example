@@ -1,21 +1,5 @@
 ﻿{
-  StatusCode: 200,
-  Result: [
-    {
-      MovieId: DieHard,
-      Title: Die Hard,
-      Year: 1988,
-      Category: Action,
-      Budget: 25-35MM,
-      BoxOffice: 140MM
-    },
-    {
-      MovieId: DieHard2,
-      Title: Die Hard 2,
-      Year: 1990,
-      Category: Action,
-      Budget: 62-70MM,
-      BoxOffice: 240MM
-    }
-  ]
+  statusCode: 500,
+  body: Function failed with exception,
+  isBase64Encoded: false
 }

@@ -70,156 +70,84 @@ custom:
         sources:
           - table: MoviesTable
             sources: [./DynamoDb/MoviesTable.seed.json]
-  responseTemplate: &responseTemplate |-
-    #set($statusCode = $input.path('$.statusCode'))
-    #if($statusCode == 200)
-    $input.json("$.result")
-    #else
-    $input.json("$")
-    #set($context.responseOverride.status = $statusCode)
-    #end
 
 package:
   artifact: bin/Release/net6.0/MovieApi.zip
 
 functions:
   GetMovie:
-    handler: MovieApi::MovieApi.Functions::GetMovie
+    handler: MovieApi::MovieApi.Functions.GetMovieFunction::HandleAsync
     events:
       - http:
           method: GET
           path: /movies/{movieId}
-          integration: lambda
           authorizer: aws_iam
-          request:
-            template:
-              application/json: '{ "movieId" : "$input.params(''movieId'')" }'
-          response:
-            template: *responseTemplate
   UpdateMovie:
-    handler: MovieApi::MovieApi.Functions::UpdateMovie
+    handler: MovieApi::MovieApi.Functions.UpdateMovieFunction::HandleAsync
     events:
       - http:
           method: PUT
           path: /movies/{movieId}
-          integration: lambda
           authorizer: aws_iam
           request:
             schemas:
               application/json:
                 name: UpdateMovieRequest
                 schema: ${file(Schemas/UpdateMovieRequest.schema.json)}
-            template:
-              application/json: >
-                {
-                  "movieId" : "$input.params('movieId')",
-                  "movie" : $input.json('$')
-                }
-          response:
-            template: *responseTemplate
   DeleteMovie:
-    handler: MovieApi::MovieApi.Functions::DeleteMovie
+    handler: MovieApi::MovieApi.Functions.DeleteMovieFunction::HandleAsync
     events:
       - http:
           method: DELETE
           path: /movies/{movieId}
-          integration: lambda
           authorizer: aws_iam
-          request:
-            template:
-              application/json: '{ "movieId" : "$input.params(''movieId'')" }'
-          response:
-            template: *responseTemplate
   GetMovies:
-    handler: MovieApi::MovieApi.Functions::GetMovies
+    handler: MovieApi::MovieApi.Functions.GetMoviesFunction::HandleAsync
     events:
       - http:
           method: GET
           path: /movies
-          integration: lambda
           authorizer: aws_iam
-          request:
-            template:
-              application/json: >
-                {
-                  "category" : "$input.params('category')"
-                  #if($input.params('year-min').matches("^\d+$")),"yearMin" : $input.params('year-min') #end
-                  #if($input.params('year-max').matches("^\d+$")),"yearMax" : $input.params('year-max') #end
-                }
-          response:
-            template: *responseTemplate
   CreateMovie:
-    handler: MovieApi::MovieApi.Functions::CreateMovie
+    handler: MovieApi::MovieApi.Functions.CreateMovieFunction::HandleAsync
     events:
       - http:
           method: POST
           path: /movies
-          integration: lambda
           authorizer: aws_iam
           request:
             schemas:
               application/json:
                 name: CreateMovieRequest
                 schema: ${file(Schemas/CreateMovieRequest.schema.json)}
-            template:
-              application/json: >
-                {
-                  "movie" : $input.json('$')
-                }
-          response:
-            template: *responseTemplate
   GetMovieCharacters:
-    handler: MovieApi::MovieApi.Functions::GetMovieCharacters
+    handler: MovieApi::MovieApi.Functions.GetMovieCharactersFunction::HandleAsync
     events:
       - http:
           method: GET
           path: /movies/{movieId}/characters
-          integration: lambda
           authorizer: aws_iam
-          request:
-            template:
-              application/json: '{ "movieId" : "$input.params(''movieId'')" }'
-          response:
-            template: *responseTemplate
   GetMovieDirectors:
-    handler: MovieApi::MovieApi.Functions::GetMovieDirectors
+    handler: MovieApi::MovieApi.Functions.GetMovieDirectorsFunction::HandleAsync
     events:
       - http:
           method: GET
           path: /movies/{movieId}/directors
-          integration: lambda
           authorizer: aws_iam
-          request:
-            template:
-              application/json: '{ "movieId" : "$input.params(''movieId'')" }'
-          response:
-            template: *responseTemplate
   GetCharacterMovies:
-    handler: MovieApi::MovieApi.Functions::GetCharacterMovies
+    handler: MovieApi::MovieApi.Functions.GetCharacterMoviesFunction::HandleAsync
     events:
       - http:
           method: GET
           path: /characters/{characterId}/movies
-          integration: lambda
           authorizer: aws_iam
-          request:
-            template:
-              application/json: '{ "characterId" : "$input.params(''characterId'')" }'
-          response:
-            template: *responseTemplate
   GetDirectorMovies:
-    handler: MovieApi::MovieApi.Functions::GetDirectorMovies
+    handler: MovieApi::MovieApi.Functions.GetDirectorMoviesFunction::HandleAsync
     events:
       - http:
           method: GET
           path: /directors/{directorId}/movies
-          integration: lambda
           authorizer: aws_iam
-          request:
-            template:
-              application/json: '{ "directorId" : "$input.params(''directorId'')" }'
-          response:
-            template: *responseTemplate
 
 resources:
   - ${file(./DynamoDb/MoviesTable.yml)}

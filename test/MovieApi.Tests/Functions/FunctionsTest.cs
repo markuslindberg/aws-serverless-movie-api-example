@@ -1,12 +1,13 @@
 using System.Reflection;
 using Amazon.DynamoDBv2;
+using Amazon.Lambda.APIGatewayEvents;
 using Amazon.Lambda.TestUtilities;
 using DotNet.Testcontainers.Builders;
 using DotNet.Testcontainers.Containers;
+using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
-using MovieApi.Domain;
-using MovieApi.Requests;
+using MovieApi.Functions;
 using MovieApi.Tests.Infrastructure;
 using Serilog;
 using Xunit.Abstractions;
@@ -18,7 +19,6 @@ namespace MovieApi.Tests.Functions;
 public class FunctionsTest : IAsyncLifetime
 {
     private readonly IServiceProvider _serviceProvider;
-    private readonly MovieApi.Functions _functions;
     private readonly TestLambdaContext _context;
     private readonly ITestOutputHelper _output;
 
@@ -39,13 +39,13 @@ public class FunctionsTest : IAsyncLifetime
     {
         var serviceContainer = new ServiceCollection();
         serviceContainer.AddMediatR(typeof(Startup).GetTypeInfo().Assembly);
+        serviceContainer.AddValidatorsFromAssemblyContaining(typeof(Startup));
         serviceContainer.AddSingleton<IAmazonDynamoDB>(_dynamoDbLocalClient);
         serviceContainer.AddSingleton<ILogger>(new LoggerConfiguration()
             .MinimumLevel.Verbose()
             .WriteTo.TestOutput(output, Serilog.Events.LogEventLevel.Verbose)
             .CreateLogger());
-        _serviceProvider = serviceContainer.BuildServiceProvider();
-        _functions = new MovieApi.Functions(_serviceProvider);
+        _serviceProvider = serviceContainer.BuildServiceProvider(new ServiceProviderOptions { ValidateOnBuild = true });
         _context = new TestLambdaContext();
         _output = output;
     }
@@ -56,8 +56,13 @@ public class FunctionsTest : IAsyncLifetime
     {
         DynamoDbSetup(seed: true);
 
-        var request = new GetMovieRequest("DieHard");
-        var response = await _functions.GetMovie(request, _context);
+        var request = new APIGatewayProxyRequest
+        {
+            PathParameters = new Dictionary<string, string> { { "movieId", "DieHard" } }
+        };
+
+        var function = new GetMovieFunction(_serviceProvider);
+        var response = await function.HandleAsync(request, _context);
 
         await Verify(response);
     }
@@ -68,8 +73,13 @@ public class FunctionsTest : IAsyncLifetime
     {
         DynamoDbSetup(seed: true);
 
-        var request = new GetMoviesRequest("Action");
-        var response = await _functions.GetMovies(request, _context);
+        var request = new APIGatewayProxyRequest
+        {
+            QueryStringParameters = new Dictionary<string, string> { { "category", "Action" } }
+        };
+
+        var function = new GetMoviesFunction(_serviceProvider);
+        var response = await function.HandleAsync(request, _context);
 
         await Verify(response);
     }
@@ -80,15 +90,15 @@ public class FunctionsTest : IAsyncLifetime
     {
         DynamoDbSetup(seed: false);
 
-        var request = new CreateMovieRequest(new Movie("DieHard3", "Die Hard 3", 2022, "Action", "Unlimited", "N/A"));
-        var createrResponse = await _functions.CreateMovie(request, _context);
-        var getResponse = await _functions.GetMovie(new GetMovieRequest("DieHard3"), _context);
-
-        await Verify(new
+        var request = new APIGatewayProxyRequest
         {
-            createrResponse,
-            getResponse
-        });
+            Body = "{\"MovieId\": \"DieHard3\", \"Title\": \"Die Hard 3\", \"Year\": 2022, \"Category\": \"Action\", \"Budget\": \"Unlimited\", \"BoxOffice\": \"N/A\"}"
+        };
+
+        var function = new CreateMovieFunction(_serviceProvider);
+        var response = await function.HandleAsync(request, _context);
+
+        await Verify(response);
     }
 
     [Fact]
@@ -97,15 +107,16 @@ public class FunctionsTest : IAsyncLifetime
     {
         DynamoDbSetup(seed: true);
 
-        var request = new UpdateMovieRequest("DieHard", new Movie("DieHard", "Die Hard", 2022, "Action", "Unlimited", "N/A"));
-        var updateResponse = await _functions.UpdateMovie(request, _context);
-        var getResponse = await _functions.GetMovie(new GetMovieRequest("DieHard"), _context);
-
-        await Verify(new
+        var request = new APIGatewayProxyRequest
         {
-            updateResponse,
-            getResponse
-        });
+            PathParameters = new Dictionary<string, string> { { "movieId", "DieHard" } },
+            Body = "{\"MovieId\": \"DieHard\", \"Title\": \"Die Hard\", \"Year\": 2022, \"Category\": \"Action\", \"Budget\": \"Unlimited\", \"BoxOffice\": \"N/A\"}"
+        };
+
+        var function = new UpdateMovieFunction(_serviceProvider);
+        var response = await function.HandleAsync(request, _context);
+
+        await Verify(response);
     }
 
     [Fact]
@@ -114,16 +125,15 @@ public class FunctionsTest : IAsyncLifetime
     {
         DynamoDbSetup(seed: true);
 
-        var getResponse = await _functions.GetMovie(new GetMovieRequest("DieHard"), _context);
-        var deleteResponse = await _functions.DeleteMovie(new DeleteMovieRequest("DieHard"), _context);
-        var deleteAgainResponse = await _functions.DeleteMovie(new DeleteMovieRequest("DieHard"), _context);
-
-        await Verify(new
+        var request = new APIGatewayProxyRequest
         {
-            getResponse,
-            deleteResponse,
-            deleteAgainResponse
-        });
+            PathParameters = new Dictionary<string, string> { { "movieId", "DieHard" } }
+        };
+
+        var function = new DeleteMovieFunction(_serviceProvider);
+        var response = await function.HandleAsync(request, _context);
+
+        await Verify(response);
     }
 
     [Fact]
@@ -132,8 +142,13 @@ public class FunctionsTest : IAsyncLifetime
     {
         DynamoDbSetup(seed: true);
 
-        var request = new GetMovieCharactersRequest("DieHard");
-        var response = await _functions.GetMovieCharacters(request, _context);
+        var request = new APIGatewayProxyRequest
+        {
+            PathParameters = new Dictionary<string, string> { { "movieId", "DieHard" } }
+        };
+
+        var function = new GetMovieCharactersFunction(_serviceProvider);
+        var response = await function.HandleAsync(request, _context);
 
         await Verify(response);
     }
@@ -144,8 +159,13 @@ public class FunctionsTest : IAsyncLifetime
     {
         DynamoDbSetup(seed: true);
 
-        var request = new GetMovieDirectorsRequest("DieHard");
-        var response = await _functions.GetMovieDirectors(request, _context);
+        var request = new APIGatewayProxyRequest
+        {
+            PathParameters = new Dictionary<string, string> { { "movieId", "DieHard" } }
+        };
+
+        var function = new GetMovieDirectorsFunction(_serviceProvider);
+        var response = await function.HandleAsync(request, _context);
 
         await Verify(response);
     }
@@ -156,8 +176,13 @@ public class FunctionsTest : IAsyncLifetime
     {
         DynamoDbSetup(seed: true);
 
-        var request = new GetCharacterMoviesRequest("JohnMcClane");
-        var response = await _functions.GetCharacterMovies(request, _context);
+        var request = new APIGatewayProxyRequest
+        {
+            PathParameters = new Dictionary<string, string> { { "characterId", "JohnMcClane" } }
+        };
+
+        var function = new GetCharacterMoviesFunction(_serviceProvider);
+        var response = await function.HandleAsync(request, _context);
 
         await Verify(response);
     }
@@ -168,8 +193,13 @@ public class FunctionsTest : IAsyncLifetime
     {
         DynamoDbSetup(seed: true);
 
-        var request = new GetDirectorMoviesRequest("RennyHarlin");
-        var response = await _functions.GetDirectorMovies(request, _context);
+        var request = new APIGatewayProxyRequest
+        {
+            PathParameters = new Dictionary<string, string> { { "directorId", "RennyHarlin" } }
+        };
+
+        var function = new GetDirectorMoviesFunction(_serviceProvider);
+        var response = await function.HandleAsync(request, _context);
 
         await Verify(response);
     }
@@ -191,7 +221,7 @@ public class FunctionsTest : IAsyncLifetime
         var b = new Bash(wd);
 
         b.Run("npm run migrate", s => _output.WriteLine(s));
-        
+
         if (seed)
         {
             b.Run("npm run seed:local", s => _output.WriteLine(s));
