@@ -1,6 +1,6 @@
 # MovieApi
 
-Serverless movie api example using .net 6, AWS Lambda, DynamoDb, API Gateway and Serverless Framework.
+Serverless movie api example using .net 6, AWS Lambda, DynamoDB, API Gateway and Serverless Framework.
 
 ## Prerequisites
 
@@ -8,22 +8,56 @@ Serverless movie api example using .net 6, AWS Lambda, DynamoDb, API Gateway and
 * [AWS Lambda for .NET Core](https://github.com/aws/aws-lambda-dotnet)
 * [Serverless Framework](https://www.serverless.com/)
 * [Docker](https://www.docker.com/products/docker-desktop/) _(Used for testing running DynamoDb)_
-
-<details>
-    <summary>Install Amazon.Lambda.Tools</summary>
+* Amazon.Lambda.Tools
 
 ```
 dotnet tool install -g Amazon.Lambda.Tools
 ```
-</details>
 
-<details>
-    <summary>Install Amazon.Lambda.TestTool-6.0</summary>
+## Endpoints
 
-```
-dotnet tool install -g Amazon.Lambda.TestTool-6.0
-```
-</details>
+List of REST endpoints exposed in API Gateway ([OpenAPI Specification](src/MovieApi/Schemas/openapi.yaml)):
+
+| Paths | Method | Description|
+| :---  | :---   | :---       |
+|/movies|GET|Get all movies|
+|/movies|POST|Create a movie|
+|/movies/{movieId}|GET|Get a movie|
+|/movies/{movieId}|PUT|Update a movie|
+|/movies/{movieId}|DELETE|Delete a movie|
+|/movies/{movieId}/characters|GET|Get movie characters|
+|/movies/{movieId}/directors|GET|Get movie directors|
+|/characters/{characterId}/movies|GET|Get character movies|
+|/directors/{directorId}/movies|GET|Get director movies|
+
+## Single Table Data Model
+
+The domain objects in this example are stored in a single table, consisting of three entity types: MOVIE, CHARACTER, DIRECTOR.
+
+![Single Table](images/MoviesTable.png)
+
+| Access Patterns |Table/GSI/LSI|Key Condition|Filter Expression| Example|
+| :---        | :---         | :---     | :---    |:---|
+|Get movie for a given movieId|Table|pk=movieId and sk=movieId|-|pk="MOVIE#DieHard" and sk="MOVIE#DieHard"|
+|Get characters for a given movieId|Table|pk=movieId and sk begins_with "CHARACTER#"|-|pk="MOVIE#DieHard" and sk begins_with "CHARACTER#"|
+|Get directors for a given movieId|Table|pk=movieId and sk begins_with "DIRECTOR#"|-|pk="MOVIE#DieHard" and sk begins_with "DIRECTOR#"|
+
+### Global Secondary Index (GSI1)
+
+![GSI1](images/MoviesTableGSI1.png)
+
+| Access Patterns |Table/GSI/LSI|Key Condition|Filter Expression| Example|
+| :---        | :---         | :---     | :---    |:---|
+|Get movies for a given characterId|GSI1|gsi1pk=characterId and SK begins_with "MOVIE#"|-|gsi1pk="CHARACTER#JohnMcClane" and gsi1sk begins_with "MOVIE#"|
+|Get movies for a given directorId|GSI1|gsi1pk=directorId and SK begins_with "MOVIE#"|-|gsi1pk="DIRECTOR#JohnMcTiernan" and gsi1sk begins_with "MOVIE#"|
+
+### Global Secondary Index (GSI2)
+
+![GSI2](images/MoviesTableGSI2.png)
+
+| Access Patterns |Table/GSI/LSI|Key Condition|Filter Expression| Example|
+| :---        | :---         | :---     | :---    |:---|
+|Get movies for a given category and year range|GSI2|gsi2pk=category and gsi2sk between year and year|-|gsi2pk="Action" and gsi2sk between 1988 and 1990|
 
 ## Observability
 Using AWS X-Ray for tracing and Serilog for structured logging storing logs in AWS CloudWatch. 
@@ -44,8 +78,8 @@ _API key referenced through AWS Secrets Manager. AWS Lambda Runtime Logs are exc
 ### Documentation
 
 * **API documentation** in OpenAPI Specification v3.0.0.
-* **Technical documentation** :x: TODO class, deployment, dependency diagrams.
-* **Code documentation** :x: TODO inline code comments.
+* **Technical documentation** TODO class, deployment, dependency diagrams.
+* **Code documentation** TODO inline code comments.
 
 ### Testing
 High level unit testing of Lambda functions together with local DynamoDB instance spinning up in Docker using Testcontainers. DynamoDB table created and seeded using serverless framework configuration. Verify is a great library to assert complex test responses and easily setup and modify the expected results using the configured diff tool.

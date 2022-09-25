@@ -42,7 +42,7 @@
   {
     "type": "director",
     "pk": "MOVIE#DieHard",
-    "sk": "DIRECTOR#JohnMcClane",
+    "sk": "DIRECTOR#JohnMcTiernan",
     "movieId": "DieHard",
     "directorId": "JohnMcTiernan",
     "name": "John McTiernan",
