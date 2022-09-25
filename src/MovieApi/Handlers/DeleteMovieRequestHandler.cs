@@ -1,5 +1,6 @@
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DocumentModel;
+using FluentValidation;
 using MediatR;
 using MovieApi.Domain;
 using MovieApi.Requests;
@@ -10,14 +11,23 @@ namespace MovieApi.Handlers;
 public class DeleteMovieRequestHandler : IRequestHandler<DeleteMovieRequest, Response<Movie>>
 {
     private readonly IAmazonDynamoDB _dynamoDbClient;
+    private readonly IValidator<DeleteMovieRequest> _validator;
 
-    public DeleteMovieRequestHandler(IAmazonDynamoDB dynamoDbClient)
+    public DeleteMovieRequestHandler(IAmazonDynamoDB dynamoDbClient, IValidator<DeleteMovieRequest> validator)
     {
         _dynamoDbClient = dynamoDbClient;
+        _validator = validator;
     }
 
     public async Task<Response<Movie>> Handle(DeleteMovieRequest request, CancellationToken cancellationToken)
     {
+        var result = _validator.Validate(request);
+
+        if (!result.IsValid)
+        {
+            return new Response<Movie>(400, result.ToString());
+        }
+
         var key = $"MOVIE#{request.MovieId}";
         var table = Table.LoadTable(_dynamoDbClient, new TableConfig("MoviesTable"));
         var d = await table.DeleteItemAsync(key, key, new DeleteItemOperationConfig

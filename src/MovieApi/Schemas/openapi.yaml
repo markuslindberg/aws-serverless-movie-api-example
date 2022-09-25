@@ -376,14 +376,6 @@ components:
       type: array
       items:
         $ref: '#/components/schemas/Director'
-    ErrorModel:
-      type: object
-      additionalProperties: false
-      properties:
-        statusCode:
-          type: string
-        errorMessage:
-          type: string
   requestBodies:
     CreateMovieRequest:
       description: Create a Movie entity
@@ -459,48 +451,56 @@ components:
     400:
       description: Bad Request
       content:
-        application/json:
+        text/plain:
           schema:
-            $ref: '#/components/schemas/ErrorModel'
+            type: string
+            example: Bad Request
     401:
       description: Unauthorized
       content:
-        application/json:
+        text/plain:
           schema:
-            $ref: '#/components/schemas/ErrorModel'
+            type: string
+            example: Unauthorized
     403:
       description: Forbidden
       content:
-        application/json:
+        text/plain:
           schema:
-            $ref: '#/components/schemas/ErrorModel'
+            type: string
+            example: Forbidden
     404:
       description: Not Found
       content:
-        application/json:
+        text/plain:
           schema:
-            $ref: '#/components/schemas/ErrorModel'
+            type: string
+            example: Not Found
     422:
       description: Unprocessable Entity
       content:
-        application/json:
+        text/plain:
           schema:
-            $ref: '#/components/schemas/ErrorModel'
+            type: string
+            example: Unprocessable Entity
     500:
       description: Internal Server Error
       content:
-        application/json:
+        text/plain:
           schema:
-            $ref: '#/components/schemas/ErrorModel'
+            type: string
+            example: Internal Server Error
     502:
       description: Bad Gateway
       content:
-        application/json:
+        text/plain:
           schema:
-            $ref: '#/components/schemas/ErrorModel'
+            type: string
+            example: Bad Gateway
     504:
       description: Gateway Timeout
       content:
-        application/json:
+        text/plain:
           schema:
-            $ref: '#/components/schemas/ErrorModel'
+            type: string
+            example: Gateway Timeout

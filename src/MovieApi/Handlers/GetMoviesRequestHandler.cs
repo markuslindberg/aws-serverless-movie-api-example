@@ -1,5 +1,6 @@
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DocumentModel;
+using FluentValidation;
 using MediatR;
 using MovieApi.Domain;
 using MovieApi.Requests;
@@ -10,14 +11,23 @@ namespace MovieApi.Handlers;
 public class GetMoviesRequestHandler : IRequestHandler<GetMoviesRequest, Response<List<Movie>>>
 {
     private readonly IAmazonDynamoDB _dynamoDbClient;
+    private readonly IValidator<GetMoviesRequest> _validator;
 
-    public GetMoviesRequestHandler(IAmazonDynamoDB dynamoDbClient)
+    public GetMoviesRequestHandler(IAmazonDynamoDB dynamoDbClient, IValidator<GetMoviesRequest> validator)
     {
         _dynamoDbClient = dynamoDbClient;
+        _validator = validator;
     }
 
     public async Task<Response<List<Movie>>> Handle(GetMoviesRequest request, CancellationToken cancellationToken)
     {
+        var result = _validator.Validate(request);
+
+        if (!result.IsValid)
+        {
+            return new Response<List<Movie>>(400, result.ToString());
+        }
+
         var filter = new QueryFilter("gsi2pk", QueryOperator.Equal, request.Category);
         if (request.YearMin != null)
             filter.AddCondition("gsi2sk", QueryOperator.GreaterThanOrEqual, request.YearMin.ToString());
