@@ -86,3 +86,9 @@ jobs:
           default_author: github_actions
           message: 'update bom.json'
           add: 'bom.json'
+      - name: Deploy API documentation
+        uses: bump-sh/github-action@v1
+        with:
+          doc: movieapi
+          token: ${{ secrets.BUMP_TOKEN }}
+          file: src/MovieApi/Schemas/openapi.yaml
