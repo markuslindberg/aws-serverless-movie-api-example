@@ -16,7 +16,10 @@ dotnet tool install -g Amazon.Lambda.Tools
 
 ## Endpoints
 
-List of REST endpoints exposed in API Gateway ([OpenAPI Specification](src/MovieApi/Schemas/openapi.yaml)):
+List of REST endpoints exposed in API Gateway:
+
+* [API Documentation](https://bump.sh/markuslindberg/doc/movieapi)
+* [OpenAPI Specification](src/MovieApi/Schemas/openapi.yaml)
 
 | Paths | Method | Description|
 | :---  | :---   | :---       |
@@ -115,3 +118,4 @@ dotnet CycloneDX src/MovieApi/MovieApi.csproj -o sbom -r
 8. [AWS Serverless Application Model](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/what-is-sam.html)
 9. [Building Lambda functions with C#](https://docs.aws.amazon.com/lambda/latest/dg/lambda-csharp.html)
 10. [Amazon DynamoDB Developer Guide](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html)
+11. [OpenAPI.Tools](https://openapi.tools/)
