@@ -1,4 +1,3 @@
-using System.Text.Json;
 using Amazon.Lambda.APIGatewayEvents;
 using Amazon.Lambda.Core;
 using MediatR;
@@ -26,13 +25,7 @@ public sealed class GetMoviesFunction : RequestResponseFunctionBase
         var mediator = ServiceProvider.GetRequiredService<IMediator>();
         var response = await mediator.Send(new GetMoviesRequest(category, yearMin, yearMax));
 
-        return new APIGatewayProxyResponse
-        {
-            StatusCode = response.StatusCode,
-            Body = response.StatusCode == 200
-                ? JsonSerializer.Serialize(response.Result, JsonSerializerOptions)
-                : response.ErrorMessage
-        };
+        return ToAPIGatewayProxyResponse(response);
     }
 
     private int? ParseInt(string value) => int.TryParse(value, out var i) ? (int?)i : null;

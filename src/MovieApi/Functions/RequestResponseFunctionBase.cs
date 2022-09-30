@@ -5,6 +5,7 @@ using Amazon.Lambda.APIGatewayEvents;
 using Amazon.Lambda.Core;
 using Amazon.Lambda.Serialization.SystemTextJson;
 using Microsoft.Extensions.DependencyInjection;
+using MovieApi.Responses;
 using Serilog;
 using Serilog.Context;
 
@@ -67,6 +68,17 @@ public abstract class RequestResponseFunctionBase
                 };
             }
         }
+    }
+
+    protected APIGatewayProxyResponse ToAPIGatewayProxyResponse<T>(Response<T> response)
+    {
+        return new APIGatewayProxyResponse
+        {
+            StatusCode = response.StatusCode,
+            Body = response.StatusCode == 200
+                ? JsonSerializer.Serialize(response.Result, JsonSerializerOptions)
+                : response.ErrorMessage
+        };
     }
 }
 

@@ -24,12 +24,6 @@ public sealed class CreateMovieFunction : RequestResponseFunctionBase
         var mediator = ServiceProvider.GetRequiredService<IMediator>();
         var response = await mediator.Send(new CreateMovieRequest(movie));
 
-        return new APIGatewayProxyResponse
-        {
-            StatusCode = response.StatusCode,
-            Body = response.StatusCode == 200
-                ? JsonSerializer.Serialize(response.Result, JsonSerializerOptions)
-                : response.ErrorMessage
-        };
+        return ToAPIGatewayProxyResponse(response);
     }
 }

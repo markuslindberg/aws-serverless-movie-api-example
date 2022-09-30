@@ -1,4 +1,3 @@
-using System.Text.Json;
 using Amazon.Lambda.APIGatewayEvents;
 using Amazon.Lambda.Core;
 using MediatR;
@@ -23,12 +22,6 @@ public sealed class DeleteMovieFunction : RequestResponseFunctionBase
         var mediator = ServiceProvider.GetRequiredService<IMediator>();
         var response = await mediator.Send(new DeleteMovieRequest(movieId));
 
-        return new APIGatewayProxyResponse
-        {
-            StatusCode = response.StatusCode,
-            Body = response.StatusCode == 200
-                ? JsonSerializer.Serialize(response.Result, JsonSerializerOptions)
-                : response.ErrorMessage
-        };
+        return ToAPIGatewayProxyResponse(response);
     }
 }
