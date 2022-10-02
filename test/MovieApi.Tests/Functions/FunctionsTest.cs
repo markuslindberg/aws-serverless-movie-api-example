@@ -1,65 +1,23 @@
-using System.Reflection;
-using Amazon.DynamoDBv2;
 using Amazon.Lambda.APIGatewayEvents;
-using Amazon.Lambda.TestUtilities;
-using DotNet.Testcontainers.Builders;
-using DotNet.Testcontainers.Containers;
-using FluentValidation;
-using MediatR;
-using Microsoft.Extensions.DependencyInjection;
 using MovieApi.Functions;
-using MovieApi.Tests.Infrastructure;
-using Serilog;
 using Xunit.Abstractions;
 
 namespace MovieApi.Tests.Functions;
 
 [UsesVerify]
-[TestCaseOrderer("MovieApi.Tests.Infrastructure.PriorityOrderer", "MovieApi.Tests")]
-public class FunctionsTest : IAsyncLifetime
+public class FunctionsTest : FunctionsTestBase, IClassFixture<DynamoDbFixture>
 {
-    private readonly IServiceProvider _serviceProvider;
-    private readonly TestLambdaContext _context;
-    private readonly ITestOutputHelper _output;
+    private readonly DynamoDbFixture _fixture;
 
-    private readonly TestcontainersContainer _dynamoDbLocal = new TestcontainersBuilder<TestcontainersContainer>()
-        .WithImage("amazon/dynamodb-local:1.18.0")
-        .WithCommand("-jar", "DynamoDBLocal.jar", "-inMemory", "-sharedDb")
-        .WithPortBinding(8000)
-        .WithWaitStrategy(Wait.ForUnixContainer().UntilPortIsAvailable(8000))
-        .Build();
-
-    private AmazonDynamoDBClient _dynamoDbLocalClient = new AmazonDynamoDBClient(
-        new AmazonDynamoDBConfig
-        {
-            ServiceURL = "http://localhost:8000/"
-        });
-
-    public FunctionsTest(ITestOutputHelper output)
+    public FunctionsTest(DynamoDbFixture fixture, ITestOutputHelper output) : base(output)
     {
-        var serviceContainer = new ServiceCollection();
-        serviceContainer.AddMediatR(typeof(Startup).GetTypeInfo().Assembly);
-        serviceContainer.AddValidatorsFromAssemblyContaining(typeof(Startup));
-        serviceContainer.AddSingleton<IAmazonDynamoDB>(_dynamoDbLocalClient);
-        serviceContainer.AddSingleton<ILogger>(new LoggerConfiguration()
-            .MinimumLevel.Verbose()
-            .WriteTo.TestOutput(output, Serilog.Events.LogEventLevel.Verbose)
-            .CreateLogger());
-        _serviceProvider = serviceContainer.BuildServiceProvider(new ServiceProviderOptions { ValidateOnBuild = true });
-        _context = new TestLambdaContext();
-        _output = output;
+        _fixture = fixture;
     }
 
     [Fact]
-    [TestPriority(1)]
-    public async Task GetMovieTest()
+    public async Task GetMovieShouldMatchExpectedResponse()
     {
-        DynamoDbSetup(seed: true);
-
-        var request = new APIGatewayProxyRequest
-        {
-            PathParameters = new Dictionary<string, string> { { "movieId", "DieHard" } }
-        };
+        var request = CreateRequestWithPathParams("movieId", "DieHard");
 
         var function = new GetMovieFunction(_serviceProvider);
         var response = await function.HandleAsync(request, _context);
@@ -67,16 +25,28 @@ public class FunctionsTest : IAsyncLifetime
         await Verify(response);
     }
 
-    [Fact]
-    [TestPriority(2)]
-    public async Task GetMoviesTest()
+    [Theory]
+    [InlineData(200, "DieHard")]
+    [InlineData(400, "DieHard@#$£!")]
+    [InlineData(404, "DieHard999")]
+    public async Task GetMovieStatusCodeTheory(int expectedStatusCode, string movieId)
     {
-        DynamoDbSetup(seed: true);
+        var request = CreateRequestWithPathParams("movieId", movieId);
 
-        var request = new APIGatewayProxyRequest
+        var function = new GetMovieFunction(_serviceProvider);
+        var response = await function.HandleAsync(request, _context);
+
+        Assert.Equal(expectedStatusCode, response.StatusCode);
+    }
+
+    [Fact]
+    public async Task GetMoviesShouldMatchExpectedResponse()
+    {
+        var request = CreateRequestWithQueryParams(new Dictionary<string, string>
         {
-            QueryStringParameters = new Dictionary<string, string> { { "category", "Action" } }
-        };
+            { "category", "Action" },
+            { "year-min", "1989" }
+        });
 
         var function = new GetMoviesFunction(_serviceProvider);
         var response = await function.HandleAsync(request, _context);
@@ -84,15 +54,123 @@ public class FunctionsTest : IAsyncLifetime
         await Verify(response);
     }
 
-    [Fact]
-    [TestPriority(3)]
-    public async Task CreateMovieTest()
+    [Theory]
+    [InlineData(200, "Action")]
+    [InlineData(200, "Drama")]
+    [InlineData(400, "")]
+    [InlineData(400, null)]
+    public async Task GetMoviesStatusCodeTheory(int expectedStatusCode, string category)
     {
-        DynamoDbSetup(seed: false);
+        var request = CreateRequestWithQueryParams("category", category);
 
+        var function = new GetMoviesFunction(_serviceProvider);
+        var response = await function.HandleAsync(request, _context);
+
+        Assert.Equal(expectedStatusCode, response.StatusCode);
+    }
+
+    [Fact]
+    public async Task GetMovieCharactersShouldMatchExpectedResponse()
+    {
+        var request = CreateRequestWithPathParams("movieId", "DieHard");
+
+        var function = new GetMovieCharactersFunction(_serviceProvider);
+        var response = await function.HandleAsync(request, _context);
+
+        await Verify(response);
+    }
+
+    [Theory]
+    [InlineData(200, "DieHard")]
+    [InlineData(400, "DieHard@#$£!")]
+    public async Task GetMovieCharactersStatusCodeTheory(int expectedStatusCode, string movieId)
+    {
+        var request = CreateRequestWithPathParams("movieId", movieId);
+
+        var function = new GetMovieCharactersFunction(_serviceProvider);
+        var response = await function.HandleAsync(request, _context);
+
+        Assert.Equal(expectedStatusCode, response.StatusCode);
+    }
+
+    [Fact]
+    public async Task GetMovieDirectorsShouldMatchExpectedResponse()
+    {
+        var request = CreateRequestWithPathParams("movieId", "DieHard");
+
+        var function = new GetMovieDirectorsFunction(_serviceProvider);
+        var response = await function.HandleAsync(request, _context);
+
+        await Verify(response);
+    }
+
+    [Theory]
+    [InlineData(200, "DieHard")]
+    [InlineData(400, "DieHard@#$£!")]
+    public async Task GetMovieDirectorsStatusCodeTheory(int expectedStatusCode, string movieId)
+    {
+        var request = CreateRequestWithPathParams("movieId", movieId);
+
+        var function = new GetMovieDirectorsFunction(_serviceProvider);
+        var response = await function.HandleAsync(request, _context);
+
+        Assert.Equal(expectedStatusCode, response.StatusCode);
+    }
+
+    [Fact]
+    public async Task GetCharacterMoviesShouldMatchExpectedResponse()
+    {
+        var request = CreateRequestWithPathParams("characterId", "JohnMcClane");
+
+        var function = new GetCharacterMoviesFunction(_serviceProvider);
+        var response = await function.HandleAsync(request, _context);
+
+        await Verify(response);
+    }
+
+    [Theory]
+    [InlineData(200, "JohnMcClane")]
+    [InlineData(400, "JohnMcClane@#$£!")]
+    public async Task GetCharacterMoviesStatusCodeTheory(int expectedStatusCode, string characterId)
+    {
+        var request = CreateRequestWithPathParams("characterId", characterId);
+
+        var function = new GetCharacterMoviesFunction(_serviceProvider);
+        var response = await function.HandleAsync(request, _context);
+
+        Assert.Equal(expectedStatusCode, response.StatusCode);
+    }
+
+    [Fact]
+    public async Task GetDirectorMoviesShouldMatchExpectedResponse()
+    {
+        var request = CreateRequestWithPathParams("directorId", "RennyHarlin");
+
+        var function = new GetDirectorMoviesFunction(_serviceProvider);
+        var response = await function.HandleAsync(request, _context);
+
+        await Verify(response);
+    }
+
+    [Theory]
+    [InlineData(200, "RennyHarlin")]
+    [InlineData(400, "RennyHarlin@#$£!")]
+    public async Task GetDirectorMoviesStatusCodeTheory(int expectedStatusCode, string directorId)
+    {
+        var request = CreateRequestWithPathParams("directorId", directorId);
+
+        var function = new GetDirectorMoviesFunction(_serviceProvider);
+        var response = await function.HandleAsync(request, _context);
+
+        Assert.Equal(expectedStatusCode, response.StatusCode);
+    }
+
+    [Fact]
+    public async Task CreateMovieShouldMatchExpectedResponse()
+    {
         var request = new APIGatewayProxyRequest
         {
-            Body = "{\"MovieId\": \"DieHard3\", \"Title\": \"Die Hard 3\", \"Year\": 2022, \"Category\": \"Action\", \"Budget\": \"Unlimited\", \"BoxOffice\": \"N/A\"}"
+            Body = "{\"movieId\": \"DieHard7\", \"title\": \"Die Hard 7\", \"year\": 2035, \"category\": \"Action\", \"budget\": \"Unlimited\", \"boxOffice\": \"N/A\"}"
         };
 
         var function = new CreateMovieFunction(_serviceProvider);
@@ -101,16 +179,26 @@ public class FunctionsTest : IAsyncLifetime
         await Verify(response);
     }
 
-    [Fact]
-    [TestPriority(4)]
-    public async Task UpdateMovieTest()
+    [Theory]
+    [InlineData(400, "{\"movieId\": \"DieHard@#$£!\"}")]
+    [InlineData(500, "{\"invalid_json\"")]
+    public async Task CreateMovieStatusCodeTheory(int expectedStatusCode, string body)
     {
-        DynamoDbSetup(seed: true);
+        var request = new APIGatewayProxyRequest { Body = body };
 
+        var function = new CreateMovieFunction(_serviceProvider);
+        var response = await function.HandleAsync(request, _context);
+
+        Assert.Equal(expectedStatusCode, response.StatusCode);
+    }
+
+    [Fact]
+    public async Task UpdateMovieShouldMatchExpectedResponse()
+    {
         var request = new APIGatewayProxyRequest
         {
-            PathParameters = new Dictionary<string, string> { { "movieId", "DieHard" } },
-            Body = "{\"MovieId\": \"DieHard\", \"Title\": \"Die Hard\", \"Year\": 2022, \"Category\": \"Action\", \"Budget\": \"Unlimited\", \"BoxOffice\": \"N/A\"}"
+            PathParameters = new Dictionary<string, string> { { "movieId", "DieHard8" } },
+            Body = "{\"movieId\": \"DieHard8\", \"title\": \"Die Hard 8\", \"year\": 2035, \"category\": \"Action\", \"budget\": \"Unlimited\", \"boxOffice\": \"N/A\"}"
         };
 
         var function = new UpdateMovieFunction(_serviceProvider);
@@ -119,16 +207,34 @@ public class FunctionsTest : IAsyncLifetime
         await Verify(response);
     }
 
-    [Fact]
-    [TestPriority(5)]
-    public async Task DeleteMovieTest()
+    [Theory]
+    [InlineData(400, "DieHard1", "{\"movieId\": \"DieHard2\"}")]
+    [InlineData(400, "DieHard@#$£!", "{\"movieId\": \"DieHard@#$£!\"}")]
+    [InlineData(500, "", "{\"invalid_json\"")]
+    public async Task UpdateMovieStatusCodeTheory(int expectedStatusCode, string movieId, string body)
     {
-        DynamoDbSetup(seed: true);
-
         var request = new APIGatewayProxyRequest
         {
-            PathParameters = new Dictionary<string, string> { { "movieId", "DieHard" } }
+            PathParameters = new Dictionary<string, string> { { "movieId", movieId } },
+            Body = body
         };
+
+        var function = new UpdateMovieFunction(_serviceProvider);
+        var response = await function.HandleAsync(request, _context);
+
+        Assert.Equal(expectedStatusCode, response.StatusCode);
+    }
+
+    [Fact]
+    public async Task DeleteMovieShouldMatchExpectedResponse()
+    {
+        await new CreateMovieFunction(_serviceProvider).HandleAsync(
+            new APIGatewayProxyRequest
+            {
+                Body = "{\"movieId\": \"DieHard9\", \"title\": \"Die Hard 9\", \"year\": 2035, \"category\": \"Action\", \"budget\": \"Unlimited\", \"boxOffice\": \"N/A\"}"
+            }, _context);
+
+        var request = CreateRequestWithPathParams("movieId", "DieHard9");
 
         var function = new DeleteMovieFunction(_serviceProvider);
         var response = await function.HandleAsync(request, _context);
@@ -136,95 +242,16 @@ public class FunctionsTest : IAsyncLifetime
         await Verify(response);
     }
 
-    [Fact]
-    [TestPriority(6)]
-    public async Task GetMovieCharactersTest()
+    [Theory]
+    [InlineData(404, "DieHard999")]
+    [InlineData(400, "DieHard@#$£!")]
+    public async Task DeleteMovieStatusCodeTheory(int expectedStatusCode, string movieId)
     {
-        DynamoDbSetup(seed: true);
+        var request = CreateRequestWithPathParams("movieId", movieId);
 
-        var request = new APIGatewayProxyRequest
-        {
-            PathParameters = new Dictionary<string, string> { { "movieId", "DieHard" } }
-        };
-
-        var function = new GetMovieCharactersFunction(_serviceProvider);
+        var function = new DeleteMovieFunction(_serviceProvider);
         var response = await function.HandleAsync(request, _context);
 
-        await Verify(response);
-    }
-
-    [Fact]
-    [TestPriority(7)]
-    public async Task GetMovieDirectorsTest()
-    {
-        DynamoDbSetup(seed: true);
-
-        var request = new APIGatewayProxyRequest
-        {
-            PathParameters = new Dictionary<string, string> { { "movieId", "DieHard" } }
-        };
-
-        var function = new GetMovieDirectorsFunction(_serviceProvider);
-        var response = await function.HandleAsync(request, _context);
-
-        await Verify(response);
-    }
-
-    [Fact]
-    [TestPriority(8)]
-    public async Task GetCharacterMoviesTest()
-    {
-        DynamoDbSetup(seed: true);
-
-        var request = new APIGatewayProxyRequest
-        {
-            PathParameters = new Dictionary<string, string> { { "characterId", "JohnMcClane" } }
-        };
-
-        var function = new GetCharacterMoviesFunction(_serviceProvider);
-        var response = await function.HandleAsync(request, _context);
-
-        await Verify(response);
-    }
-
-    [Fact]
-    [TestPriority(9)]
-    public async Task GetDirectorMoviesTest()
-    {
-        DynamoDbSetup(seed: true);
-
-        var request = new APIGatewayProxyRequest
-        {
-            PathParameters = new Dictionary<string, string> { { "directorId", "RennyHarlin" } }
-        };
-
-        var function = new GetDirectorMoviesFunction(_serviceProvider);
-        var response = await function.HandleAsync(request, _context);
-
-        await Verify(response);
-    }
-
-    public Task InitializeAsync()
-    {
-        return _dynamoDbLocal.StartAsync();
-    }
-
-    public Task DisposeAsync()
-    {
-        return this._dynamoDbLocal.DisposeAsync().AsTask();
-    }
-
-    private void DynamoDbSetup(bool seed = true)
-    {
-        var cd = Directory.GetCurrentDirectory();
-        var wd = Path.Combine(cd.Substring(0, cd.IndexOf("test/MovieApi.Tests")), "src/MovieApi");
-        var b = new Bash(wd);
-
-        b.Run("npm run migrate", s => _output.WriteLine(s));
-
-        if (seed)
-        {
-            b.Run("npm run seed:local", s => _output.WriteLine(s));
-        }
+        Assert.Equal(expectedStatusCode, response.StatusCode);
     }
 }

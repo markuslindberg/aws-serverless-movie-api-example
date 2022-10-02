@@ -5,8 +5,7 @@
   "license": "MIT",
   "scripts": {
     "build": "dotnet build src/MovieApi/MovieApi.csproj",
-    "test": "dotnet test test/MovieApi.Tests/MovieApi.Tests.csproj",
-    "test-tool": "cd src/MovieApi && dotnet lambda-test-tool-6.0",
+    "test": "cd test/MovieApi.Tests && dotnet test --collect:\"XPlat Code Coverage\" --settings coverlet.runsettings",
     "package": "cd src/MovieApi && dotnet lambda package --configuration Release --framework net6.0 --output-package bin/Release/net6.0/MovieApi.zip",
     "migrate": "cd src/MovieApi && sls dynamodb migrate",
     "seed:local": "cd src/MovieApi && sls dynamodb seed",

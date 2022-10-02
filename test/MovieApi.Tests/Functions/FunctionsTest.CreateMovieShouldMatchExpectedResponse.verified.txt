@@ -1,0 +1,5 @@
+﻿{
+  statusCode: 200,
+  body: {"movieId":"DieHard7","title":"Die Hard 7","year":2035,"category":"Action","budget":"Unlimited","boxOffice":"N/A"},
+  isBase64Encoded: false
+}

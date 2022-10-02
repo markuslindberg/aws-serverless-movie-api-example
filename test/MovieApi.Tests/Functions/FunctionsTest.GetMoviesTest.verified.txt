@@ -1,5 +1,0 @@
-﻿{
-  statusCode: 500,
-  body: Function failed with exception,
-  isBase64Encoded: false
-}

@@ -1,5 +1,0 @@
-﻿{
-  statusCode: 200,
-  body: {"year":0},
-  isBase64Encoded: false
-}

@@ -1,5 +1,0 @@
-﻿{
-  statusCode: 400,
-  body: 'Movie Movie Id' must be equal to 'DieHard'.,
-  isBase64Encoded: false
-}
