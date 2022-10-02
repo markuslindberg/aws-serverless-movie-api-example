@@ -63,7 +63,7 @@ jobs:
           dotnet build test/MovieApi.Tests/MovieApi.Tests.csproj --configuration Release --no-restore
       - name: Test
         working-directory: ./test/MovieApi.Tests/
-        run: dotnet test --no-restore --verbosity normal --collect:\"XPlat Code Coverage\" --settings coverlet.runsettings
+        run: dotnet test --no-restore --verbosity normal --collect:"XPlat Code Coverage" --settings coverlet.runsettings
       - name: Install AWS Lambda Tools
         run: dotnet tool install -g Amazon.Lambda.Tools
       - name: Package
