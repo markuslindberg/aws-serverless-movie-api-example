@@ -3,6 +3,7 @@
 Serverless movie api example using .net 6, AWS Lambda, DynamoDB, API Gateway and Serverless Framework.
 
 [![Main Workflow](https://github.com/markuslindberg/serverless-movie-api-example/actions/workflows/main.yml/badge.svg)](https://github.com/markuslindberg/serverless-movie-api-example/actions/workflows/main.yml)
+[![codecov](https://codecov.io/gh/markuslindberg/serverless-movie-api-example/branch/main/graph/badge.svg?token=S2668W2KIO)](https://codecov.io/gh/markuslindberg/serverless-movie-api-example)
 
 ## Prerequisites
 
