@@ -1,7 +1,7 @@
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DocumentModel;
 using FluentValidation;
-using MediatR;
+using Mediator;
 using MovieApi.Domain;
 using MovieApi.Requests;
 using MovieApi.Responses;
@@ -19,7 +19,7 @@ public class GetMovieDirectorsRequestHandler : IRequestHandler<GetMovieDirectors
         _validator = validator;
     }
 
-    public async Task<Response<List<Director>>> Handle(GetMovieDirectorsRequest request, CancellationToken cancellationToken)
+    public async ValueTask<Response<List<Director>>> Handle(GetMovieDirectorsRequest request, CancellationToken cancellationToken)
     {
         var result = _validator.Validate(request);
 

@@ -1,7 +1,6 @@
-using System.Diagnostics.CodeAnalysis;
 using Amazon.Lambda.APIGatewayEvents;
 using Amazon.Lambda.Core;
-using MediatR;
+using Mediator;
 using Microsoft.Extensions.DependencyInjection;
 using MovieApi.Extensions;
 using MovieApi.Requests;

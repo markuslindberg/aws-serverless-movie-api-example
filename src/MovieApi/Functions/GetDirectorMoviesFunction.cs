@@ -1,6 +1,6 @@
 using Amazon.Lambda.APIGatewayEvents;
 using Amazon.Lambda.Core;
-using MediatR;
+using Mediator;
 using Microsoft.Extensions.DependencyInjection;
 using MovieApi.Requests;
 

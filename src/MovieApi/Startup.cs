@@ -1,10 +1,8 @@
-using System.Reflection;
 using Amazon;
 using Amazon.DynamoDBv2;
 using Amazon.XRay.Recorder.Core;
 using Amazon.XRay.Recorder.Handlers.AwsSdk;
 using FluentValidation;
-using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MovieApi.Logging;
@@ -38,7 +36,7 @@ public static class Startup
 
         services.AddValidatorsFromAssemblyContaining(typeof(Startup));
 
-        services.AddMediatR(typeof(Startup).GetTypeInfo().Assembly);
+        services.AddMediator();
 
         services.AddSingleton<IAmazonDynamoDB>(CreateAmazonDynamoDBClient());
     }

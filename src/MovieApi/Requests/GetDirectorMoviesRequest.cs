@@ -1,4 +1,4 @@
-using MediatR;
+using Mediator;
 using MovieApi.Responses;
 
 namespace MovieApi.Requests;
