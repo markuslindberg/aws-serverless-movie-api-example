@@ -1,14 +1,14 @@
 {
   "bomFormat": "CycloneDX",
-  "specVersion": "1.3",
-  "serialNumber": "urn:uuid:ec212d9d-8933-4aab-9055-7c5fb4e18bab",
+  "specVersion": "1.4",
+  "serialNumber": "urn:uuid:b975b78a-618d-4a1c-98e7-6353a484729d",
   "version": 1,
   "metadata": {
     "tools": [
       {
         "vendor": "CycloneDX",
         "name": "CycloneDX module for .NET",
-        "version": "2.3.0.0"
+        "version": "2.5.1.0"
       }
     ],
     "component": {
@@ -336,90 +336,68 @@
     },
     {
       "type": "library",
-      "bom-ref": "pkg:nuget/MediatR@10.0.1",
-      "publisher": "Jimmy Bogard",
-      "name": "MediatR",
-      "version": "10.0.1",
-      "description": "Simple, unambitious mediator implementation in .NET",
+      "bom-ref": "pkg:nuget/Mediator.Abstractions@2.0.27-rc",
+      "publisher": "Martin Othamar",
+      "name": "Mediator.Abstractions",
+      "version": "2.0.27-rc",
+      "description": "Abstractions for the Mediator.SourceGenerator package.",
       "scope": "required",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "93DBFF965D0B593FB170F4BEB3AA0B807BF71B47D71DB4D9F7D7040271B27581289557A00B92C754DCB84217A94A255C4952C9BBC2C4EBAEA2B96DCD6807D72B"
+          "content": "29FF67CC9769258AB1D372834C6346BF953F04B46FD10485338BFE93781E4CA0CBEFC59740D4F02AB4D8134B091580CA1935A3C97222674D760EB05D2EA8E68A"
         }
       ],
       "licenses": [
         {
           "license": {
-            "id": "Apache-2.0"
+            "id": "MIT"
           }
         }
       ],
-      "copyright": "Copyright Jimmy Bogard",
-      "purl": "pkg:nuget/MediatR@10.0.1",
+      "copyright": "Copyright 2022 Martin Othamar",
+      "purl": "pkg:nuget/Mediator.Abstractions@2.0.27-rc",
       "externalReferences": [
         {
-          "url": "https://github.com/jbogard/MediatR",
+          "url": "https://github.com/martinothamar/Mediator",
+          "type": "website"
+        },
+        {
+          "url": "https://github.com/martinothamar/Mediator",
           "type": "vcs"
         }
       ]
     },
     {
       "type": "library",
-      "bom-ref": "pkg:nuget/MediatR.Contracts@1.0.1",
-      "publisher": "Jimmy Bogard",
-      "name": "MediatR.Contracts",
-      "version": "1.0.1",
-      "description": "Contracts package for requests, responses, and notifications",
-      "scope": "required",
+      "bom-ref": "pkg:nuget/Mediator.SourceGenerator@2.0.27-rc",
+      "publisher": "Martin Othamar",
+      "name": "Mediator.SourceGenerator",
+      "version": "2.0.27-rc",
+      "description": "A high performance .NET Mediator pattern implemenation using source generation.",
+      "scope": "excluded",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "9D49C49B9C1A78E6F4F270DC4502B0BC64F9BA3525764453999C3C43A69F92658B1F6BBD38590053983D4B73F90CFDC732D5A6516F86A7C5F67545F594164571"
+          "content": "23AFA2AD905B29EFF21F09B5DE60A503D2BC8B59C5DEA552237E37966A671D27A1E61314162BF3CDD2A5EB062D248EB989D3BEEBC5672662AC1BDD7920E70891"
         }
       ],
       "licenses": [
         {
           "license": {
-            "id": "Apache-2.0"
+            "id": "MIT"
           }
         }
       ],
-      "copyright": "Copyright Jimmy Bogard",
-      "purl": "pkg:nuget/MediatR.Contracts@1.0.1",
+      "copyright": "Copyright 2022 Martin Othamar",
+      "purl": "pkg:nuget/Mediator.SourceGenerator@2.0.27-rc",
       "externalReferences": [
         {
-          "url": "https://github.com/jbogard/MediatR.git",
-          "type": "vcs"
-        }
-      ]
-    },
-    {
-      "type": "library",
-      "bom-ref": "pkg:nuget/MediatR.Extensions.Microsoft.DependencyInjection@10.0.1",
-      "publisher": "Jimmy Bogard",
-      "name": "MediatR.Extensions.Microsoft.DependencyInjection",
-      "version": "10.0.1",
-      "description": "MediatR extensions for ASP.NET Core",
-      "scope": "required",
-      "hashes": [
+          "url": "https://github.com/martinothamar/Mediator",
+          "type": "website"
+        },
         {
-          "alg": "SHA-512",
-          "content": "6E6D2791A62C0E37D2139E072259CE3B68E9F46069CA43C0FF720B4AAD2E47FB86C905CF3417BFD71D73A99AAE9CDAC5247966DCA16D44E5CCA2790CD1C954C3"
-        }
-      ],
-      "licenses": [
-        {
-          "license": {
-            "id": "Apache-2.0"
-          }
-        }
-      ],
-      "copyright": "Copyright Jimmy Bogard",
-      "purl": "pkg:nuget/MediatR.Extensions.Microsoft.DependencyInjection@10.0.1",
-      "externalReferences": [
-        {
-          "url": "https://github.com/jbogard/MediatR.Extensions.Microsoft.DependencyInjection",
+          "url": "https://github.com/martinothamar/Mediator",
           "type": "vcs"
         }
       ]
@@ -744,6 +722,36 @@
           "type": "vcs"
         }
       ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:nuget/System.Threading.Tasks.Extensions@4.5.4",
+      "publisher": "Microsoft",
+      "name": "System.Threading.Tasks.Extensions",
+      "version": "4.5.4",
+      "description": "Provides additional types that simplify the work of writing concurrent and asynchronous code.\n\nCommonly Used Types:\nSystem.Threading.Tasks.ValueTask\u003CTResult\u003E\n \n7601f4f6225089ffb291dc7d58293c7bbf5c5d4f",
+      "scope": "required",
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "68052086E77D3C7198737A3DA163D67740B7C44F93250C39659B3BF21B6547A9ABF64CBF40481F5C78F24361AF3AAF47D52D188B371554A0928A7F7665C1FC14"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "url": "https://github.com/dotnet/corefx/blob/master/LICENSE.TXT"
+          }
+        }
+      ],
+      "copyright": "\u00A9 Microsoft Corporation. All rights reserved.",
+      "purl": "pkg:nuget/System.Threading.Tasks.Extensions@4.5.4",
+      "externalReferences": [
+        {
+          "url": "https://dot.net/",
+          "type": "website"
+        }
+      ]
     }
   ],
   "dependencies": [
@@ -751,14 +759,19 @@
       "ref": "MovieApi@0.0.0",
       "dependsOn": [
         "pkg:nuget/Amazon.Lambda.APIGatewayEvents@2.5.0",
+        "pkg:nuget/Amazon.Lambda.Core@2.1.0",
         "pkg:nuget/Amazon.Lambda.Serialization.SystemTextJson@2.3.0",
         "pkg:nuget/AWSSDK.DynamoDBv2@3.7.4",
+        "pkg:nuget/AWSXRayRecorder.Core@2.11.1",
         "pkg:nuget/AWSXRayRecorder.Handlers.AwsSdk@2.9.1",
         "pkg:nuget/AWSXRayRecorder.Handlers.System.Net@2.8.1",
+        "pkg:nuget/FluentValidation@11.2.2",
         "pkg:nuget/FluentValidation.DependencyInjectionExtensions@11.2.2",
-        "pkg:nuget/MediatR.Extensions.Microsoft.DependencyInjection@10.0.1",
+        "pkg:nuget/Mediator.Abstractions@2.0.27-rc",
+        "pkg:nuget/Mediator.SourceGenerator@2.0.27-rc",
         "pkg:nuget/Microsoft.Extensions.DependencyInjection@6.0.0",
         "pkg:nuget/SecurityCodeScan.VS2019@5.6.5",
+        "pkg:nuget/Serilog@2.11.0",
         "pkg:nuget/Serilog.Formatting.Compact@1.1.0",
         "pkg:nuget/Serilog.Sinks.Console@4.0.1",
         "pkg:nuget/SonarAnalyzer.CSharp@8.44.0.52574",
@@ -819,20 +832,17 @@
       "dependsOn": []
     },
     {
-      "ref": "pkg:nuget/MediatR.Contracts@1.0.1",
-      "dependsOn": []
-    },
-    {
-      "ref": "pkg:nuget/MediatR.Extensions.Microsoft.DependencyInjection@10.0.1",
+      "ref": "pkg:nuget/Mediator.Abstractions@2.0.27-rc",
       "dependsOn": [
-        "pkg:nuget/MediatR@10.0.1",
-        "pkg:nuget/Microsoft.Extensions.DependencyInjection.Abstractions@6.0.0"
+        "pkg:nuget/Microsoft.Extensions.DependencyInjection.Abstractions@6.0.0",
+        "pkg:nuget/System.Threading.Tasks.Extensions@4.5.4"
       ]
     },
     {
-      "ref": "pkg:nuget/MediatR@10.0.1",
+      "ref": "pkg:nuget/Mediator.SourceGenerator@2.0.27-rc",
       "dependsOn": [
-        "pkg:nuget/MediatR.Contracts@1.0.1"
+        "pkg:nuget/Microsoft.Extensions.DependencyInjection@6.0.0",
+        "pkg:nuget/Microsoft.Extensions.DependencyInjection.Abstractions@6.0.0"
       ]
     },
     {
@@ -882,6 +892,10 @@
     },
     {
       "ref": "pkg:nuget/System.Runtime.CompilerServices.Unsafe@6.0.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "pkg:nuget/System.Threading.Tasks.Extensions@4.5.4",
       "dependsOn": []
     }
   ]
