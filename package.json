@@ -14,7 +14,7 @@
     "remove": "cd src/MovieApi && sls remove"
   },
   "devDependencies": {
-    "serverless": "^3.22.0",
-    "serverless-dynamodb-local": "^1.0.2"
+    "serverless": "^3.24.1",
+    "serverless-dynamodb-local": "^0.2.40"
   }
 }
