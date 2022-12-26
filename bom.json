@@ -1,14 +1,14 @@
 {
   "bomFormat": "CycloneDX",
   "specVersion": "1.4",
-  "serialNumber": "urn:uuid:f0866329-ac31-4309-9479-fd25e9ce54af",
+  "serialNumber": "urn:uuid:e0626a5a-c8f1-4803-9e5d-31819800cfe7",
   "version": 1,
   "metadata": {
     "tools": [
       {
         "vendor": "CycloneDX",
         "name": "CycloneDX module for .NET",
-        "version": "2.5.1.0"
+        "version": "2.7.0.0"
       }
     ],
     "component": {
@@ -36,7 +36,8 @@
       "licenses": [
         {
           "license": {
-            "url": "http://aws.amazon.com/apache2.0/"
+            "id": "Apache-2.0",
+            "url": "https://github.com/aws/aws-lambda-dotnet/blob/master/LICENSE"
           }
         }
       ],
@@ -60,13 +61,6 @@
         {
           "alg": "SHA-512",
           "content": "D03F7372F99D3F45C4E82538339216739A06202BE9CDCB400719C85C511C7D03E0044C46C29602EDFE65D8C31DE5B97EA2253CEB2E6AFEB009B496904A86AC7F"
-        }
-      ],
-      "licenses": [
-        {
-          "license": {
-            "url": "http://aws.amazon.com/apache2.0/"
-          }
         }
       ],
       "purl": "pkg:nuget/Amazon.Lambda.Core@2.1.0",
@@ -94,7 +88,8 @@
       "licenses": [
         {
           "license": {
-            "url": "http://aws.amazon.com/apache2.0/"
+            "id": "Apache-2.0",
+            "url": "https://github.com/aws/aws-lambda-dotnet/blob/master/LICENSE"
           }
         }
       ],
@@ -123,7 +118,8 @@
       "licenses": [
         {
           "license": {
-            "url": "http://aws.amazon.com/apache2.0/"
+            "id": "Apache-2.0",
+            "url": "https://github.com/aws/aws-lambda-dotnet/blob/master/LICENSE"
           }
         }
       ],
@@ -152,7 +148,8 @@
       "licenses": [
         {
           "license": {
-            "url": "http://aws.amazon.com/apache2.0/"
+            "id": "Apache-2.0",
+            "url": "https://github.com/aws/aws-sdk-net/blob/master/License.txt"
           }
         }
       ],
@@ -181,7 +178,8 @@
       "licenses": [
         {
           "license": {
-            "url": "http://aws.amazon.com/apache2.0/"
+            "id": "Apache-2.0",
+            "url": "https://github.com/aws/aws-sdk-net/blob/master/License.txt"
           }
         }
       ],
@@ -210,7 +208,8 @@
       "licenses": [
         {
           "license": {
-            "url": "http://aws.amazon.com/apache2.0/"
+            "id": "Apache-2.0",
+            "url": "https://github.com/aws/aws-xray-sdk-dotnet/blob/master/LICENSE"
           }
         }
       ],
@@ -244,7 +243,8 @@
       "licenses": [
         {
           "license": {
-            "url": "http://aws.amazon.com/apache2.0/"
+            "id": "Apache-2.0",
+            "url": "https://github.com/aws/aws-xray-sdk-dotnet/blob/master/LICENSE"
           }
         }
       ],
@@ -278,7 +278,8 @@
       "licenses": [
         {
           "license": {
-            "url": "http://aws.amazon.com/apache2.0/"
+            "id": "Apache-2.0",
+            "url": "https://github.com/aws/aws-xray-sdk-dotnet/blob/master/LICENSE"
           }
         }
       ],
@@ -734,13 +735,6 @@
         {
           "alg": "SHA-512",
           "content": "68052086E77D3C7198737A3DA163D67740B7C44F93250C39659B3BF21B6547A9ABF64CBF40481F5C78F24361AF3AAF47D52D188B371554A0928A7F7665C1FC14"
-        }
-      ],
-      "licenses": [
-        {
-          "license": {
-            "url": "https://github.com/dotnet/corefx/blob/master/LICENSE.TXT"
-          }
         }
       ],
       "copyright": "\u00A9 Microsoft Corporation. All rights reserved.",
