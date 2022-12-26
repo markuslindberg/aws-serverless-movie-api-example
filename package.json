@@ -16,5 +16,8 @@
   "devDependencies": {
     "serverless": "^3.24.1",
     "serverless-dynamodb-local": "^0.2.40"
+  },
+  "dependencies": {
+    "simple-git": "^3.15.1"
   }
 }
