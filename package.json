@@ -7,10 +7,9 @@
     "build": "dotnet build src/MovieApi/MovieApi.csproj",
     "test": "cd test/MovieApi.Tests && dotnet test --collect:\"XPlat Code Coverage\" --settings coverlet.runsettings",
     "package": "cd src/MovieApi && dotnet lambda package --configuration Release --framework net6.0 --output-package bin/Release/net6.0/MovieApi.zip",
-    "deploy": "sls deploy",
-    "deploy:infra:dev": "sls deploy --service Infrastructure",
+    "deploy:dev": "sls deploy",
     "deploy:prod": "sls deploy --stage prod",
-    "remove": "sls remove",
+    "remove.dev": "sls remove",
     "remove:prod": "sls remove --stage prod"
   },
   "devDependencies": {

@@ -67,7 +67,7 @@ jobs:
         run: dotnet lambda package --configuration Release --framework net6.0 --output-package bin/Release/net6.0/MovieApi.zip
 
       - name: Deploy Test Infrastructure
-        run: npm run deploy:infra:dev
+        run: npm run deploy:dev
 
       - name: Run Integration Tests
         working-directory: ./test/MovieApi.Tests/
