@@ -28,7 +28,8 @@ public class GetMovieCharactersRequestHandler : IRequestHandler<GetMovieCharacte
             return new Response<List<Character>>(400, result.ToString());
         }
 
-        var table = Table.LoadTable(_dynamoDbClient, new TableConfig("MoviesTable"));
+        var tableName = Environment.GetEnvironmentVariable("TABLE_NAME") ?? "MoviesTable-dev";
+        var table = Table.LoadTable(_dynamoDbClient, new TableConfig(tableName));
         var filter = new QueryFilter("sk", QueryOperator.BeginsWith, "CHARACTER#");
         var search = table.Query($"MOVIE#{request.MovieId}", filter);
         var docs = await search.GetNextSetAsync();

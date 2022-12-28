@@ -7,14 +7,13 @@
     "build": "dotnet build src/MovieApi/MovieApi.csproj",
     "test": "cd test/MovieApi.Tests && dotnet test --collect:\"XPlat Code Coverage\" --settings coverlet.runsettings",
     "package": "cd src/MovieApi && dotnet lambda package --configuration Release --framework net6.0 --output-package bin/Release/net6.0/MovieApi.zip",
-    "migrate": "cd src/MovieApi && sls dynamodb migrate",
-    "seed:local": "cd src/MovieApi && sls dynamodb seed",
-    "seed:cloud": "cd src/MovieApi && sls dynamodb seed --online --region eu-north-1",
-    "deploy": "cd src/MovieApi && sls deploy",
-    "remove": "cd src/MovieApi && sls remove"
+    "deploy": "sls deploy",
+    "deploy:prod": "sls deploy --stage prod",
+    "remove": "sls remove",
+    "remove:prod": "sls remove --stage prod"
   },
   "devDependencies": {
-    "serverless": "^3.26.0",
-    "serverless-dynamodb-local": "^0.2.40"
+    "@serverless/compose": "^1.3.0",
+    "serverless": "^3.26.0"
   }
 }

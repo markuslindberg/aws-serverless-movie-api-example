@@ -29,7 +29,8 @@ public class DeleteMovieRequestHandler : IRequestHandler<DeleteMovieRequest, Res
         }
 
         var key = $"MOVIE#{request.MovieId}";
-        var table = Table.LoadTable(_dynamoDbClient, new TableConfig("MoviesTable"));
+        var tableName = Environment.GetEnvironmentVariable("TABLE_NAME") ?? "MoviesTable-dev";
+        var table = Table.LoadTable(_dynamoDbClient, new TableConfig(tableName));
         var d = await table.DeleteItemAsync(key, key, new DeleteItemOperationConfig
         {
             ReturnValues = ReturnValues.AllOldAttributes

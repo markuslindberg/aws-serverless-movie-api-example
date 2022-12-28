@@ -29,7 +29,8 @@ public class GetMovieRequestHandler : IRequestHandler<GetMovieRequest, Response<
         }
 
         var key = $"MOVIE#{request.MovieId}";
-        var table = Table.LoadTable(_dynamoDbClient, new TableConfig("MoviesTable"));
+        var tableName = Environment.GetEnvironmentVariable("TABLE_NAME") ?? "MoviesTable-dev";
+        var table = Table.LoadTable(_dynamoDbClient, new TableConfig(tableName));
         var d = await table.GetItemAsync(key, key);
 
         if (d == null)

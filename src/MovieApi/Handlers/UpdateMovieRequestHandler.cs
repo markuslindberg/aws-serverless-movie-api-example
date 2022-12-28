@@ -42,7 +42,8 @@ public class UpdateMovieRequestHandler : IRequestHandler<UpdateMovieRequest, Res
         d["gsi2pk"] = movie.Category;
         d["gsi2sk"] = movie.Year.ToString();
 
-        var table = Table.LoadTable(_dynamoDbClient, new TableConfig("MoviesTable"));
+        var tableName = Environment.GetEnvironmentVariable("TABLE_NAME") ?? "MoviesTable-dev";
+        var table = Table.LoadTable(_dynamoDbClient, new TableConfig(tableName));
         await table.UpdateItemAsync(d, new UpdateItemOperationConfig
         {
             ReturnValues = ReturnValues.AllNewAttributes

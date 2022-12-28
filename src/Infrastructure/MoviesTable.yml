@@ -2,7 +2,7 @@ Resources:
   MoviesTable:
     Type: AWS::DynamoDB::Table
     Properties:
-      TableName: MoviesTable
+      TableName: MoviesTable-${sls:stage}
       BillingMode: PAY_PER_REQUEST
       KeySchema:
         - AttributeName: pk

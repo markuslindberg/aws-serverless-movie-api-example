@@ -1,0 +1,302 @@
+[
+  {
+    "PutRequest": {
+      "Item": {
+        "type": {
+          "S": "movie"
+        },
+        "pk": {
+          "S": "MOVIE#DieHard"
+        },
+        "sk": {
+          "S": "MOVIE#DieHard"
+        },
+        "movieId": {
+          "S": "DieHard"
+        },
+        "title": {
+          "S": "Die Hard"
+        },
+        "year": {
+          "N": "1988"
+        },
+        "budget": {
+          "S": "25-35MM"
+        },
+        "boxOffice": {
+          "S": "140MM"
+        },
+        "category": {
+          "S": "Action"
+        },
+        "gsi2pk": {
+          "S": "Action"
+        },
+        "gsi2sk": {
+          "S": "1988"
+        }
+      }
+    }
+  },
+  {
+    "PutRequest": {
+      "Item": {
+        "type": {
+          "S": "movie"
+        },
+        "pk": {
+          "S": "MOVIE#DieHard2"
+        },
+        "sk": {
+          "S": "MOVIE#DieHard2"
+        },
+        "movieId": {
+          "S": "DieHard2"
+        },
+        "title": {
+          "S": "Die Hard 2"
+        },
+        "year": {
+          "N": "1990"
+        },
+        "budget": {
+          "S": "62-70MM"
+        },
+        "boxOffice": {
+          "S": "240MM"
+        },
+        "category": {
+          "S": "Action"
+        },
+        "gsi2pk": {
+          "S": "Action"
+        },
+        "gsi2sk": {
+          "S": "1990"
+        }
+      }
+    }
+  },
+  {
+    "PutRequest": {
+      "Item": {
+        "type": {
+          "S": "director"
+        },
+        "pk": {
+          "S": "MOVIE#DieHard"
+        },
+        "sk": {
+          "S": "DIRECTOR#JohnMcTiernan"
+        },
+        "movieId": {
+          "S": "DieHard"
+        },
+        "directorId": {
+          "S": "JohnMcTiernan"
+        },
+        "name": {
+          "S": "John McTiernan"
+        },
+        "gsi1pk": {
+          "S": "DIRECTOR#JohnMcTiernan"
+        },
+        "gsi1sk": {
+          "S": "MOVIE#DieHard"
+        }
+      }
+    }
+  },
+  {
+    "PutRequest": {
+      "Item": {
+        "type": {
+          "S": "director"
+        },
+        "pk": {
+          "S": "MOVIE#DieHard2"
+        },
+        "sk": {
+          "S": "DIRECTOR#RennyHarlin"
+        },
+        "movieId": {
+          "S": "DieHard2"
+        },
+        "directorId": {
+          "S": "RennyHarlin"
+        },
+        "name": {
+          "S": "Renny Harlin"
+        },
+        "gsi1pk": {
+          "S": "DIRECTOR#RennyHarlin"
+        },
+        "gsi1sk": {
+          "S": "MOVIE#DieHard2"
+        }
+      }
+    }
+  },
+  {
+    "PutRequest": {
+      "Item": {
+        "type": {
+          "S": "character"
+        },
+        "pk": {
+          "S": "MOVIE#DieHard"
+        },
+        "sk": {
+          "S": "CHARACTER#JohnMcClane"
+        },
+        "movieId": {
+          "S": "DieHard"
+        },
+        "characterId": {
+          "S": "JohnMcClane"
+        },
+        "role": {
+          "S": "protagonist"
+        },
+        "playedBy": {
+          "S": "Bruce Willis"
+        },
+        "name": {
+          "S": "John McClane"
+        },
+        "nationality": {
+          "S": "Irish-American"
+        },
+        "gsi1pk": {
+          "S": "CHARACTER#JohnMcClane"
+        },
+        "gsi1sk": {
+          "S": "MOVIE#DieHard"
+        }
+      }
+    }
+  },
+  {
+    "PutRequest": {
+      "Item": {
+        "type": {
+          "S": "character"
+        },
+        "pk": {
+          "S": "MOVIE#DieHard"
+        },
+        "sk": {
+          "S": "CHARACTER#HansGruber"
+        },
+        "movieId": {
+          "S": "DieHard"
+        },
+        "characterId": {
+          "S": "HansGruber"
+        },
+        "role": {
+          "S": "antagonist"
+        },
+        "playedBy": {
+          "S": "Alan Rickman"
+        },
+        "name": {
+          "S": "Hans Gruber"
+        },
+        "alias": {
+          "S": "Bill Clay"
+        },
+        "nationality": {
+          "S": "German"
+        },
+        "gsi1pk": {
+          "S": "CHARACTER#HansGruber"
+        },
+        "gsi1sk": {
+          "S": "MOVIE#DieHard"
+        }
+      }
+    }
+  },
+  {
+    "PutRequest": {
+      "Item": {
+        "type": {
+          "S": "character"
+        },
+        "pk": {
+          "S": "MOVIE#DieHard2"
+        },
+        "sk": {
+          "S": "CHARACTER#JohnMcClane"
+        },
+        "movieId": {
+          "S": "DieHard2"
+        },
+        "characterId": {
+          "S": "JohnMcClane"
+        },
+        "role": {
+          "S": "protagonist"
+        },
+        "playedBy": {
+          "S": "Bruce Willis"
+        },
+        "name": {
+          "S": "John McClane"
+        },
+        "nationality": {
+          "S": "Irish-American"
+        },
+        "gsi1pk": {
+          "S": "CHARACTER#JohnMcClane"
+        },
+        "gsi1sk": {
+          "S": "MOVIE#DieHard2"
+        }
+      }
+    }
+  },
+  {
+    "PutRequest": {
+      "Item": {
+        "type": {
+          "S": "character"
+        },
+        "pk": {
+          "S": "MOVIE#DieHard2"
+        },
+        "sk": {
+          "S": "CHARACTER#WilliamStuart"
+        },
+        "movieId": {
+          "S": "DieHard2"
+        },
+        "characterId": {
+          "S": "WilliamStuart"
+        },
+        "role": {
+          "S": "antagonist"
+        },
+        "playedBy": {
+          "S": "William Sadler"
+        },
+        "name": {
+          "S": "William Stuart"
+        },
+        "alias": {
+          "S": "Colonel Stuart"
+        },
+        "nationality": {
+          "S": "American"
+        },
+        "gsi1pk": {
+          "S": "CHARACTER#WilliamStuart"
+        },
+        "gsi1sk": {
+          "S": "MOVIE#DieHard2"
+        }
+      }
+    }
+  }
+]

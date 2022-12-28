@@ -40,7 +40,8 @@ public class GetMoviesRequestHandler : IRequestHandler<GetMoviesRequest, Respons
             Filter = filter
         };
 
-        var table = Table.LoadTable(_dynamoDbClient, new TableConfig("MoviesTable"));
+        var tableName = Environment.GetEnvironmentVariable("TABLE_NAME") ?? "MoviesTable-dev";
+        var table = Table.LoadTable(_dynamoDbClient, new TableConfig(tableName));
         var search = table.Query(query);
         var docs = await search.GetNextSetAsync();
 

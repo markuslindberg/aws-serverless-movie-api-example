@@ -1,0 +1,10 @@
+services:
+  Infrastructure:
+    path: src/Infrastructure
+
+  Application:
+    dependsOn: Infrastructure
+    path: src/MovieApi
+    params:
+      tableName: ${Infrastructure.TableName}
+      tableArn: ${Infrastructure.TableArn}
