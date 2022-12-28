@@ -1,7 +1,7 @@
 {
   "bomFormat": "CycloneDX",
   "specVersion": "1.4",
-  "serialNumber": "urn:uuid:28b7bff3-424c-4171-8f57-654acd4b7c51",
+  "serialNumber": "urn:uuid:73f8b638-6eb7-4e00-91fc-ca09546ac2f4",
   "version": 1,
   "metadata": {
     "tools": [
@@ -133,16 +133,16 @@
     },
     {
       "type": "library",
-      "bom-ref": "pkg:nuget/AWSSDK.Core@3.7.100.21",
+      "bom-ref": "pkg:nuget/AWSSDK.Core@3.7.103.6",
       "publisher": "Amazon Web Services",
       "name": "AWSSDK.Core",
-      "version": "3.7.100.21",
+      "version": "3.7.103.6",
       "description": "The Amazon Web Services SDK for .NET - Core Runtime",
       "scope": "required",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "2FF7D39CC84DCA39A03F0BDE0706DF19835DF65BCC30899ED59500D122C1558BEF5BFE3F72EC8C91E11219EA0BEAB5478DB6F5FEB38E1BB31854B1EC0DC95B47"
+          "content": "48F1081809100D6E908E1D0DCED4A7B4E9869C5B94623C00989EAAD8801DA60B56EB13C750C9662CD8E12B733F6F48F368942A17D81439EAE32A83A829ACB0AD"
         }
       ],
       "licenses": [
@@ -153,7 +153,7 @@
           }
         }
       ],
-      "purl": "pkg:nuget/AWSSDK.Core@3.7.100.21",
+      "purl": "pkg:nuget/AWSSDK.Core@3.7.103.6",
       "externalReferences": [
         {
           "url": "https://github.com/aws/aws-sdk-net/",
@@ -163,16 +163,16 @@
     },
     {
       "type": "library",
-      "bom-ref": "pkg:nuget/AWSSDK.DynamoDBv2@3.7.100.21",
+      "bom-ref": "pkg:nuget/AWSSDK.DynamoDBv2@3.7.101.14",
       "publisher": "Amazon Web Services",
       "name": "AWSSDK.DynamoDBv2",
-      "version": "3.7.100.21",
+      "version": "3.7.101.14",
       "description": "Amazon DynamoDB is a fast and flexible NoSQL database service for all applications that need consistent, single-digit millisecond latency at any scale.",
       "scope": "required",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "827CB2FD99EF1A980DDF651071C9791D313529D4AFAEC248D4702A76F22C5CC3634066490292307DE6F9B066486062707B4A3CAE03558BE1E8B5C98031602276"
+          "content": "8767DD2787E773955233EDED9C27060BC1D645052C9DB4E0BEBF8BE9B61BDB29E083008AF93F72F72EBE82D8A9C229A61A2C98D32E9FE6A157921AD286CAD676"
         }
       ],
       "licenses": [
@@ -183,7 +183,7 @@
           }
         }
       ],
-      "purl": "pkg:nuget/AWSSDK.DynamoDBv2@3.7.100.21",
+      "purl": "pkg:nuget/AWSSDK.DynamoDBv2@3.7.101.14",
       "externalReferences": [
         {
           "url": "https://github.com/aws/aws-sdk-net/",
@@ -298,16 +298,16 @@
     },
     {
       "type": "library",
-      "bom-ref": "pkg:nuget/FluentValidation@11.3.0",
+      "bom-ref": "pkg:nuget/FluentValidation@11.4.0",
       "publisher": "Jeremy Skinner",
       "name": "FluentValidation",
-      "version": "11.3.0",
+      "version": "11.4.0",
       "description": "A validation library for .NET that uses a fluent interface to construct strongly-typed validation rules.",
       "scope": "required",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "041B07BB75B548CB92A7CF89DFE89249AE74BCABED5CB051D50BE0DB81A20DD90F6CB620AEAA9B72B31C3A20F2433F490C4F1A61789262BBF5D8E7490C25F4D6"
+          "content": "AA25729333E073F076DF4495E9A05C73D647CFCEFAC3234D63A7BA18D81A18964437C0C8CBC3CD1EE72B2E13D0C20332F4583749F028731E21860618C2673AEA"
         }
       ],
       "licenses": [
@@ -318,7 +318,7 @@
         }
       ],
       "copyright": "Copyright (c) Jeremy Skinner, .NET Foundation, and contributors 2008-2022",
-      "purl": "pkg:nuget/FluentValidation@11.3.0",
+      "purl": "pkg:nuget/FluentValidation@11.4.0",
       "externalReferences": [
         {
           "url": "https://fluentvalidation.net/",
@@ -332,16 +332,16 @@
     },
     {
       "type": "library",
-      "bom-ref": "pkg:nuget/FluentValidation.DependencyInjectionExtensions@11.3.0",
+      "bom-ref": "pkg:nuget/FluentValidation.DependencyInjectionExtensions@11.4.0",
       "publisher": "Jeremy Skinner",
       "name": "FluentValidation.DependencyInjectionExtensions",
-      "version": "11.3.0",
+      "version": "11.4.0",
       "description": "Dependency injection extensions for FluentValidation",
       "scope": "required",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "BE965DA1A1B071522B41BE3FC769A4ABE1A45CAE53E53867316857761F80339192ED72C8EE3C10BAEBF2876243498977742AEF598115AF485042751B3B9B7F13"
+          "content": "F50A4D6448BA2E7DF8B7409D3D15737F4F748CF56FB74CA68DD318D41CD28F62A1A20A2CECB6AD4AE34ECA0AB9ADC7B7FB1B2F809D80AF021B8AD293059A5BCB"
         }
       ],
       "licenses": [
@@ -352,7 +352,7 @@
         }
       ],
       "copyright": "Copyright (c) Jeremy Skinner, .NET Foundation, and contributors 2008-2022",
-      "purl": "pkg:nuget/FluentValidation.DependencyInjectionExtensions@11.3.0",
+      "purl": "pkg:nuget/FluentValidation.DependencyInjectionExtensions@11.4.0",
       "externalReferences": [
         {
           "url": "https://fluentvalidation.net/",
@@ -366,16 +366,16 @@
     },
     {
       "type": "library",
-      "bom-ref": "pkg:nuget/Mediator.Abstractions@1.0.5",
+      "bom-ref": "pkg:nuget/Mediator.Abstractions@2.0.29",
       "publisher": "Martin Othamar",
       "name": "Mediator.Abstractions",
-      "version": "1.0.5",
+      "version": "2.0.29",
       "description": "Abstractions for the Mediator.SourceGenerator package.",
       "scope": "required",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "853D89D0F7890E025AD5AC5C56E4DB2E18A7EF2F6BFD3E07EA70CCC8A56A3559C11F8128D8D775DFDA1F198B67139416D531F5B52B808A9328D734E4A944494C"
+          "content": "BDE4149B6F011AE311E19775387BCF74E51749649EB8F70929550B1AAF860E9184BEC88D6652B37E69BF5BC8177ADE47F0FA1CAA8954FB6A87C66D2906382C78"
         }
       ],
       "licenses": [
@@ -385,8 +385,8 @@
           }
         }
       ],
-      "copyright": "Copyright 2021 Martin Othamar",
-      "purl": "pkg:nuget/Mediator.Abstractions@1.0.5",
+      "copyright": "Copyright 2022 Martin Othamar",
+      "purl": "pkg:nuget/Mediator.Abstractions@2.0.29",
       "externalReferences": [
         {
           "url": "https://github.com/martinothamar/Mediator",
@@ -400,16 +400,16 @@
     },
     {
       "type": "library",
-      "bom-ref": "pkg:nuget/Mediator.SourceGenerator@1.0.5",
+      "bom-ref": "pkg:nuget/Mediator.SourceGenerator@2.0.29",
       "publisher": "Martin Othamar",
       "name": "Mediator.SourceGenerator",
-      "version": "1.0.5",
+      "version": "2.0.29",
       "description": "A high performance .NET Mediator pattern implemenation using source generation.",
       "scope": "excluded",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "87E8155435396A627C2CFD239B853482F28B40D7D84105895C75C176B80ED950E78D49A18B0ED0C88EF6956027CDDAF05DC64592A4D5DEB3CCF507361C9E5E8B"
+          "content": "1F531DFA6930D527E0E51DD0F7E49AFFBA58A61364ED9E317D91E3A1D53EE4AA77FE46AB216616E8B7E5503AF05569C1681A3865AA9B4C41E829206336526648"
         }
       ],
       "licenses": [
@@ -419,8 +419,8 @@
           }
         }
       ],
-      "copyright": "Copyright 2021 Martin Othamar",
-      "purl": "pkg:nuget/Mediator.SourceGenerator@1.0.5",
+      "copyright": "Copyright 2022 Martin Othamar",
+      "purl": "pkg:nuget/Mediator.SourceGenerator@2.0.29",
       "externalReferences": [
         {
           "url": "https://github.com/martinothamar/Mediator",
@@ -496,40 +496,6 @@
         },
         {
           "url": "https://github.com/dotnet/runtime",
-          "type": "vcs"
-        }
-      ]
-    },
-    {
-      "type": "library",
-      "bom-ref": "pkg:nuget/Scriban@3.7.0",
-      "publisher": "Alexandre Mutel",
-      "name": "Scriban",
-      "version": "3.7.0",
-      "description": "Scriban is a fast, powerful, safe and lightweight scripting language and engine for .NET, which was primarily developed for text templating with a compatibility mode for parsing liquid templates.",
-      "scope": "required",
-      "hashes": [
-        {
-          "alg": "SHA-512",
-          "content": "500CCB7173ADDC34BB7F5C722BC973DDB0C755ED361FB00D35FD174B95D72DA34A4188D93EB0CFD34E6A6A315E1E20E879499D0979DEE4F57D9E080DF23C9583"
-        }
-      ],
-      "licenses": [
-        {
-          "license": {
-            "id": "BSD-2-Clause"
-          }
-        }
-      ],
-      "copyright": "Alexandre Mutel",
-      "purl": "pkg:nuget/Scriban@3.7.0",
-      "externalReferences": [
-        {
-          "url": "https://github.com/lunet-io/scriban",
-          "type": "website"
-        },
-        {
-          "url": "https://github.com/scriban/scriban",
           "type": "vcs"
         }
       ]
@@ -665,16 +631,16 @@
     },
     {
       "type": "library",
-      "bom-ref": "pkg:nuget/SonarAnalyzer.CSharp@8.48.0.56517",
+      "bom-ref": "pkg:nuget/SonarAnalyzer.CSharp@8.51.0.59060",
       "publisher": "SonarSource",
       "name": "SonarAnalyzer.CSharp",
-      "version": "8.48.0.56517",
+      "version": "8.51.0.59060",
       "description": "Roslyn analyzers that spot Bugs, Vulnerabilities and Code Smells in your code. For an even better overall experience, you can use SonarLint for Visual Studio, which is a free extension that can be used standalone or with SonarQube and/or SonarCloud.",
       "scope": "excluded",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "ABCA75B3069DA00AD6690468002862513569FE247978253DE70EE42E4323B9FF647DD82943F5BA746B398683BA54D42A419FE4C97ACE0A7E68C763B53233E850"
+          "content": "44590B96CF3C79B5F09F2888688D7482A446111CAA50E9C57A687EB6B4311A47D32610DB7075534CC375A7C3C828CB55BC006BE7FEDACF7D6A55741D0023CD4B"
         }
       ],
       "licenses": [
@@ -685,11 +651,15 @@
         }
       ],
       "copyright": "Copyright \u00A9 2015-2022 SonarSource SA",
-      "purl": "pkg:nuget/SonarAnalyzer.CSharp@8.48.0.56517",
+      "purl": "pkg:nuget/SonarAnalyzer.CSharp@8.51.0.59060",
       "externalReferences": [
         {
           "url": "https://www.sonarlint.org/visualstudio/",
           "type": "website"
+        },
+        {
+          "url": "https://github.com/SonarSource/sonar-dotnet",
+          "type": "vcs"
         }
       ]
     },
@@ -754,20 +724,20 @@
         "pkg:nuget/Amazon.Lambda.APIGatewayEvents@2.5.0",
         "pkg:nuget/Amazon.Lambda.Core@2.1.0",
         "pkg:nuget/Amazon.Lambda.Serialization.SystemTextJson@2.3.0",
-        "pkg:nuget/AWSSDK.DynamoDBv2@3.7.100.21",
+        "pkg:nuget/AWSSDK.DynamoDBv2@3.7.101.14",
         "pkg:nuget/AWSXRayRecorder.Core@2.13.0",
         "pkg:nuget/AWSXRayRecorder.Handlers.AwsSdk@2.11.0",
         "pkg:nuget/AWSXRayRecorder.Handlers.System.Net@2.10.0",
-        "pkg:nuget/FluentValidation@11.3.0",
-        "pkg:nuget/FluentValidation.DependencyInjectionExtensions@11.3.0",
-        "pkg:nuget/Mediator.Abstractions@1.0.5",
-        "pkg:nuget/Mediator.SourceGenerator@1.0.5",
+        "pkg:nuget/FluentValidation@11.4.0",
+        "pkg:nuget/FluentValidation.DependencyInjectionExtensions@11.4.0",
+        "pkg:nuget/Mediator.Abstractions@2.0.29",
+        "pkg:nuget/Mediator.SourceGenerator@2.0.29",
         "pkg:nuget/Microsoft.Extensions.DependencyInjection@7.0.0",
         "pkg:nuget/SecurityCodeScan.VS2019@5.6.7",
         "pkg:nuget/Serilog@2.12.0",
         "pkg:nuget/Serilog.Formatting.Compact@1.1.0",
         "pkg:nuget/Serilog.Sinks.Console@4.1.0",
-        "pkg:nuget/SonarAnalyzer.CSharp@8.48.0.56517",
+        "pkg:nuget/SonarAnalyzer.CSharp@8.51.0.59060",
         "pkg:nuget/StyleCop.Analyzers@1.1.118"
       ]
     },
@@ -790,19 +760,19 @@
       "dependsOn": []
     },
     {
-      "ref": "pkg:nuget/AWSSDK.Core@3.7.100.21",
+      "ref": "pkg:nuget/AWSSDK.Core@3.7.103.6",
       "dependsOn": []
     },
     {
-      "ref": "pkg:nuget/AWSSDK.DynamoDBv2@3.7.100.21",
+      "ref": "pkg:nuget/AWSSDK.DynamoDBv2@3.7.101.14",
       "dependsOn": [
-        "pkg:nuget/AWSSDK.Core@3.7.100.21"
+        "pkg:nuget/AWSSDK.Core@3.7.103.6"
       ]
     },
     {
       "ref": "pkg:nuget/AWSXRayRecorder.Core@2.13.0",
       "dependsOn": [
-        "pkg:nuget/AWSSDK.Core@3.7.100.21",
+        "pkg:nuget/AWSSDK.Core@3.7.103.6",
         "pkg:nuget/Amazon.Lambda.SQSEvents@2.1.0"
       ]
     },
@@ -819,29 +789,28 @@
       ]
     },
     {
-      "ref": "pkg:nuget/FluentValidation.DependencyInjectionExtensions@11.3.0",
+      "ref": "pkg:nuget/FluentValidation.DependencyInjectionExtensions@11.4.0",
       "dependsOn": [
-        "pkg:nuget/FluentValidation@11.3.0",
+        "pkg:nuget/FluentValidation@11.4.0",
         "pkg:nuget/Microsoft.Extensions.DependencyInjection.Abstractions@7.0.0"
       ]
     },
     {
-      "ref": "pkg:nuget/FluentValidation@11.3.0",
+      "ref": "pkg:nuget/FluentValidation@11.4.0",
       "dependsOn": []
     },
     {
-      "ref": "pkg:nuget/Mediator.Abstractions@1.0.5",
+      "ref": "pkg:nuget/Mediator.Abstractions@2.0.29",
       "dependsOn": [
         "pkg:nuget/Microsoft.Extensions.DependencyInjection.Abstractions@7.0.0",
         "pkg:nuget/System.Threading.Tasks.Extensions@4.5.4"
       ]
     },
     {
-      "ref": "pkg:nuget/Mediator.SourceGenerator@1.0.5",
+      "ref": "pkg:nuget/Mediator.SourceGenerator@2.0.29",
       "dependsOn": [
         "pkg:nuget/Microsoft.Extensions.DependencyInjection@7.0.0",
-        "pkg:nuget/Microsoft.Extensions.DependencyInjection.Abstractions@7.0.0",
-        "pkg:nuget/Scriban@3.7.0"
+        "pkg:nuget/Microsoft.Extensions.DependencyInjection.Abstractions@7.0.0"
       ]
     },
     {
@@ -853,10 +822,6 @@
       "dependsOn": [
         "pkg:nuget/Microsoft.Extensions.DependencyInjection.Abstractions@7.0.0"
       ]
-    },
-    {
-      "ref": "pkg:nuget/Scriban@3.7.0",
-      "dependsOn": []
     },
     {
       "ref": "pkg:nuget/SecurityCodeScan.VS2019@5.6.7",
@@ -879,7 +844,7 @@
       "dependsOn": []
     },
     {
-      "ref": "pkg:nuget/SonarAnalyzer.CSharp@8.48.0.56517",
+      "ref": "pkg:nuget/SonarAnalyzer.CSharp@8.51.0.59060",
       "dependsOn": []
     },
     {
