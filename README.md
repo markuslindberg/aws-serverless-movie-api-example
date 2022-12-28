@@ -9,9 +9,8 @@ Serverless movie api example using .net 6, AWS Lambda, DynamoDB, API Gateway and
 
 * [.NET 6 SDK](https://dotnet.microsoft.com/en-us/download)
 * [AWS Lambda for .NET Core](https://github.com/aws/aws-lambda-dotnet)
-* [Serverless Framework](https://www.serverless.com/)
-* [Docker](https://www.docker.com/products/docker-desktop/) _(Used for testing running DynamoDb)_
-* Amazon.Lambda.Tools
+* [Serverless Framework](https://www.serverless.com)
+* [Amazon.Lambda.Tools](https://github.com/aws/aws-extensions-for-dotnet-cli)
 
 ```
 dotnet tool install -g Amazon.Lambda.Tools
@@ -88,10 +87,9 @@ _API key referenced through AWS Secrets Manager. AWS Lambda Runtime Logs are exc
 * **Code documentation** TODO inline code comments.
 
 ### Testing
-High level unit testing of Lambda functions together with local DynamoDB instance spinning up in Docker using Testcontainers. DynamoDB table created and seeded using serverless framework configuration. Verify is a great library to assert complex test responses and easily setup and modify the expected results using the configured diff tool.
+Testing of Lambda functions and DynamoDB table using xUnit and Verify. Verify is a great library to assert complex test responses and easily setup and modify the expected results using the configured diff tool.
 
 * [xUnit](https://xunit.net/)
-* [Testcontainers](https://www.testcontainers.org/) using the [dotnet library](https://github.com/testcontainers/testcontainers-dotnet)
 * [Verify](https://github.com/VerifyTests/Verify)
 * [Bogus](https://github.com/bchavez/Bogus)
 

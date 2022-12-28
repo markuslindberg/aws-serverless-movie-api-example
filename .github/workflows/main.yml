@@ -67,7 +67,7 @@ jobs:
         run: dotnet lambda package --configuration Release --framework net6.0 --output-package bin/Release/net6.0/MovieApi.zip
 
       - name: Deploy Test Infrastructure
-        run: sls deploy --service Infrastructure --stage dev
+        run: npm run deploy:infra:dev
 
       - name: Run Integration Tests
         working-directory: ./test/MovieApi.Tests/
@@ -76,7 +76,7 @@ jobs:
           dotnet test --no-restore --verbosity normal --collect:"XPlat Code Coverage" --settings coverlet.runsettings
 
       - name: Deploy Prod Services
-        run: sls deploy --stage prod
+        run: npm run deploy:prod
 
       - name: Generate SBOM
         uses: CycloneDX/gh-dotnet-generate-sbom@master
