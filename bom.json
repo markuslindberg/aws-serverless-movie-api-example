@@ -1,7 +1,7 @@
 {
   "bomFormat": "CycloneDX",
   "specVersion": "1.4",
-  "serialNumber": "urn:uuid:73f8b638-6eb7-4e00-91fc-ca09546ac2f4",
+  "serialNumber": "urn:uuid:144e8182-d1aa-42be-8df1-45f336ab5a9e",
   "version": 1,
   "metadata": {
     "tools": [
@@ -133,16 +133,16 @@
     },
     {
       "type": "library",
-      "bom-ref": "pkg:nuget/AWSSDK.Core@3.7.103.6",
+      "bom-ref": "pkg:nuget/AWSSDK.Core@3.7.103.11",
       "publisher": "Amazon Web Services",
       "name": "AWSSDK.Core",
-      "version": "3.7.103.6",
+      "version": "3.7.103.11",
       "description": "The Amazon Web Services SDK for .NET - Core Runtime",
       "scope": "required",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "48F1081809100D6E908E1D0DCED4A7B4E9869C5B94623C00989EAAD8801DA60B56EB13C750C9662CD8E12B733F6F48F368942A17D81439EAE32A83A829ACB0AD"
+          "content": "4153C75444BFDE21C8C172638AB4F3DB8C9F86F26C15B9D26C47C9502BBA505C4C7F4EA7DDFACBC9F04C08921D3BB919562527CD8151FFEEA1E903046A3691E5"
         }
       ],
       "licenses": [
@@ -153,7 +153,7 @@
           }
         }
       ],
-      "purl": "pkg:nuget/AWSSDK.Core@3.7.103.6",
+      "purl": "pkg:nuget/AWSSDK.Core@3.7.103.11",
       "externalReferences": [
         {
           "url": "https://github.com/aws/aws-sdk-net/",
@@ -163,16 +163,16 @@
     },
     {
       "type": "library",
-      "bom-ref": "pkg:nuget/AWSSDK.DynamoDBv2@3.7.101.14",
+      "bom-ref": "pkg:nuget/AWSSDK.DynamoDBv2@3.7.101.19",
       "publisher": "Amazon Web Services",
       "name": "AWSSDK.DynamoDBv2",
-      "version": "3.7.101.14",
+      "version": "3.7.101.19",
       "description": "Amazon DynamoDB is a fast and flexible NoSQL database service for all applications that need consistent, single-digit millisecond latency at any scale.",
       "scope": "required",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "8767DD2787E773955233EDED9C27060BC1D645052C9DB4E0BEBF8BE9B61BDB29E083008AF93F72F72EBE82D8A9C229A61A2C98D32E9FE6A157921AD286CAD676"
+          "content": "EFD2818AA826A43289DE72E153EDFA22D8157757A9DFA4D479060467FB6256EF8036C86C32B07C74A92ED6EC1E81C8BAAA9B8DAACD2159D6DBF0C59EF81B153A"
         }
       ],
       "licenses": [
@@ -183,7 +183,7 @@
           }
         }
       ],
-      "purl": "pkg:nuget/AWSSDK.DynamoDBv2@3.7.101.14",
+      "purl": "pkg:nuget/AWSSDK.DynamoDBv2@3.7.101.19",
       "externalReferences": [
         {
           "url": "https://github.com/aws/aws-sdk-net/",
@@ -724,7 +724,7 @@
         "pkg:nuget/Amazon.Lambda.APIGatewayEvents@2.5.0",
         "pkg:nuget/Amazon.Lambda.Core@2.1.0",
         "pkg:nuget/Amazon.Lambda.Serialization.SystemTextJson@2.3.0",
-        "pkg:nuget/AWSSDK.DynamoDBv2@3.7.101.14",
+        "pkg:nuget/AWSSDK.DynamoDBv2@3.7.101.19",
         "pkg:nuget/AWSXRayRecorder.Core@2.13.0",
         "pkg:nuget/AWSXRayRecorder.Handlers.AwsSdk@2.11.0",
         "pkg:nuget/AWSXRayRecorder.Handlers.System.Net@2.10.0",
@@ -760,19 +760,19 @@
       "dependsOn": []
     },
     {
-      "ref": "pkg:nuget/AWSSDK.Core@3.7.103.6",
+      "ref": "pkg:nuget/AWSSDK.Core@3.7.103.11",
       "dependsOn": []
     },
     {
-      "ref": "pkg:nuget/AWSSDK.DynamoDBv2@3.7.101.14",
+      "ref": "pkg:nuget/AWSSDK.DynamoDBv2@3.7.101.19",
       "dependsOn": [
-        "pkg:nuget/AWSSDK.Core@3.7.103.6"
+        "pkg:nuget/AWSSDK.Core@3.7.103.11"
       ]
     },
     {
       "ref": "pkg:nuget/AWSXRayRecorder.Core@2.13.0",
       "dependsOn": [
-        "pkg:nuget/AWSSDK.Core@3.7.103.6",
+        "pkg:nuget/AWSSDK.Core@3.7.103.11",
         "pkg:nuget/Amazon.Lambda.SQSEvents@2.1.0"
       ]
     },
