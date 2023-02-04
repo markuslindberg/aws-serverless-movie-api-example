@@ -1,7 +1,7 @@
 {
   "bomFormat": "CycloneDX",
   "specVersion": "1.4",
-  "serialNumber": "urn:uuid:144e8182-d1aa-42be-8df1-45f336ab5a9e",
+  "serialNumber": "urn:uuid:cad142b7-9ebc-498a-8116-038164f00d31",
   "version": 1,
   "metadata": {
     "tools": [
@@ -73,16 +73,16 @@
     },
     {
       "type": "library",
-      "bom-ref": "pkg:nuget/Amazon.Lambda.Serialization.SystemTextJson@2.3.0",
+      "bom-ref": "pkg:nuget/Amazon.Lambda.Serialization.SystemTextJson@2.3.1",
       "publisher": "Amazon Web Services",
       "name": "Amazon.Lambda.Serialization.SystemTextJson",
-      "version": "2.3.0",
+      "version": "2.3.1",
       "description": "Amazon Lambda .NET Core support - Serialization.Json with System.Text.Json.",
       "scope": "required",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "0DA7816806E75627C44E40AEA103B04586600AF75F80F41140A17D4052E207DCA53979782BE91BB5FD6F771526D62674C6CF758B0937E6BC0546BF3725294F3C"
+          "content": "4BF633D29B0B173C2ED32F018D38A89D16662C4A47B45488ECBA71CDD095C1CB6E8442C5E32D0ACB9725E5E9FD178CE8E2A73E73EFC9B0693781ACE4561AF831"
         }
       ],
       "licenses": [
@@ -93,7 +93,7 @@
           }
         }
       ],
-      "purl": "pkg:nuget/Amazon.Lambda.Serialization.SystemTextJson@2.3.0",
+      "purl": "pkg:nuget/Amazon.Lambda.Serialization.SystemTextJson@2.3.1",
       "externalReferences": [
         {
           "url": "https://github.com/aws/aws-lambda-dotnet",
@@ -133,16 +133,16 @@
     },
     {
       "type": "library",
-      "bom-ref": "pkg:nuget/AWSSDK.Core@3.7.103.11",
+      "bom-ref": "pkg:nuget/AWSSDK.Core@3.7.104.2",
       "publisher": "Amazon Web Services",
       "name": "AWSSDK.Core",
-      "version": "3.7.103.11",
+      "version": "3.7.104.2",
       "description": "The Amazon Web Services SDK for .NET - Core Runtime",
       "scope": "required",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "4153C75444BFDE21C8C172638AB4F3DB8C9F86F26C15B9D26C47C9502BBA505C4C7F4EA7DDFACBC9F04C08921D3BB919562527CD8151FFEEA1E903046A3691E5"
+          "content": "6C3269047ECD3041A582906C14F3AFB80EF4C26B4228317625E4529639AF2AC0102D294737F83D57A335EAD0A5C23A226EF9C1032AF3DCF15D08456AD01160D0"
         }
       ],
       "licenses": [
@@ -153,7 +153,7 @@
           }
         }
       ],
-      "purl": "pkg:nuget/AWSSDK.Core@3.7.103.11",
+      "purl": "pkg:nuget/AWSSDK.Core@3.7.104.2",
       "externalReferences": [
         {
           "url": "https://github.com/aws/aws-sdk-net/",
@@ -163,16 +163,16 @@
     },
     {
       "type": "library",
-      "bom-ref": "pkg:nuget/AWSSDK.DynamoDBv2@3.7.101.19",
+      "bom-ref": "pkg:nuget/AWSSDK.DynamoDBv2@3.7.101.38",
       "publisher": "Amazon Web Services",
       "name": "AWSSDK.DynamoDBv2",
-      "version": "3.7.101.19",
+      "version": "3.7.101.38",
       "description": "Amazon DynamoDB is a fast and flexible NoSQL database service for all applications that need consistent, single-digit millisecond latency at any scale.",
       "scope": "required",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "EFD2818AA826A43289DE72E153EDFA22D8157757A9DFA4D479060467FB6256EF8036C86C32B07C74A92ED6EC1E81C8BAAA9B8DAACD2159D6DBF0C59EF81B153A"
+          "content": "57227EA17837A56B4C16E77EF9E945AC8578FDCF81D7C34095D9FF67A38EAAA56D24D85A32C826F1A8294711B23F7194D7C6D88F70CB70338D2B88C870B16B79"
         }
       ],
       "licenses": [
@@ -183,7 +183,7 @@
           }
         }
       ],
-      "purl": "pkg:nuget/AWSSDK.DynamoDBv2@3.7.101.19",
+      "purl": "pkg:nuget/AWSSDK.DynamoDBv2@3.7.101.38",
       "externalReferences": [
         {
           "url": "https://github.com/aws/aws-sdk-net/",
@@ -366,16 +366,16 @@
     },
     {
       "type": "library",
-      "bom-ref": "pkg:nuget/Mediator.Abstractions@2.0.29",
+      "bom-ref": "pkg:nuget/Mediator.Abstractions@2.0.30",
       "publisher": "Martin Othamar",
       "name": "Mediator.Abstractions",
-      "version": "2.0.29",
+      "version": "2.0.30",
       "description": "Abstractions for the Mediator.SourceGenerator package.",
       "scope": "required",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "BDE4149B6F011AE311E19775387BCF74E51749649EB8F70929550B1AAF860E9184BEC88D6652B37E69BF5BC8177ADE47F0FA1CAA8954FB6A87C66D2906382C78"
+          "content": "994722BDDD83953D03CCFDCF91DBB101E50A9771F58E3CDC317515C38449DEFA5ADE01DE0AA76A1FA2F45B2C07025BE70E2758B8F0F10692A043FAD01F6EE3E2"
         }
       ],
       "licenses": [
@@ -386,7 +386,7 @@
         }
       ],
       "copyright": "Copyright 2022 Martin Othamar",
-      "purl": "pkg:nuget/Mediator.Abstractions@2.0.29",
+      "purl": "pkg:nuget/Mediator.Abstractions@2.0.30",
       "externalReferences": [
         {
           "url": "https://github.com/martinothamar/Mediator",
@@ -400,16 +400,16 @@
     },
     {
       "type": "library",
-      "bom-ref": "pkg:nuget/Mediator.SourceGenerator@2.0.29",
+      "bom-ref": "pkg:nuget/Mediator.SourceGenerator@2.0.30",
       "publisher": "Martin Othamar",
       "name": "Mediator.SourceGenerator",
-      "version": "2.0.29",
+      "version": "2.0.30",
       "description": "A high performance .NET Mediator pattern implemenation using source generation.",
       "scope": "excluded",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "1F531DFA6930D527E0E51DD0F7E49AFFBA58A61364ED9E317D91E3A1D53EE4AA77FE46AB216616E8B7E5503AF05569C1681A3865AA9B4C41E829206336526648"
+          "content": "730D07A4E0985A4604E24B5931D62542C3740EBA3DB2D2EE99C58BDF8F7C161404DBE42517604C8DFF8AA8BA8783EAF8436504C42E16726EC89CFE34ACE3E6FC"
         }
       ],
       "licenses": [
@@ -420,7 +420,7 @@
         }
       ],
       "copyright": "Copyright 2022 Martin Othamar",
-      "purl": "pkg:nuget/Mediator.SourceGenerator@2.0.29",
+      "purl": "pkg:nuget/Mediator.SourceGenerator@2.0.30",
       "externalReferences": [
         {
           "url": "https://github.com/martinothamar/Mediator",
@@ -631,16 +631,16 @@
     },
     {
       "type": "library",
-      "bom-ref": "pkg:nuget/SonarAnalyzer.CSharp@8.51.0.59060",
+      "bom-ref": "pkg:nuget/SonarAnalyzer.CSharp@8.52.0.60960",
       "publisher": "SonarSource",
       "name": "SonarAnalyzer.CSharp",
-      "version": "8.51.0.59060",
+      "version": "8.52.0.60960",
       "description": "Roslyn analyzers that spot Bugs, Vulnerabilities and Code Smells in your code. For an even better overall experience, you can use SonarLint for Visual Studio, which is a free extension that can be used standalone or with SonarQube and/or SonarCloud.",
       "scope": "excluded",
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "44590B96CF3C79B5F09F2888688D7482A446111CAA50E9C57A687EB6B4311A47D32610DB7075534CC375A7C3C828CB55BC006BE7FEDACF7D6A55741D0023CD4B"
+          "content": "3CBA17C688F1EADF2E68A4469D5E26B29502B00F48700A38E643134CD5A161130256399B50251FF4AA8F11A8E3D9CC7CDAB8F64A1E7C4A4F2EE055A84AD262D0"
         }
       ],
       "licenses": [
@@ -650,8 +650,8 @@
           }
         }
       ],
-      "copyright": "Copyright \u00A9 2015-2022 SonarSource SA",
-      "purl": "pkg:nuget/SonarAnalyzer.CSharp@8.51.0.59060",
+      "copyright": "Copyright \u00A9 2015-2023 SonarSource SA",
+      "purl": "pkg:nuget/SonarAnalyzer.CSharp@8.52.0.60960",
       "externalReferences": [
         {
           "url": "https://www.sonarlint.org/visualstudio/",
@@ -723,21 +723,21 @@
       "dependsOn": [
         "pkg:nuget/Amazon.Lambda.APIGatewayEvents@2.5.0",
         "pkg:nuget/Amazon.Lambda.Core@2.1.0",
-        "pkg:nuget/Amazon.Lambda.Serialization.SystemTextJson@2.3.0",
-        "pkg:nuget/AWSSDK.DynamoDBv2@3.7.101.19",
+        "pkg:nuget/Amazon.Lambda.Serialization.SystemTextJson@2.3.1",
+        "pkg:nuget/AWSSDK.DynamoDBv2@3.7.101.38",
         "pkg:nuget/AWSXRayRecorder.Core@2.13.0",
         "pkg:nuget/AWSXRayRecorder.Handlers.AwsSdk@2.11.0",
         "pkg:nuget/AWSXRayRecorder.Handlers.System.Net@2.10.0",
         "pkg:nuget/FluentValidation@11.4.0",
         "pkg:nuget/FluentValidation.DependencyInjectionExtensions@11.4.0",
-        "pkg:nuget/Mediator.Abstractions@2.0.29",
-        "pkg:nuget/Mediator.SourceGenerator@2.0.29",
+        "pkg:nuget/Mediator.Abstractions@2.0.30",
+        "pkg:nuget/Mediator.SourceGenerator@2.0.30",
         "pkg:nuget/Microsoft.Extensions.DependencyInjection@7.0.0",
         "pkg:nuget/SecurityCodeScan.VS2019@5.6.7",
         "pkg:nuget/Serilog@2.12.0",
         "pkg:nuget/Serilog.Formatting.Compact@1.1.0",
         "pkg:nuget/Serilog.Sinks.Console@4.1.0",
-        "pkg:nuget/SonarAnalyzer.CSharp@8.51.0.59060",
+        "pkg:nuget/SonarAnalyzer.CSharp@8.52.0.60960",
         "pkg:nuget/StyleCop.Analyzers@1.1.118"
       ]
     },
@@ -750,7 +750,7 @@
       "dependsOn": []
     },
     {
-      "ref": "pkg:nuget/Amazon.Lambda.Serialization.SystemTextJson@2.3.0",
+      "ref": "pkg:nuget/Amazon.Lambda.Serialization.SystemTextJson@2.3.1",
       "dependsOn": [
         "pkg:nuget/Amazon.Lambda.Core@2.1.0"
       ]
@@ -760,19 +760,19 @@
       "dependsOn": []
     },
     {
-      "ref": "pkg:nuget/AWSSDK.Core@3.7.103.11",
+      "ref": "pkg:nuget/AWSSDK.Core@3.7.104.2",
       "dependsOn": []
     },
     {
-      "ref": "pkg:nuget/AWSSDK.DynamoDBv2@3.7.101.19",
+      "ref": "pkg:nuget/AWSSDK.DynamoDBv2@3.7.101.38",
       "dependsOn": [
-        "pkg:nuget/AWSSDK.Core@3.7.103.11"
+        "pkg:nuget/AWSSDK.Core@3.7.104.2"
       ]
     },
     {
       "ref": "pkg:nuget/AWSXRayRecorder.Core@2.13.0",
       "dependsOn": [
-        "pkg:nuget/AWSSDK.Core@3.7.103.11",
+        "pkg:nuget/AWSSDK.Core@3.7.104.2",
         "pkg:nuget/Amazon.Lambda.SQSEvents@2.1.0"
       ]
     },
@@ -800,14 +800,14 @@
       "dependsOn": []
     },
     {
-      "ref": "pkg:nuget/Mediator.Abstractions@2.0.29",
+      "ref": "pkg:nuget/Mediator.Abstractions@2.0.30",
       "dependsOn": [
         "pkg:nuget/Microsoft.Extensions.DependencyInjection.Abstractions@7.0.0",
         "pkg:nuget/System.Threading.Tasks.Extensions@4.5.4"
       ]
     },
     {
-      "ref": "pkg:nuget/Mediator.SourceGenerator@2.0.29",
+      "ref": "pkg:nuget/Mediator.SourceGenerator@2.0.30",
       "dependsOn": [
         "pkg:nuget/Microsoft.Extensions.DependencyInjection@7.0.0",
         "pkg:nuget/Microsoft.Extensions.DependencyInjection.Abstractions@7.0.0"
@@ -844,7 +844,7 @@
       "dependsOn": []
     },
     {
-      "ref": "pkg:nuget/SonarAnalyzer.CSharp@8.51.0.59060",
+      "ref": "pkg:nuget/SonarAnalyzer.CSharp@8.52.0.60960",
       "dependsOn": []
     },
     {
