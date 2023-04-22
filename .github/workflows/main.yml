@@ -79,17 +79,18 @@ jobs:
         run: npm run deploy:prod
 
       - name: Generate SBOM
-        uses: CycloneDX/gh-dotnet-generate-sbom@master
+        run: |
+          curl -Lo $RUNNER_TEMP/sbom-tool https://github.com/microsoft/sbom-tool/releases/latest/download/sbom-tool-linux-x64
+          chmod +x $RUNNER_TEMP/sbom-tool
+          $RUNNER_TEMP/sbom-tool generate -b . -bc . -pn $ -pv 1.0.0 -ps OwnerName -nsb https://sbom.mycompany.com -V Verbose
+      - uses: actions/upload-artifact@v3
         with:
-          path: ./src/MovieApi/MovieApi.csproj
-          json: true
-          github-bearer-token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Add and Commit SBOM
-        uses: EndBug/add-and-commit@v9
+          name: sbom
+          path: _manifest/spdx_2.2
+      - name: SBOM upload
+        uses: advanced-security/spdx-dependency-submission-action@v0.0.1
         with:
-          default_author: github_actions
-          message: 'update bom.json'
-          add: 'bom.json'
+          filePath: "_manifest/spdx_2.2/"
 
       - name: Deploy API Documentation
         uses: bump-sh/github-action@v1
