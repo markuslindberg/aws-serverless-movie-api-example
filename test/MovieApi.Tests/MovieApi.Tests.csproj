@@ -5,16 +5,16 @@
 		<NoWarn>0436</NoWarn>
 	</PropertyGroup>
 	<ItemGroup>
-		<PackageReference Include="Amazon.Lambda.Core" Version="2.1.0" />
+		<PackageReference Include="Amazon.Lambda.Core" Version="2.2.0" />
 		<PackageReference Include="Amazon.Lambda.TestUtilities" Version="2.0.0" />
-		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.7.0" />
-		<PackageReference Include="xunit" Version="2.5.0" />
-		<PackageReference Include="xunit.runner.visualstudio" Version="2.5.0" />
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
+		<PackageReference Include="xunit" Version="2.6.2" />
+		<PackageReference Include="xunit.runner.visualstudio" Version="2.5.4" />
 		<PackageReference Include="Bogus" Version="34.0.2" />
-		<PackageReference Include="Verify.Xunit" Version="20.6.0" />
+		<PackageReference Include="Verify.Xunit" Version="22.6.0" />
 		<PackageReference Include="Serilog.Sinks.XUnit" Version="3.0.5" />
 		<PackageReference Include="coverlet.collector" Version="6.0.0" />
-		<PackageReference Include="System.Text.Encodings.Web" Version="7.0.0" />
+		<PackageReference Include="System.Text.Encodings.Web" Version="8.0.0" />
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\..\src\MovieApi\MovieApi.csproj" />
