@@ -129,11 +129,11 @@ jobs:
           export TABLE_NAME=MoviesTable-dev
           dotnet build --configuration Release --no-restore
           dotnet test --no-restore --verbosity normal --collect:"XPlat Code Coverage" --settings coverlet.runsettings
-        # echo "TEST_COVERAGE_PATH=$(find TestResults/*/coverage.opencover.xml | sort -nr | head -n 1)" >> "$GITHUB_ENV"
+          echo "TEST_COVERAGE_PATH=$(find TestResults/*/coverage.opencover.xml | sort -nr | head -n 1)" >> "$GITHUB_ENV"
       - uses: actions/upload-artifact@v3
         with:
           name: coverage.opencover.xml
-          path: ${{ find TestResults/*/coverage.opencover.xml | sort -nr | head -n 1 }}
+          path: ${{ env.TEST_COVERAGE_PATH }}
 
   deploy-prod:
     if: github.ref == 'refs/heads/main'
