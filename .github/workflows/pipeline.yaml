@@ -8,7 +8,7 @@ on:
 env:
   PIPELINE_USER_ACCESS_KEY_ID: ${{ secrets.PIPELINE_USER_AWS_ACCESS_KEY_ID }}
   PIPELINE_USER_SECRET_ACCESS_KEY: ${{ secrets.PIPELINE_USER_AWS_SECRET_ACCESS_KEY }}
-  SAM_TEMPLATE: template.yaml
+  SAM_TEMPLATE: template.yml
   DEV_STACK_NAME: MovieApi-dev
   DEV_PIPELINE_EXECUTION_ROLE: arn:aws:iam::976088553851:role/aws-sam-cli-managed-dev-pipel-PipelineExecutionRole-QNPhUgG9sgsS
   DEV_CLOUDFORMATION_EXECUTION_ROLE: arn:aws:iam::976088553851:role/aws-sam-cli-managed-dev-p-CloudFormationExecutionRo-qeVBsfsoGBR4
