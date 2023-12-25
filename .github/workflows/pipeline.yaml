@@ -107,7 +107,8 @@ jobs:
 
       - name: Deploy to dev account
         run: |
-          sam deploy --stack-name ${DEV_STACK_NAME} \
+          sam deploy --config-env dev
+            --stack-name ${DEV_STACK_NAME} \
             --template packaged-dev.yaml \
             --capabilities CAPABILITY_IAM \
             --region ${DEV_REGION} \
@@ -140,7 +141,7 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           name: coverage.opencover.xml
-          path: ${{ env.TEST_COVERAGE_PATH }}
+          path: ./test/MovieApi.Tests/${{ env.TEST_COVERAGE_PATH }}
 
   deploy-prod:
     if: github.ref == 'refs/heads/main'
@@ -168,7 +169,8 @@ jobs:
 
       - name: Deploy to prod account
         run: |
-          sam deploy --stack-name ${PROD_STACK_NAME} \
+          sam deploy --config-env prod
+            --stack-name ${PROD_STACK_NAME} \
             --template packaged-prod.yaml \
             --capabilities CAPABILITY_IAM \
             --region ${PROD_REGION} \
