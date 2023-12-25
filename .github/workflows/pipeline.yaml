@@ -107,7 +107,7 @@ jobs:
 
       - name: Deploy to dev account
         run: |
-          sam deploy --config-env dev
+          sam deploy --config-env dev \
             --stack-name ${DEV_STACK_NAME} \
             --template packaged-dev.yaml \
             --capabilities CAPABILITY_IAM \
@@ -169,7 +169,7 @@ jobs:
 
       - name: Deploy to prod account
         run: |
-          sam deploy --config-env prod
+          sam deploy --config-env prod \
             --stack-name ${PROD_STACK_NAME} \
             --template packaged-prod.yaml \
             --capabilities CAPABILITY_IAM \
