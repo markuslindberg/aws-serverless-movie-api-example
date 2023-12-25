@@ -1,15 +1,15 @@
 # MovieApi
 
-Serverless movie api example using .net 6, AWS Lambda, DynamoDB, API Gateway and Serverless Framework.
+Serverless movie api example using .net 6, AWS Lambda, DynamoDB, API Gateway and AWS SAM.
 
-[![Main Workflow](https://github.com/markuslindberg/serverless-movie-api-example/actions/workflows/main.yml/badge.svg)](https://github.com/markuslindberg/serverless-movie-api-example/actions/workflows/main.yml)
+[![Main Workflow](https://github.com/markuslindberg/serverless-movie-api-example/actions/workflows/pipeline.yml/badge.svg)](https://github.com/markuslindberg/serverless-movie-api-example/actions/workflows/pipeline.yml)
 [![codecov](https://codecov.io/gh/markuslindberg/serverless-movie-api-example/branch/main/graph/badge.svg?token=S2668W2KIO)](https://codecov.io/gh/markuslindberg/serverless-movie-api-example)
 
 ## Prerequisites
 
 * [.NET 6 SDK](https://dotnet.microsoft.com/en-us/download)
 * [AWS Lambda for .NET Core](https://github.com/aws/aws-lambda-dotnet)
-* [Serverless Framework](https://www.serverless.com)
+* [AWS SAM CLI](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/install-sam-cli.html)
 * [Amazon.Lambda.Tools](https://github.com/aws/aws-extensions-for-dotnet-cli)
 
 ```
@@ -66,23 +66,12 @@ The domain objects in this example are stored in a single table, consisting of t
 
 ## Observability
 Using AWS X-Ray for tracing and Serilog for structured logging storing logs in AWS CloudWatch. 
-Enabling logs and tracing in [Honeycomb](https://www.honeycomb.io/) via [Lambda Layers integration](https://docs.honeycomb.io/getting-data-in/integrations/aws/aws-lambda/). Honeycomb integration is configured in serverless.yml:
-
-```
-layers:
-    - arn:aws:lambda:eu-north-1:702835727665:layer:honeycomb-lambda-extension-x86_64:9
-environment:
-    LIBHONEY_DATASET: MovieApi
-    LIBHONEY_API_KEY: ${ssm:/aws/reference/secretsmanager/dev/MovieApi/LIBHONEY_API_KEY}
-    LOGS_API_DISABLE_PLATFORM_MSGS: true
-```
-_API key referenced through AWS Secrets Manager. AWS Lambda Runtime Logs are excluded in Honeycomb via LOGS_API_DISABLE_PLATFORM_MSGS variable._
 
 ## Quality 
 
 ### Documentation
 
-* **API documentation** in OpenAPI Specification v3.0.0.
+* **API documentation** in OpenAPI Specification v3.0.x.
 * **Technical documentation** TODO class, deployment, dependency diagrams.
 * **Code documentation** TODO inline code comments.
 
