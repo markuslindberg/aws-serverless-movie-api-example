@@ -7,7 +7,6 @@
 		<GenerateDocumentationFile>false</GenerateDocumentationFile>
 		<AWSProjectType>Lambda</AWSProjectType>
 		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
-		<PublishReadyToRun>true</PublishReadyToRun>
 		<Version>1.0.0</Version>
 		<AssemblyVersion>1.0.0.0</AssemblyVersion>
 		<FileVersion>1.0.0.0</FileVersion>
