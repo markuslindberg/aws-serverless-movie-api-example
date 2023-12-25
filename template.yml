@@ -1,0 +1,247 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  Serverless Movie API Example
+
+Parameters:
+  Stage:
+    Type: String
+    Default: dev
+    Description: (Required) Enter dev, prod. Default is dev.
+    AllowedValues:
+      - dev
+      - prod
+
+Globals:
+  Function:
+    CodeUri: ./src/MovieApi/
+    MemorySize: 1024
+    Runtime: dotnet6
+    Timeout: 10
+    Tracing: Active
+    Environment:
+      Variables:
+        TABLE_NAME: !Ref MoviesTable
+    LoggingConfig:
+      ApplicationLogLevel: DEBUG
+      LogFormat: JSON
+      LogGroup: !Ref MovieApiLogGroup
+      SystemLogLevel: INFO
+  Api:
+    TracingEnabled: true
+
+Resources:
+  MovieRestApi:
+    Type: 'AWS::Serverless::Api'
+    Properties:
+      Auth:
+        DefaultAuthorizer: aws_iam
+      DefinitionBody:
+        Fn::Transform:
+          Name: AWS::Include
+          Parameters:
+            Location: ./src/MovieApi/Schemas/openapi.yaml
+      MinimumCompressionSize: 1024
+      Name: !Sub MoviesApi-${Stage}
+      OpenApiVersion: 3.0.1
+      StageName: !Sub ${Stage}
+
+  MovieApiLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Sub MovieApiLogGroup-${Stage}
+      RetentionInDays: 7
+
+  GetMovieFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Description: GetMovieFunction
+      Handler: MovieApi::MovieApi.Functions.GetMovieFunction::HandleAsync
+      Policies:
+      - DynamoDBReadPolicy:
+          TableName: !Ref MoviesTable
+      Events:
+        GetMovieApiEvent:
+          Type: Api
+          Properties:
+            Path: /movies/{movieId}
+            Method: GET
+            RestApiId: !Ref MovieRestApi
+
+  UpdateMovieFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Description: UpdateMovieFunction
+      Handler: MovieApi::MovieApi.Functions.UpdateMovieFunction::HandleAsync
+      Policies:
+      - DynamoDBCrudPolicy:
+          TableName: !Ref MoviesTable
+      Events:
+        UpdateMovieApiEvent:
+          Type: Api
+          Properties:
+            Path: /movies/{movieId}
+            Method: PUT
+            RestApiId: !Ref MovieRestApi
+
+  DeleteMovieFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Description: DeleteMovieFunction
+      Handler: MovieApi::MovieApi.Functions.DeleteMovieFunction::HandleAsync
+      Policies:
+      - DynamoDBCrudPolicy:
+          TableName: !Ref MoviesTable
+      Events:
+        DeleteMovieApiEvent:
+          Type: Api
+          Properties:
+            Path: /movies/{movieId}
+            Method: DELETE
+            RestApiId: !Ref MovieRestApi
+
+  CreateMovieFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Description: CreateMovieFunction
+      Handler: MovieApi::MovieApi.Functions.CreateMovieFunction::HandleAsync
+      Policies:
+      - DynamoDBCrudPolicy:
+          TableName: !Ref MoviesTable
+      Events:
+        CreateMovieApiEvent:
+          Type: Api
+          Properties:
+            Path: /movies
+            Method: POST
+            RestApiId: !Ref MovieRestApi
+
+  GetMoviesFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Description: GetMoviesFunction
+      Handler: MovieApi::MovieApi.Functions.GetMoviesFunction::HandleAsync
+      Policies:
+      - DynamoDBReadPolicy:
+          TableName: !Ref MoviesTable
+      Events:
+        GetMoviesApiEvent:
+          Type: Api
+          Properties:
+            Path: /movies
+            Method: GET
+            RestApiId: !Ref MovieRestApi
+
+  GetMovieCharactersFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Description: GetMovieCharactersFunction
+      Handler: MovieApi::MovieApi.Functions.GetMovieCharactersFunction::HandleAsync
+      Policies:
+      - DynamoDBReadPolicy:
+          TableName: !Ref MoviesTable
+      Events:
+        GetMoviesApiEvent:
+          Type: Api
+          Properties:
+            Path: /movies/{movieId}/characters
+            Method: GET
+            RestApiId: !Ref MovieRestApi
+
+  GetMovieDirectorsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Description: GetMovieDirectorsFunction
+      Handler: MovieApi::MovieApi.Functions.GetMovieDirectorsFunction::HandleAsync
+      Policies:
+      - DynamoDBReadPolicy:
+          TableName: !Ref MoviesTable
+      Events:
+        GetMoviesApiEvent:
+          Type: Api
+          Properties:
+            Path: /movies/{movieId}/directors
+            Method: GET
+            RestApiId: !Ref MovieRestApi
+
+  GetCharacterMoviesFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Description: GetCharacterMoviesFunction
+      Handler: MovieApi::MovieApi.Functions.GetCharacterMoviesFunction::HandleAsync
+      Policies:
+      - DynamoDBReadPolicy:
+          TableName: !Ref MoviesTable
+      Events:
+        GetMoviesApiEvent:
+          Type: Api
+          Properties:
+            Path: /characters/{characterId}/movies
+            Method: GET
+            RestApiId: !Ref MovieRestApi
+
+  GetDirectorMoviesFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Description: GetDirectorMoviesFunction
+      Handler: MovieApi::MovieApi.Functions.GetDirectorMoviesFunction::HandleAsync
+      Policies:
+      - DynamoDBReadPolicy:
+          TableName: !Ref MoviesTable
+      Events:
+        GetMoviesApiEvent:
+          Type: Api
+          Properties:
+            Path: /directors/{directorId}/movies
+            Method: GET
+            RestApiId: !Ref MovieRestApi
+
+  MoviesTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: !Sub MoviesTable-${Stage}
+      BillingMode: PAY_PER_REQUEST
+      KeySchema:
+        - AttributeName: pk
+          KeyType: HASH
+        - AttributeName: sk
+          KeyType: RANGE
+      AttributeDefinitions:
+        - AttributeName: pk
+          AttributeType: S
+        - AttributeName: sk
+          AttributeType: S
+        - AttributeName: gsi1pk
+          AttributeType: S
+        - AttributeName: gsi1sk
+          AttributeType: S
+        - AttributeName: gsi2pk
+          AttributeType: S
+        - AttributeName: gsi2sk
+          AttributeType: S
+      GlobalSecondaryIndexes:
+        - IndexName: gsi1
+          KeySchema:
+            - AttributeName: gsi1pk
+              KeyType: HASH
+            - AttributeName: gsi1sk
+              KeyType: RANGE
+          Projection:
+            ProjectionType: ALL
+        - IndexName: gsi2
+          KeySchema:
+            - AttributeName: gsi2pk
+              KeyType: HASH
+            - AttributeName: gsi2sk
+              KeyType: RANGE
+          Projection:
+            ProjectionType: ALL
+
+Outputs:
+  WebEndpoint:
+    Description: API Gateway endpoint URL
+    Value: !Sub "https://${MovieRestApi}.execute-api.${AWS::Region}.amazonaws.com/${Stage}/"
+  TableName:
+    Value: !Ref MoviesTable
+  TableArn:
+    Value: !GetAtt MoviesTable.Arn

@@ -63,8 +63,12 @@ public abstract class RequestResponseFunctionBase
 
                 return new APIGatewayProxyResponse
                 {
-                    Body = "Function failed with exception",
-                    StatusCode = 500
+                    StatusCode = 500,
+                    Body = JsonSerializer.Serialize(
+                        new
+                        {
+                            message = "Function failed with exception"
+                        }, JsonSerializerOptions)
                 };
             }
         }
@@ -77,7 +81,11 @@ public abstract class RequestResponseFunctionBase
             StatusCode = response.StatusCode,
             Body = response.StatusCode == 200
                 ? JsonSerializer.Serialize(response.Result, JsonSerializerOptions)
-                : response.ErrorMessage
+                : JsonSerializer.Serialize(
+                    new
+                    {
+                        message = response.ErrorMessage
+                    }, JsonSerializerOptions)
         };
     }
 }

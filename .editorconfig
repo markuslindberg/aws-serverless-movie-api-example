@@ -29,7 +29,10 @@ dotnet_diagnostic.SA1313.severity = None
     
 # Elements should be documented
 dotnet_diagnostic.SA1600.severity = None
-    
+
+# Partial elements should be documented
+dotnet_diagnostic.SA1601.severity = None
+
 # Prefix local calls with this
 dotnet_diagnostic.SA1101.severity = None
     

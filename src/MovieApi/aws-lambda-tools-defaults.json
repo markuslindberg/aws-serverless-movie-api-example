@@ -7,6 +7,5 @@
   ],
   "profile": "",
   "region": "eu-north-1",
-  "configuration": "Release",
-  "template": "serverless.yml"
+  "configuration": "Release"
 }
