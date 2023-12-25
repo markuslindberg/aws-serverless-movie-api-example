@@ -16,14 +16,10 @@ lint = true
 [default.deploy.parameters]
 capabilities = "CAPABILITY_IAM"
 confirm_changeset = true
-resolve_s3 = true
 s3_prefix = "MovieApi-dev"
 region = "eu-north-1"
 parameter_overrides = "Stage=\"dev\""
 image_repositories = []
-
-[default.package.parameters]
-resolve_s3 = true
 
 [default.sync.parameters]
 watch = true
@@ -48,7 +44,6 @@ lint = true
 [prod.deploy.parameters]
 capabilities = "CAPABILITY_IAM"
 confirm_changeset = true
-resolve_s3 = true
 s3_prefix = "MovieApi-prod"
 region = "eu-north-1"
 parameter_overrides = "Stage=\"prod\""
