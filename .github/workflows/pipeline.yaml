@@ -111,6 +111,7 @@ jobs:
             --region ${DEV_REGION} \
             --s3-bucket ${DEV_ARTIFACTS_BUCKET} \
             --no-fail-on-empty-changeset \
+            --no-confirm-changeset \
             --role-arn ${DEV_CLOUDFORMATION_EXECUTION_ROLE}
 
   integration-test:
@@ -166,6 +167,7 @@ jobs:
             --region ${PROD_REGION} \
             --s3-bucket ${PROD_ARTIFACTS_BUCKET} \
             --no-fail-on-empty-changeset \
+            --no-confirm-changeset \
             --role-arn ${PROD_CLOUDFORMATION_EXECUTION_ROLE}
 
   update-documentation:
