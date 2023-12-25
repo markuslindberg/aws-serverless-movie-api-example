@@ -31,7 +31,7 @@ jobs:
           use-installer: true
 
       - name: Build resources
-        run: sam build --template ${SAM_TEMPLATE} --use-container
+        run: sam build --template ${SAM_TEMPLATE} --use-container --mount-with WRITE
 
       - name: Assume the dev pipeline user role
         uses: aws-actions/configure-aws-credentials@v1-node16
