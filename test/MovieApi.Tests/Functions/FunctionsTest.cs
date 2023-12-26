@@ -233,7 +233,12 @@ public class FunctionsTest : FunctionsTestBase
     [Fact]
     public async Task UpdateMovieThrowsOnInvalidRequest()
     {
-        var request = new APIGatewayProxyRequest { Body = "{\"invalid_json\"" };
+        var request = new APIGatewayProxyRequest
+        {
+            PathParameters = new Dictionary<string, string> { { "movieId", "DieHard" } },
+            Body = "{\"invalid_json\""
+        };
+        
         var function = new UpdateMovieFunction(_serviceProvider);
 
         await Assert.ThrowsAsync<JsonException>(() => function.HandleAsync(request, _context));
