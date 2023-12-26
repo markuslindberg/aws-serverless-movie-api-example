@@ -5,9 +5,6 @@ using Amazon.XRay.Recorder.Handlers.AwsSdk;
 using FluentValidation;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using MovieApi.Logging;
-using Serilog;
-using Serilog.Formatting.Compact;
 
 namespace MovieApi;
 
@@ -31,9 +28,6 @@ public static class Startup
         var configuration = BuildConfiguration();
         services.AddSingleton(configuration);
 
-        var logger = CreateLogger();
-        services.AddSingleton(logger);
-
         services.AddValidatorsFromAssemblyContaining(typeof(Startup));
 
         services.AddMediator();
@@ -46,13 +40,6 @@ public static class Startup
         .AddJsonFile("appsettings.json", optional: true)
         .AddEnvironmentVariables()
         .Build();
-
-    private static ILogger CreateLogger() => new LoggerConfiguration()
-        .MinimumLevel.Information()
-        .WriteTo.Console(new RenderedCompactJsonFormatter())
-        .Enrich.With<AwsLambdaContextEnricher>()
-        .Enrich.FromLogContext()
-        .CreateLogger();
 
     private static AmazonDynamoDBClient CreateAmazonDynamoDBClient() => new AmazonDynamoDBClient(new AmazonDynamoDBConfig
     {

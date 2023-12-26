@@ -2,8 +2,6 @@ using Amazon.DynamoDBv2;
 using Amazon.Lambda.APIGatewayEvents;
 using Amazon.Lambda.TestUtilities;
 using Microsoft.Extensions.DependencyInjection;
-using MovieApi.Logging;
-using Serilog;
 using Xunit.Abstractions;
 using System.Text.Json;
 
@@ -18,14 +16,6 @@ public abstract class FunctionsTestBase : IAsyncLifetime
     protected FunctionsTestBase(ITestOutputHelper output)
     {
         var services = Startup.Configure();
-
-        services.AddSingleton<ILogger>(new LoggerConfiguration()
-            .MinimumLevel.Verbose()
-            .WriteTo.TestOutput(output, Serilog.Events.LogEventLevel.Verbose)
-            .Enrich.With<AwsLambdaContextEnricher>()
-            .Enrich.FromLogContext()
-            .CreateLogger());
-
         _serviceProvider = services.BuildServiceProvider(new ServiceProviderOptions { ValidateOnBuild = true });
         _context = new TestLambdaContext();
         _output = output;

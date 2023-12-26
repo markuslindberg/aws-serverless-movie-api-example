@@ -22,6 +22,10 @@ Globals:
     Environment:
       Variables:
         TABLE_NAME: !Ref MoviesTable
+        POWERTOOLS_SERVICE_NAME: !Sub MoviesApi-${Stage}
+        POWERTOOLS_LOGGER_LOG_EVENT: true
+        POWERTOOLS_LOGGER_CASE: CamelCase
+        POWERTOOLS_LOGGER_SAMPLE_RATE: 0
     LoggingConfig:
       ApplicationLogLevel: DEBUG
       LogFormat: JSON

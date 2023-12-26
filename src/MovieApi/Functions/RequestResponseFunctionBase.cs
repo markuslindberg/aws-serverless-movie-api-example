@@ -4,24 +4,19 @@ using System.Text.Json.Serialization;
 using Amazon.Lambda.APIGatewayEvents;
 using Amazon.Lambda.Core;
 using Amazon.Lambda.Serialization.SystemTextJson;
-using Microsoft.Extensions.DependencyInjection;
+using AWS.Lambda.Powertools.Logging;
 using MovieApi.Responses;
-using Serilog;
-using Serilog.Context;
 
 namespace MovieApi.Functions;
 
 public abstract class RequestResponseFunctionBase
 {
-    private bool _isColdStart = true;
     protected IServiceProvider ServiceProvider { get; init; }
-    protected ILogger Logger { get; init; }
     protected JsonSerializerOptions JsonSerializerOptions { get; init; }
 
     protected RequestResponseFunctionBase(IServiceProvider serviceProvider)
     {
         ServiceProvider = serviceProvider;
-        Logger = ServiceProvider.GetRequiredService<ILogger>();
         JsonSerializerOptions = new JsonSerializerOptions
         {
             DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
@@ -36,41 +31,36 @@ public abstract class RequestResponseFunctionBase
     [LambdaSerializer(typeof(SourceGeneratorLambdaJsonSerializer<HttpApiJsonSerializerContext>))]
     public async Task<APIGatewayProxyResponse> HandleAsync(APIGatewayProxyRequest request, ILambdaContext context)
     {
-        using (LogContext.PushProperty("RequestPath", request.Path))
-        using (LogContext.PushProperty("RequestId", context.AwsRequestId))
-        using (LogContext.PushProperty("FunctionArn", context.InvokedFunctionArn))
-        using (LogContext.PushProperty("ColdStart", _isColdStart))
+        var sw = Stopwatch.StartNew();
+
+        Logger.AppendKeys(new Dictionary<string, object>()
+            {
+                { "RequestPath", request.Path ?? string.Empty }
+            });
+
+        try
         {
-            _isColdStart = false;
-            var sw = Stopwatch.StartNew();
+            var response = await HandleRequest(request, context);
 
-            try
+            Logger
+                .LogInformation("Function completed in {ElapsedMilliseconds} ms", sw.ElapsedMilliseconds);
+
+            return response;
+        }
+        catch (Exception ex)
+        {
+            Logger
+                .LogError(ex, "Function failed after {ElapsedMilliseconds} ms", sw.ElapsedMilliseconds);
+
+            return new APIGatewayProxyResponse
             {
-                var response = await HandleRequest(request, context);
-
-                Logger
-                    .ForContext("Request", JsonSerializer.Serialize(request, JsonSerializerOptions))
-                    .ForContext("Response", JsonSerializer.Serialize(response, JsonSerializerOptions))
-                    .Information("Function completed in {ElapsedMilliseconds} ms", sw.ElapsedMilliseconds);
-
-                return response;
-            }
-            catch (Exception ex)
-            {
-                Logger
-                    .ForContext("Request", JsonSerializer.Serialize(request, JsonSerializerOptions))
-                    .Error(ex, "Function failed after {ElapsedMilliseconds} ms", sw.ElapsedMilliseconds);
-
-                return new APIGatewayProxyResponse
-                {
-                    StatusCode = 500,
-                    Body = JsonSerializer.Serialize(
-                        new
-                        {
-                            message = "Function failed with exception"
-                        }, JsonSerializerOptions)
-                };
-            }
+                StatusCode = 500,
+                Body = JsonSerializer.Serialize(
+                    new
+                    {
+                        message = "Function failed with exception"
+                    }, JsonSerializerOptions)
+            };
         }
     }
 
