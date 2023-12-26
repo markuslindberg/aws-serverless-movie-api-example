@@ -5,6 +5,7 @@ using Amazon.Lambda.APIGatewayEvents;
 using Amazon.Lambda.Core;
 using Amazon.Lambda.Serialization.SystemTextJson;
 using AWS.Lambda.Powertools.Logging;
+using AWS.Lambda.Powertools.Tracing;
 using MovieApi.Responses;
 
 namespace MovieApi.Functions;
@@ -28,39 +29,12 @@ public abstract class RequestResponseFunctionBase
         APIGatewayProxyRequest request,
         ILambdaContext context);
 
+    [Tracing]
     [Logging(LogEvent = true)]
     [LambdaSerializer(typeof(SourceGeneratorLambdaJsonSerializer<HttpApiJsonSerializerContext>))]
     public async Task<APIGatewayProxyResponse> HandleAsync(APIGatewayProxyRequest request, ILambdaContext context)
     {
-        var sw = Stopwatch.StartNew();
-
-        if (request.Path != null)
-            Logger.AppendKey("RequestPath", request.Path);
-
-        try
-        {
-            var response = await HandleRequest(request, context);
-
-            Logger
-                .LogInformation("Function completed in {ElapsedMilliseconds} ms", sw.ElapsedMilliseconds);
-
-            return response;
-        }
-        catch (Exception ex)
-        {
-            Logger
-                .LogError(ex, "Function failed after {ElapsedMilliseconds} ms", sw.ElapsedMilliseconds);
-
-            return new APIGatewayProxyResponse
-            {
-                StatusCode = 500,
-                Body = JsonSerializer.Serialize(
-                    new
-                    {
-                        message = "Function failed with exception"
-                    }, JsonSerializerOptions)
-            };
-        }
+        return await HandleRequest(request, context);
     }
 
     protected APIGatewayProxyResponse ToAPIGatewayProxyResponse<T>(Response<T> response)
