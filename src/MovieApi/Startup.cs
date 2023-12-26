@@ -12,14 +12,14 @@ public static class Startup
 {
     public static IServiceCollection Configure()
     {
-        var services = new ServiceCollection();
-
-        ConfigureServices(services);
-
         AWSSDKHandler.RegisterXRayForAllServices();
 #if DEBUG
         AWSXRayRecorder.Instance.XRayOptions.IsXRayTracingDisabled = true;
 #endif
+        var services = new ServiceCollection();
+
+        ConfigureServices(services);
+
         return services;
     }
 
