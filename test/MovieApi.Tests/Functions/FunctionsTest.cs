@@ -1,3 +1,4 @@
+using System.Text.Json;
 using Amazon.Lambda.APIGatewayEvents;
 using MovieApi.Functions;
 using Xunit.Abstractions;
@@ -178,7 +179,6 @@ public class FunctionsTest : FunctionsTestBase
 
     [Theory]
     [InlineData(400, "{\"movieId\": \"DieHard@#$£!\"}")]
-    [InlineData(500, "{\"invalid_json\"")]
     public async Task CreateMovieStatusCodeTheory(int expectedStatusCode, string body)
     {
         var request = new APIGatewayProxyRequest { Body = body };
@@ -187,6 +187,15 @@ public class FunctionsTest : FunctionsTestBase
         var response = await function.HandleAsync(request, _context);
 
         Assert.Equal(expectedStatusCode, response.StatusCode);
+    }
+
+    [Fact]
+    public async Task CreateMovieThrowsOnInvalidRequest()
+    {
+        var request = new APIGatewayProxyRequest { Body = "{\"invalid_json\"" };
+        var function = new CreateMovieFunction(_serviceProvider);
+
+        await Assert.ThrowsAsync<JsonException>(() => function.HandleAsync(request, _context));
     }
 
     [Fact]
@@ -207,7 +216,6 @@ public class FunctionsTest : FunctionsTestBase
     [Theory]
     [InlineData(400, "DieHard1", "{\"movieId\": \"DieHard2\"}")]
     [InlineData(400, "DieHard@#$£!", "{\"movieId\": \"DieHard@#$£!\"}")]
-    [InlineData(500, "", "{\"invalid_json\"")]
     public async Task UpdateMovieStatusCodeTheory(int expectedStatusCode, string movieId, string body)
     {
         var request = new APIGatewayProxyRequest
@@ -220,6 +228,15 @@ public class FunctionsTest : FunctionsTestBase
         var response = await function.HandleAsync(request, _context);
 
         Assert.Equal(expectedStatusCode, response.StatusCode);
+    }
+
+    [Fact]
+    public async Task UpdateMovieThrowsOnInvalidRequest()
+    {
+        var request = new APIGatewayProxyRequest { Body = "{\"invalid_json\"" };
+        var function = new UpdateMovieFunction(_serviceProvider);
+
+        await Assert.ThrowsAsync<JsonException>(() => function.HandleAsync(request, _context));
     }
 
     [Fact]
