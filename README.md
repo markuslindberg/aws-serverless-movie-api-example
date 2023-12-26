@@ -11,10 +11,7 @@ Serverless movie api example using .net 6, AWS Lambda, DynamoDB, API Gateway and
 * [AWS Lambda for .NET Core](https://github.com/aws/aws-lambda-dotnet)
 * [AWS SAM CLI](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/install-sam-cli.html)
 * [Amazon.Lambda.Tools](https://github.com/aws/aws-extensions-for-dotnet-cli)
-
-```
-dotnet tool install -g Amazon.Lambda.Tools
-```
+* [Powertools for AWS Lambda (.NET)](https://docs.powertools.aws.dev/lambda/dotnet/)
 
 ## Endpoints
 
@@ -65,7 +62,7 @@ The domain objects in this example are stored in a single table, consisting of t
 |Get movies for a given category and year range|GSI2|gsi2pk=category and gsi2sk between year and year|-|gsi2pk="Action" and gsi2sk between 1988 and 1990|
 
 ## Observability
-Using AWS X-Ray for tracing and Serilog for structured logging storing logs in AWS CloudWatch. 
+Using AWS X-Ray for tracing and structured logging in AWS CloudWatch. 
 
 ## Quality 
 

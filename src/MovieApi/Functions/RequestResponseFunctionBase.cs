@@ -28,15 +28,14 @@ public abstract class RequestResponseFunctionBase
         APIGatewayProxyRequest request,
         ILambdaContext context);
 
+    [Logging(LogEvent = true)]
     [LambdaSerializer(typeof(SourceGeneratorLambdaJsonSerializer<HttpApiJsonSerializerContext>))]
     public async Task<APIGatewayProxyResponse> HandleAsync(APIGatewayProxyRequest request, ILambdaContext context)
     {
         var sw = Stopwatch.StartNew();
 
-        Logger.AppendKeys(new Dictionary<string, object>()
-            {
-                { "RequestPath", request.Path ?? string.Empty }
-            });
+        if (request.Path != null)
+            Logger.AppendKey("RequestPath", request.Path);
 
         try
         {
