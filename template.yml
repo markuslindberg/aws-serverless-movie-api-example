@@ -32,7 +32,6 @@ Globals:
       LogGroup: !Ref MovieApiLogGroup
       SystemLogLevel: INFO
   Api:
-    DataTraceEnabled: true
     TracingEnabled: true
 
 Resources:
