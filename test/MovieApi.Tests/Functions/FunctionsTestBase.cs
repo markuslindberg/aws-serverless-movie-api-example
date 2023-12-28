@@ -31,6 +31,8 @@ public abstract class FunctionsTestBase : IAsyncLifetime
         {
             {tableName, requests}
         });
+
+        Assert.NotEmpty(Environment.GetEnvironmentVariable("API_ENDPOINT"));
     }
 
     public Task DisposeAsync()
