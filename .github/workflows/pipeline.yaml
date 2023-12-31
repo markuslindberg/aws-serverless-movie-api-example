@@ -138,7 +138,7 @@ jobs:
           echo "API_ENDPOINT=$(aws cloudformation \
             --region ${{ env.DEV_REGION }} describe-stacks \
             --stack-name ${{ env.DEV_STACK_NAME }} \
-            --query "Stacks[0].Outputs[1].OutputValue")" >> "$GITHUB_ENV"
+            --query "Stacks[0].Outputs[2].OutputValue")" >> "$GITHUB_ENV"
           echo "TABLE_NAME=$(aws cloudformation \
             --region ${{ env.DEV_REGION }} describe-stacks \
             --stack-name ${{ env.DEV_STACK_NAME }} \
