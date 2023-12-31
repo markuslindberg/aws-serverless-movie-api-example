@@ -59,7 +59,7 @@ public abstract class FunctionsTestBase : IAsyncLifetime
         }
         else
         {
-            throw new Exception("Could not find AWS credentials");
+            return new EnvironmentVariablesAWSCredentials().GetCredentials();
         }
     }
 }
