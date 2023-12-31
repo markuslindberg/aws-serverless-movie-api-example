@@ -1,24 +1,36 @@
 using Amazon.DynamoDBv2;
-using Amazon.Lambda.APIGatewayEvents;
-using Amazon.Lambda.TestUtilities;
+using Amazon.Runtime;
+using Amazon.Runtime.CredentialManagement;
+using AwsSignatureVersion4;
 using Microsoft.Extensions.DependencyInjection;
-using Xunit.Abstractions;
 using System.Text.Json;
+using Xunit.Abstractions;
 
 namespace MovieApi.Tests.Functions;
 
 public abstract class FunctionsTestBase : IAsyncLifetime
 {
     protected readonly IServiceProvider _serviceProvider;
-    protected readonly ITestOutputHelper _output;
-    protected readonly TestLambdaContext _context;
+    protected readonly IHttpClientFactory _clientFactory;
 
     protected FunctionsTestBase(ITestOutputHelper output)
     {
         var services = Startup.Configure();
+
+        services
+            .AddTransient<AwsSignatureHandler>()
+            .AddTransient(_ => new AwsSignatureHandlerSettings(
+                Environment.GetEnvironmentVariable("DEV_REGION") ?? "eu-north-1",
+                "execute-api",
+                GetAwsCredentials()));
+
+        services
+            .AddHttpClient("aws-client", client =>
+                client.BaseAddress = new Uri(Environment.GetEnvironmentVariable("API_ENDPOINT") ?? throw new Exception("API_ENDPOINT not set")))
+            .AddHttpMessageHandler<AwsSignatureHandler>();
+
         _serviceProvider = services.BuildServiceProvider(new ServiceProviderOptions { ValidateOnBuild = true });
-        _context = new TestLambdaContext();
-        _output = output;
+        _clientFactory = _serviceProvider.GetRequiredService<IHttpClientFactory>();
     }
 
     public async Task InitializeAsync()
@@ -31,8 +43,6 @@ public abstract class FunctionsTestBase : IAsyncLifetime
         {
             {tableName, requests}
         });
-
-        Assert.NotEmpty(Environment.GetEnvironmentVariable("API_ENDPOINT"));
     }
 
     public Task DisposeAsync()
@@ -40,29 +50,16 @@ public abstract class FunctionsTestBase : IAsyncLifetime
         return Task.CompletedTask;
     }
 
-    protected APIGatewayProxyRequest CreateRequestWithPathParams(string key, string value)
+    private static ImmutableCredentials GetAwsCredentials()
     {
-        return CreateRequestWithPathParams(new Dictionary<string, string> { { key, value } });
-    }
-
-    protected APIGatewayProxyRequest CreateRequestWithPathParams(Dictionary<string, string> parameters)
-    {
-        return new APIGatewayProxyRequest
+        var chain = new CredentialProfileStoreChain();
+        if (chain.TryGetAWSCredentials("default", out var awsCredentials))
         {
-            PathParameters = parameters
-        };
-    }
-
-    protected APIGatewayProxyRequest CreateRequestWithQueryParams(string key, string value)
-    {
-        return CreateRequestWithQueryParams(new Dictionary<string, string> { { key, value } });
-    }
-
-    protected APIGatewayProxyRequest CreateRequestWithQueryParams(Dictionary<string, string> parameters)
-    {
-        return new APIGatewayProxyRequest
+            return awsCredentials.GetCredentials();
+        }
+        else
         {
-            QueryStringParameters = parameters
-        };
+            throw new Exception("Could not find AWS credentials");
+        }
     }
 }

@@ -1,5 +1,1 @@
-﻿{
-  statusCode: 200,
-  body: ["DieHard2"],
-  isBase64Encoded: false
-}
+﻿["DieHard2"]

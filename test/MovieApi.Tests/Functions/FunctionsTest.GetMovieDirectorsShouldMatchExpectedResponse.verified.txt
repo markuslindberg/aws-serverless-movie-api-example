@@ -1,5 +1,1 @@
-﻿{
-  statusCode: 200,
-  body: [{"directorId":"JohnMcTiernan","name":"John McTiernan"}],
-  isBase64Encoded: false
-}
+﻿[{"directorId":"JohnMcTiernan","name":"John McTiernan"}]

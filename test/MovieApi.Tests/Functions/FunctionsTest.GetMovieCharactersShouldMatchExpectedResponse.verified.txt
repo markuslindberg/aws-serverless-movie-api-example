@@ -1,5 +1,1 @@
-﻿{
-  statusCode: 200,
-  body: [{"characterId":"HansGruber","name":"Hans Gruber","playedBy":"Alan Rickman","role":"antagonist","nationality":"German"},{"characterId":"JohnMcClane","name":"John McClane","playedBy":"Bruce Willis","role":"protagonist","nationality":"Irish-American"}],
-  isBase64Encoded: false
-}
+﻿[{"characterId":"HansGruber","name":"Hans Gruber","playedBy":"Alan Rickman","role":"antagonist","nationality":"German"},{"characterId":"JohnMcClane","name":"John McClane","playedBy":"Bruce Willis","role":"protagonist","nationality":"Irish-American"}]

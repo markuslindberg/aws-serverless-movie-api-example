@@ -1,5 +1,1 @@
-﻿{
-  statusCode: 200,
-  body: {"movieId":"DieHard","title":"Die Hard","year":1988,"category":"Action","budget":"25-35MM","boxOffice":"140MM"},
-  isBase64Encoded: false
-}
+﻿{"movieId":"DieHard","title":"Die Hard","year":1988,"category":"Action","budget":"25-35MM","boxOffice":"140MM"}

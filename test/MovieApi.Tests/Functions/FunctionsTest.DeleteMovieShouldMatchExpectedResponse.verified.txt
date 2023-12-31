@@ -1,5 +1,1 @@
-﻿{
-  statusCode: 200,
-  body: {"movieId":"DieHard9","title":"Die Hard 9","year":2035,"category":"Action","budget":"Unlimited","boxOffice":"N/A"},
-  isBase64Encoded: false
-}
+﻿{"movieId":"DieHard9","title":"Die Hard 9","year":2035,"category":"Action","budget":"Unlimited","boxOffice":"N/A"}
