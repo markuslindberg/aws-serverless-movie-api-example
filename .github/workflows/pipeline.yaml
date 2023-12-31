@@ -134,17 +134,15 @@ jobs:
           aws-region: ${{ env.DEV_REGION }}
       - name: Get outputs from the stack just created
         id: get-outputs
-        run: >-
+        run: |
           echo "API_ENDPOINT=$(aws cloudformation \
             --region ${{ env.DEV_REGION }} describe-stacks \
             --stack-name ${{ env.DEV_STACK_NAME }} \
-            --query "Stacks[0].Outputs[0].OutputValue"
-          )" >> "$GITHUB_ENV"
+            --query "Stacks[0].Outputs[0].OutputValue")" >> "$GITHUB_ENV"
           echo "TABLE_NAME=$(aws cloudformation \
             --region ${{ env.DEV_REGION }} describe-stacks \
             --stack-name ${{ env.DEV_STACK_NAME }} \
-            --query "Stacks[0].Outputs[1].OutputValue"
-          )" >> "$GITHUB_ENV"
+            --query "Stacks[0].Outputs[1].OutputValue")" >> "$GITHUB_ENV"
       - name: Run Integration Tests
         working-directory: ./test/MovieApi.Tests/
         run: |
