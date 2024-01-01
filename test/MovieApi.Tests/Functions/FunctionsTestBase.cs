@@ -1,3 +1,6 @@
+using Amazon;
+using Amazon.CloudFormation;
+using Amazon.CloudFormation.Model;
 using Amazon.DynamoDBv2;
 using Amazon.Runtime;
 using Amazon.Runtime.CredentialManagement;
@@ -17,16 +20,21 @@ public abstract class FunctionsTestBase : IAsyncLifetime
     {
         var services = Startup.Configure();
 
+        var credentials = GetAwsCredentials();
+        var endpoint = new Uri(
+            Environment.GetEnvironmentVariable("API_ENDPOINT") ??
+            GetApiEndpoint().GetAwaiter().GetResult() ??
+            throw new Exception("API_ENDPOINT not set"));
+
         services
             .AddTransient<AwsSignatureHandler>()
             .AddTransient(_ => new AwsSignatureHandlerSettings(
                 Environment.GetEnvironmentVariable("DEV_REGION") ?? "eu-north-1",
                 "execute-api",
-                GetAwsCredentials()));
+                credentials));
 
         services
-            .AddHttpClient("aws-client", client =>
-                client.BaseAddress = new Uri(Environment.GetEnvironmentVariable("API_ENDPOINT") ?? throw new Exception("API_ENDPOINT not set")))
+            .AddHttpClient("aws-client", client => client.BaseAddress = endpoint)
             .AddHttpMessageHandler<AwsSignatureHandler>();
 
         _serviceProvider = services.BuildServiceProvider(new ServiceProviderOptions { ValidateOnBuild = true });
@@ -48,6 +56,24 @@ public abstract class FunctionsTestBase : IAsyncLifetime
     public Task DisposeAsync()
     {
         return Task.CompletedTask;
+    }
+
+    private static async Task<string> GetApiEndpoint()
+    {
+        var client = new AmazonCloudFormationClient(new AmazonCloudFormationConfig
+        {
+            RegionEndpoint = RegionEndpoint.GetBySystemName(Environment.GetEnvironmentVariable("DEV_REGION") ?? "eu-north-1")
+        });
+
+        var stacks = await client.DescribeStacksAsync(new DescribeStacksRequest
+        {
+            StackName = Environment.GetEnvironmentVariable("DEV_STACK_NAME") ?? "MovieApi-dev"
+        });
+
+        return stacks.Stacks[0].Outputs
+            .Where(o => o.OutputKey == "WebEndpoint")
+            .Select(o => o.OutputValue)
+            .FirstOrDefault();
     }
 
     private static ImmutableCredentials GetAwsCredentials()

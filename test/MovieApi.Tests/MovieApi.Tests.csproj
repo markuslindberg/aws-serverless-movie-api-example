@@ -15,6 +15,7 @@
 		<PackageReference Include="coverlet.collector" Version="6.0.0" />
 		<PackageReference Include="System.Text.Encodings.Web" Version="8.0.0" />
 		<PackageReference Include="AwsSignatureVersion4" Version="4.0.1" />
+		<PackageReference Include="AWSSDK.CloudFormation" Version="3.7.302.15" />
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\..\src\MovieApi\MovieApi.csproj" />
