@@ -15,10 +15,12 @@ public abstract class FunctionsTestBase : IAsyncLifetime
 {
     protected readonly IServiceProvider _serviceProvider;
     protected readonly IHttpClientFactory _clientFactory;
+    private readonly ITestOutputHelper _output;
 
     protected FunctionsTestBase(ITestOutputHelper output)
     {
-        output.WriteLine("FunctionsTestBase constructor");
+        _output = output;
+        _output.WriteLine("FunctionsTestBase constructor");
 
         var services = Startup.Configure();
 
@@ -28,7 +30,7 @@ public abstract class FunctionsTestBase : IAsyncLifetime
             GetApiEndpoint().GetAwaiter().GetResult() ??
             throw new Exception("API_ENDPOINT not set");
 
-        output.WriteLine($"FunctionsTestBase API_ENDPOINT: {endpoint}");
+        _output.WriteLine($"FunctionsTestBase API_ENDPOINT: {endpoint}");
 
         services
             .AddTransient<AwsSignatureHandler>()
@@ -47,6 +49,7 @@ public abstract class FunctionsTestBase : IAsyncLifetime
 
     public async Task InitializeAsync()
     {
+        _output.WriteLine("FunctionsTestBase InitializeAsync starting");
         var jsons = await File.ReadAllTextAsync("../../../TestData/MoviesTable-requests.json");
         var requests = JsonSerializer.Deserialize<List<Amazon.DynamoDBv2.Model.WriteRequest>>(jsons);
         var client = _serviceProvider.GetRequiredService<IAmazonDynamoDB>();
@@ -55,6 +58,7 @@ public abstract class FunctionsTestBase : IAsyncLifetime
         {
             {tableName, requests}
         });
+        _output.WriteLine("FunctionsTestBase InitializeAsync completed");
     }
 
     public Task DisposeAsync()
