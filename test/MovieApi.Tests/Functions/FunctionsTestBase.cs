@@ -18,13 +18,17 @@ public abstract class FunctionsTestBase : IAsyncLifetime
 
     protected FunctionsTestBase(ITestOutputHelper output)
     {
+        output.WriteLine("FunctionsTestBase constructor");
+
         var services = Startup.Configure();
 
         var credentials = GetAwsCredentials();
-        var endpoint = new Uri(
-            Environment.GetEnvironmentVariable("API_ENDPOINT") ??
+
+        var endpoint = Environment.GetEnvironmentVariable("API_ENDPOINT") ??
             GetApiEndpoint().GetAwaiter().GetResult() ??
-            throw new Exception("API_ENDPOINT not set"));
+            throw new Exception("API_ENDPOINT not set");
+
+        output.WriteLine($"FunctionsTestBase API_ENDPOINT: {endpoint}");
 
         services
             .AddTransient<AwsSignatureHandler>()
@@ -34,7 +38,7 @@ public abstract class FunctionsTestBase : IAsyncLifetime
                 credentials));
 
         services
-            .AddHttpClient("aws-client", client => client.BaseAddress = endpoint)
+            .AddHttpClient("aws-client", client => client.BaseAddress = new Uri(endpoint))
             .AddHttpMessageHandler<AwsSignatureHandler>();
 
         _serviceProvider = services.BuildServiceProvider(new ServiceProviderOptions { ValidateOnBuild = true });
