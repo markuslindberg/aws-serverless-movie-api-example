@@ -26,26 +26,21 @@ public abstract class FunctionsTestBase : IAsyncLifetime
     {
         var services = Startup.Configure();
 
-        var credentials = GetAwsCredentials();
-
-        var endpoint = await GetAwsApiEndpoint();
-
-        _output.WriteLine($"FunctionsTestBase API_ENDPOINT: {endpoint}");
-
         services
             .AddTransient<AwsSignatureHandler>()
             .AddTransient(_ => new AwsSignatureHandlerSettings(
                 Environment.GetEnvironmentVariable("AWS_REGION") ?? "eu-north-1",
                 "execute-api",
-                credentials));
+                GetAwsCredentials()));
 
         services
-            .AddHttpClient("aws-client", client => client.BaseAddress = new Uri(endpoint))
+            .AddHttpClient("aws-client", async client => client.BaseAddress = new Uri(await GetAwsApiEndpoint()))
             .AddHttpMessageHandler<AwsSignatureHandler>();
 
         _serviceProvider = services.BuildServiceProvider(new ServiceProviderOptions { ValidateOnBuild = true });
         _clientFactory = _serviceProvider.GetRequiredService<IHttpClientFactory>();
 
+        await Task.CompletedTask;
         //await InitializeDynamoDb();
     }
 
