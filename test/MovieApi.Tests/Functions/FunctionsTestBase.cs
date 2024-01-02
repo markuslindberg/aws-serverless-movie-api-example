@@ -13,29 +13,29 @@ namespace MovieApi.Tests.Functions;
 
 public abstract class FunctionsTestBase : IAsyncLifetime
 {
-    protected readonly IServiceProvider _serviceProvider;
-    protected readonly IHttpClientFactory _clientFactory;
     private readonly ITestOutputHelper _output;
-
+    protected IServiceProvider _serviceProvider;
+    protected IHttpClientFactory _clientFactory;
+    
     protected FunctionsTestBase(ITestOutputHelper output)
     {
         _output = output;
-        _output.WriteLine("FunctionsTestBase constructor");
+    }
 
+    public async Task InitializeAsync()
+    {
         var services = Startup.Configure();
 
         var credentials = GetAwsCredentials();
 
-        var endpoint = Environment.GetEnvironmentVariable("API_ENDPOINT") ??
-            GetApiEndpoint().GetAwaiter().GetResult() ??
-            throw new Exception("API_ENDPOINT not set");
+        var endpoint = await GetAwsApiEndpoint();
 
         _output.WriteLine($"FunctionsTestBase API_ENDPOINT: {endpoint}");
 
         services
             .AddTransient<AwsSignatureHandler>()
             .AddTransient(_ => new AwsSignatureHandlerSettings(
-                Environment.GetEnvironmentVariable("DEV_REGION") ?? "eu-north-1",
+                Environment.GetEnvironmentVariable("AWS_REGION") ?? "eu-north-1",
                 "execute-api",
                 credentials));
 
@@ -45,20 +45,8 @@ public abstract class FunctionsTestBase : IAsyncLifetime
 
         _serviceProvider = services.BuildServiceProvider(new ServiceProviderOptions { ValidateOnBuild = true });
         _clientFactory = _serviceProvider.GetRequiredService<IHttpClientFactory>();
-    }
 
-    public async Task InitializeAsync()
-    {
-        _output.WriteLine("FunctionsTestBase InitializeAsync starting");
-        var jsons = await File.ReadAllTextAsync("../../../TestData/MoviesTable-requests.json");
-        var requests = JsonSerializer.Deserialize<List<Amazon.DynamoDBv2.Model.WriteRequest>>(jsons);
-        var client = _serviceProvider.GetRequiredService<IAmazonDynamoDB>();
-        var tableName = Environment.GetEnvironmentVariable("TABLE_NAME") ?? "MoviesTable-dev";
-        await client.BatchWriteItemAsync(new Dictionary<string, List<Amazon.DynamoDBv2.Model.WriteRequest>>
-        {
-            {tableName, requests}
-        });
-        _output.WriteLine("FunctionsTestBase InitializeAsync completed");
+        //await InitializeDynamoDb();
     }
 
     public Task DisposeAsync()
@@ -66,11 +54,35 @@ public abstract class FunctionsTestBase : IAsyncLifetime
         return Task.CompletedTask;
     }
 
-    private static async Task<string> GetApiEndpoint()
+    private async Task InitializeDynamoDb()
+    {
+        var jsons = await File.ReadAllTextAsync("../../../TestData/MoviesTable-requests.json");
+        var requests = JsonSerializer.Deserialize<List<Amazon.DynamoDBv2.Model.WriteRequest>>(jsons);
+        var client = _serviceProvider.GetRequiredService<IAmazonDynamoDB>();
+        var tableName = Environment.GetEnvironmentVariable("TABLE_NAME") ?? "MoviesTable-dev";
+
+        _output.WriteLine("FunctionsTestBase InitializeAsync DynamoDb ");
+
+        await client.BatchWriteItemAsync(new Dictionary<string, List<Amazon.DynamoDBv2.Model.WriteRequest>>
+        {
+            {tableName, requests}
+        });
+
+        _output.WriteLine("FunctionsTestBase InitializeAsync completed");
+    }
+
+    private static async Task<string> GetAwsApiEndpoint()
+    {
+        return Environment.GetEnvironmentVariable("API_ENDPOINT") ??
+            await GetAwsStackApiEndpoint() ??
+            throw new Exception("API_ENDPOINT not set");
+    }
+
+    private static async Task<string> GetAwsStackApiEndpoint()
     {
         var client = new AmazonCloudFormationClient(new AmazonCloudFormationConfig
         {
-            RegionEndpoint = RegionEndpoint.GetBySystemName(Environment.GetEnvironmentVariable("DEV_REGION") ?? "eu-north-1")
+            RegionEndpoint = RegionEndpoint.GetBySystemName(Environment.GetEnvironmentVariable("AWS_REGION") ?? "eu-north-1")
         });
 
         var stacks = await client.DescribeStacksAsync(new DescribeStacksRequest
