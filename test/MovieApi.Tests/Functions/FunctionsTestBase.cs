@@ -24,7 +24,9 @@ public abstract class FunctionsTestBase : IAsyncLifetime
 
     public async Task InitializeAsync()
     {
-        var endpoint = await GetAwsStackApiEndpoint();
+        if (!Uri.TryCreate(Environment.GetEnvironmentVariable("API_ENDPOINT"), new UriCreationOptions(), out var endpoint) &&
+            !Uri.TryCreate(await GetAwsStackApiEndpoint(), new UriCreationOptions(), out endpoint))
+            throw new Exception("API_ENDPOINT not set");
 
         var services = Startup.Configure();
 
@@ -36,14 +38,12 @@ public abstract class FunctionsTestBase : IAsyncLifetime
                 GetAwsCredentials()));
 
         services
-            .AddHttpClient("aws-client", client => client.BaseAddress =
-                new Uri(Environment.GetEnvironmentVariable("API_ENDPOINT") ?? endpoint))
+            .AddHttpClient("aws-client", client => client.BaseAddress = endpoint)
             .AddHttpMessageHandler<AwsSignatureHandler>();
 
         _serviceProvider = services.BuildServiceProvider(new ServiceProviderOptions { ValidateOnBuild = true });
         _clientFactory = _serviceProvider.GetRequiredService<IHttpClientFactory>();
 
-        await Task.CompletedTask;
         //await InitializeDynamoDb();
     }
 
@@ -69,14 +69,7 @@ public abstract class FunctionsTestBase : IAsyncLifetime
         _output.WriteLine("FunctionsTestBase InitializeAsync completed");
     }
 
-    private static async Task<string> GetAwsApiEndpoint()
-    {
-        return Environment.GetEnvironmentVariable("API_ENDPOINT") ??
-            await GetAwsStackApiEndpoint() ??
-            throw new Exception("API_ENDPOINT not set");
-    }
-
-    private static async Task<string> GetAwsStackApiEndpoint()
+    public static async Task<string> GetAwsStackApiEndpoint()
     {
         var client = new AmazonCloudFormationClient(new AmazonCloudFormationConfig
         {

@@ -146,6 +146,8 @@ jobs:
       - name: Run Integration Tests
         working-directory: ./test/MovieApi.Tests/
         run: |
+          export API_ENDPOINT=${{ env.API_ENDPOINT }}
+          export TABLE_NAME=${{ env.TABLE_NAME }}
           dotnet test --configuration Release --verbosity normal --collect:"XPlat Code Coverage" --settings coverlet.runsettings
           echo "TEST_COVERAGE_PATH=$(find TestResults/*/coverage.opencover.xml | sort -nr | head -n 1)" >> "$GITHUB_ENV"
       - uses: actions/upload-artifact@v3
