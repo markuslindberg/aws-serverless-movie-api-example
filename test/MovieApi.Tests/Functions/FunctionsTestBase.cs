@@ -24,6 +24,8 @@ public abstract class FunctionsTestBase : IAsyncLifetime
 
     public async Task InitializeAsync()
     {
+        var endpoint = await GetAwsStackApiEndpoint();
+
         var services = Startup.Configure();
 
         services
@@ -34,7 +36,8 @@ public abstract class FunctionsTestBase : IAsyncLifetime
                 GetAwsCredentials()));
 
         services
-            .AddHttpClient("aws-client", async client => client.BaseAddress = new Uri(await GetAwsApiEndpoint()))
+            .AddHttpClient("aws-client", client => client.BaseAddress =
+                new Uri(Environment.GetEnvironmentVariable("API_ENDPOINT") ?? endpoint))
             .AddHttpMessageHandler<AwsSignatureHandler>();
 
         _serviceProvider = services.BuildServiceProvider(new ServiceProviderOptions { ValidateOnBuild = true });
