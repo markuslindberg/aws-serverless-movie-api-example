@@ -44,7 +44,7 @@ public abstract class FunctionsTestBase : IAsyncLifetime
         _serviceProvider = services.BuildServiceProvider(new ServiceProviderOptions { ValidateOnBuild = true });
         _clientFactory = _serviceProvider.GetRequiredService<IHttpClientFactory>();
 
-        //await InitializeDynamoDb();
+        await InitializeDynamoDb();
     }
 
     public Task DisposeAsync()
@@ -54,19 +54,19 @@ public abstract class FunctionsTestBase : IAsyncLifetime
 
     private async Task InitializeDynamoDb()
     {
+        _output.WriteLine("FunctionsTestBase InitializeDynamoDb");
+
         var jsons = await File.ReadAllTextAsync("../../../TestData/MoviesTable-requests.json");
         var requests = JsonSerializer.Deserialize<List<Amazon.DynamoDBv2.Model.WriteRequest>>(jsons);
         var client = _serviceProvider.GetRequiredService<IAmazonDynamoDB>();
         var tableName = Environment.GetEnvironmentVariable("TABLE_NAME") ?? "MoviesTable-dev";
-
-        _output.WriteLine("FunctionsTestBase InitializeAsync DynamoDb ");
 
         await client.BatchWriteItemAsync(new Dictionary<string, List<Amazon.DynamoDBv2.Model.WriteRequest>>
         {
             {tableName, requests}
         });
 
-        _output.WriteLine("FunctionsTestBase InitializeAsync completed");
+        _output.WriteLine("FunctionsTestBase InitializeDynamoDb completed");
     }
 
     public static async Task<string> GetAwsStackApiEndpoint()
