@@ -1,13 +1,12 @@
 # MovieApi
 
-Serverless movie api example using .net 6, AWS Lambda, DynamoDB, API Gateway and AWS SAM.
+Serverless movie api example using .net 8, AWS Lambda, DynamoDB, API Gateway and AWS SAM.
 
 [![Main Workflow](https://github.com/markuslindberg/serverless-movie-api-example/actions/workflows/pipeline.yaml/badge.svg)](https://github.com/markuslindberg/serverless-movie-api-example/actions/workflows/pipeline.yaml)
-[![codecov](https://codecov.io/gh/markuslindberg/serverless-movie-api-example/branch/main/graph/badge.svg?token=S2668W2KIO)](https://codecov.io/gh/markuslindberg/serverless-movie-api-example)
 
 ## Prerequisites
 
-* [.NET 6 SDK](https://dotnet.microsoft.com/en-us/download)
+* [.NET 8 SDK](https://dotnet.microsoft.com/en-us/download)
 * [AWS Lambda for .NET Core](https://github.com/aws/aws-lambda-dotnet)
 * [AWS SAM CLI](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/install-sam-cli.html)
 * [Amazon.Lambda.Tools](https://github.com/aws/aws-extensions-for-dotnet-cli)

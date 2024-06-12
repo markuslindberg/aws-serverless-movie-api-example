@@ -148,12 +148,7 @@ jobs:
         run: |
           export API_ENDPOINT=${{ env.API_ENDPOINT }}
           export TABLE_NAME=${{ env.TABLE_NAME }}
-          dotnet test --configuration Release --verbosity normal --collect:"XPlat Code Coverage" --settings coverlet.runsettings
-          echo "TEST_COVERAGE_PATH=$(find TestResults/*/coverage.opencover.xml | sort -nr | head -n 1)" >> "$GITHUB_ENV"
-      - uses: actions/upload-artifact@v3
-        with:
-          name: coverage.opencover.xml
-          path: ./test/MovieApi.Tests/${{ env.TEST_COVERAGE_PATH }}
+          dotnet test --configuration Release --verbosity normal
 
   deploy-prod:
     if: github.ref == 'refs/heads/main'
@@ -216,10 +211,3 @@ jobs:
           doc: movieapi
           token: ${{ secrets.BUMP_TOKEN }}
           file: src/MovieApi/Schemas/openapi.yaml
-      - uses: actions/download-artifact@v3
-        with:
-          name: coverage.opencover.xml
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v3
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}

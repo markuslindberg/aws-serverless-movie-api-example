@@ -16,7 +16,7 @@ Globals:
   Function:
     CodeUri: ./src/MovieApi/
     MemorySize: 1024
-    Runtime: dotnet6
+    Runtime: dotnet8
     Timeout: 10
     Tracing: Active
     Environment:

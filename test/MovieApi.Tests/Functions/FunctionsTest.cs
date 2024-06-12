@@ -3,7 +3,6 @@ using Xunit.Abstractions;
 
 namespace MovieApi.Tests.Functions;
 
-[UsesVerify]
 public class FunctionsTest : FunctionsTestBase
 {
     public FunctionsTest(ITestOutputHelper output) : base(output)

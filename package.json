@@ -4,7 +4,7 @@
   "author": "Markus Lindberg",
   "license": "MIT",
   "scripts": {
-    "test": "cd test/MovieApi.Tests && dotnet test --collect:\"XPlat Code Coverage\" --settings coverlet.runsettings",
+    "test": "dotnet test",
     "build": "sam build --parallel --cached",
     "build:prod": "sam build --parallel --cached --config-env prod",
     "deploy": "sam deploy",

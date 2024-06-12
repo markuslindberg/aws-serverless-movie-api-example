@@ -9,7 +9,6 @@ public static class DictionaryExtensions
         where TKey : notnull
     {
         if (dictionary == null) throw new ArgumentNullException(nameof(dictionary));
-        if (key == null) throw new ArgumentNullException(nameof(key));
 
         TValue? value;
         return dictionary.TryGetValue(key, out value) ? value : defaultValue;
